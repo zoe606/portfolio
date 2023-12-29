@@ -46,8 +46,11 @@
 				class="text-inherit col-center self-stretch px-2 hover:bg-[color:var(--main-hover)]"
 			>
 				<UIcon icon="i-carbon-search" />
+				<p class="text-xs">search</p>
 			</a>
 			<button
+				type="button"
+				aria-label="toggle-theme"
 				class="bg-transparent text-1em border-none cursor-pointer hover:bg-[color:var(--main-hover)] text-[var(--secondary-text)] px-2"
 				on:click={() => toggleTheme()}
 			>

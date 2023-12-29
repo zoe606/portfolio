@@ -52,7 +52,7 @@ export const HOME: HomePageParams = {
 	// description:
 	// 	'Innovative full-stack developer with 4+ years of experience, excelling in PHP, Golang, Ruby, and seamless third-party integrations. Proven track record with 10+ healthcare institutions adopting my solutions. Current role involves crafting and maintaining high-quality services, while my expertise continues to grow.',
 	links: [
-		{ platform: Platform.GitHub, link: 'https://github.com/zoe606' },
+		{ platform: Platform.GitHub, link: 'https://github.com/zoe606'},
 		{
 			platform: Platform.Linkedin,
 			link: 'https://www.linkedin.com/in/librantara-erlangga/'

@@ -38,6 +38,7 @@
 					rel="noreferrer"
 				>
 					<Icon icon={getPlatfromIcon(link.platform)} color={'var(--accent-text)'} size={'20px'} />
+					<p class="text-xs">{link.platform}</p>
 				</a>
 			{/each}
 		</div>
