@@ -3,27 +3,39 @@ import type { Education } from './types';
 
 export const MY_EDUCATIONS: Array<Education> = [
 	{
-		degree: 'Bachelor degree of Computer Science',
+		degree: 'Bachelor of Applied Science - BASc, Computer Science/Informatics',
 		description: '',
-		location: 'Tunisia',
+		location: 'Bandung',
 		logo: Assets.Unknown,
 		name: '',
-		organization: 'ISTIC',
-		period: { from: new Date(2020, 0, 1), to: new Date(2022, 5, 1) },
+		organization: 'Politeknik POS Indonesia',
+		period: { from: new Date(2015, 0, 1), to: new Date(2019, 5, 1) },
 		shortDescription: '',
-		slug: 'dummy-education-item',
-		subjects: ['C', 'Algorithm', 'Algebra', 'Python', 'C++', 'Java', 'English']
+		slug: 'last-education',
+		subjects: [
+			'Assembly',
+			'Algorithms and Data structures',
+			'Algebra',
+			'Python',
+			'Computer Architecture',
+			'Java',
+			'English',
+			'C#',
+			'Web & Mobile Programming',
+			'Database',
+			'Machine Learning'
+		]
 	},
-	{
-		degree: 'PhD of Computer Science',
-		description: '',
-		location: 'USA',
-		logo: Assets.Unknown,
-		name: '',
-		organization: 'MIT',
-		period: { from: new Date(2023, 0, 1) },
-		shortDescription: '',
-		slug: 'dummy-education-item-2',
-		subjects: ['Assembly', 'Rust', 'Computer Architecture', 'Algorithms and Data structures']
-	}
+	// {
+	// 	degree: 'PhD of Computer Science',
+	// 	description: '',
+	// 	location: 'USA',
+	// 	logo: Assets.Unknown,
+	// 	name: '',
+	// 	organization: 'MIT',
+	// 	period: { from: new Date(2023, 0, 1) },
+	// 	shortDescription: '',
+	// 	slug: 'dummy-education-item-2',
+	// 	subjects: ['Assembly', 'Rust', 'Computer Architecture', 'Algorithms and Data structures']
+	// }
 ];

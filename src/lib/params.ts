@@ -46,38 +46,33 @@ export const getPlatfromIcon = (platform: Platform): Icons => {
 
 export const HOME: HomePageParams = {
 	title: 'Home',
-	name: 'Name',
-	lastName: 'LASTNAME',
-	description:
-		'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corrupti, rerum. Debitis accusantium deleniti enim iste dignissimos? Similique, exercitationem! Odit vero, numquam quae ratione maxime sunt reiciendis laudantium quaerat iure ipsum!',
+	name: 'Librantara',
+	lastName: 'Erlangga',
+	description: getDescription(2019), // Pass the start year of your experience
+	// description:
+	// 	'Innovative full-stack developer with 4+ years of experience, excelling in PHP, Golang, Ruby, and seamless third-party integrations. Proven track record with 10+ healthcare institutions adopting my solutions. Current role involves crafting and maintaining high-quality services, while my expertise continues to grow.',
 	links: [
-		{ platform: Platform.GitHub, link: 'https://github.com/' },
+		{ platform: Platform.GitHub, link: 'https://github.com/zoe606' },
 		{
 			platform: Platform.Linkedin,
-			link: 'https://www.linkedin.com/'
-		},
-		{
-			platform: Platform.Twitter,
-			link: 'https://twitter.com/'
-		},
-		{
-			platform: Platform.StackOverflow,
-			link: 'https://stackoverflow.com/'
+			link: 'https://www.linkedin.com/in/librantara-erlangga/'
 		},
 		{
 			platform: Platform.Email,
-			link: 'riadh-adrani@hotmail.fr'
-		},
-		{
-			platform: Platform.Youtube,
-			link: 'https://www.youtube.com'
-		},
-		{
-			platform: Platform.Facebook,
-			link: 'https://www.facebook.com'
+			link: 'rive99erlangga@gmail.com'
 		}
 	]
 };
+
+function getDescription(startYear: number): string {
+	const currentYear = new Date().getFullYear();
+	const yearsOfExperience = currentYear - startYear;
+
+	// Adjust the text based on the number of years
+	const yearsText = yearsOfExperience === 1 ? '1 year' : `${yearsOfExperience} years`;
+
+	return `Innovative full-stack developer with ${yearsText} of experience, excelling in PHP, Golang, Ruby, and seamless third-party integrations. Proven track record with 10+ healthcare institutions adopting my solutions. Current role involves crafting and maintaining high-quality services, while my expertise continues to grow.`;
+}
 
 export const PROJECTS: ProjectPageParams = {
 	title: 'Projects',

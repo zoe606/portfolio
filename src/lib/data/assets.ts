@@ -70,7 +70,16 @@ const Assets = {
 	Jest: a('jest.png'),
 	Unocss: a('unocss.svg'),
 	Ruvy: a('ruvy.svg'),
-	Postcss: a('postcss.svg')
+	Postcss: a('postcss.svg'),
+	Ruby: a('ruby.svg'),
+	Php: a('php.svg'),
+	Mysql: a('mysql.svg'),
+	Grpc: a('grpc.svg'),
+	Laravel: a('laravel.svg'),
+	Yii2: a('yii2.svg'),
+	Rails: a('rails.svg'),
+	Git: a('git.svg'),
+	Jquery:a('jquery.svg')
 };
 
 export default Assets;
