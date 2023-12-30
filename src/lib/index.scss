@@ -45,8 +45,9 @@
 	--light-0-60: rgba(255, 255, 255, 0.6);
 
 	// fonts
-	--text-f: 'Inter';
-	--title-f: 'Inter';
+	--text-f: 'Inter', sans-serif; // Use Inter for regular text
+	--title-f: 'Inter', sans-serif; // Use Inter for titles as well
+	--title-bold-f: 'Inter Bold', sans-serif; // Use a bolder version of Inter for titles
 
 	overflow-y: scroll;
 }

@@ -69,3 +69,7 @@ export function getTimeDiff(date1: Date, date2 = new Date(Date.now() + 1000 * 60
 
 	return `${Math.trunc(n)} ${u}${n > 1 ? 's' : ''}`;
 }
+
+export function capitalize(str: string) {
+	return str.toLowerCase().charAt(0).toUpperCase() + str.slice(1);
+}

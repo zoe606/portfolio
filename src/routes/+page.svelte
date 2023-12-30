@@ -5,7 +5,7 @@
 	import { TITLE_SUFFIX } from '$lib/params';
 	import { HOME, getPlatfromIcon } from '$lib/params';
 	import MY_SKILLS from '$lib/skills.params';
-	import { useTitle } from '$lib/utils/helpers';
+	import { useTitle, capitalize } from '$lib/utils/helpers';
 	import { isBlank } from '@riadh-adrani/utils';
 
 	const { description, lastName, links, name, title, skills } = HOME;
@@ -38,7 +38,7 @@
 					rel="noreferrer"
 				>
 					<Icon icon={getPlatfromIcon(link.platform)} color={'var(--accent-text)'} size={'20px'} />
-					<p class="text-xs">{link.platform}</p>
+					<p class="text-xs">{capitalize(link.platform)}</p>
 				</a>
 			{/each}
 		</div>
