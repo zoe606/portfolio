@@ -8,7 +8,7 @@ export const MY_EDUCATIONS: Array<Education> = [
 		location: 'Bandung',
 		logo: Assets.Unknown,
 		name: '',
-		organization: 'Politeknik POS Indonesia',
+		organization: 'Politeknik Pos Indonesia',
 		period: { from: new Date(2015, 0, 1), to: new Date(2019, 5, 1) },
 		shortDescription: '',
 		slug: 'last-education',
