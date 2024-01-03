@@ -34,7 +34,7 @@
 			</h3>
 			<div class="row flex-wrap m-b-2 gap-1 text-0.9em font-300">
 				<ChipIcon name={`Company: ${experience.company}`}>
-					<UIcon icon="i-carbon-building" />
+					<div><UIcon icon="i-carbon-building" /> {experience.company}</div>
 				</ChipIcon>
 				<ChipIcon name={`Location: ${experience.location}`}>
 					<UIcon icon="i-carbon-location" />
