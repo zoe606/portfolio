@@ -42,6 +42,10 @@ export interface Skill extends Omit<Item, 'shortDescription'> {
 	color: string;
 }
 
+export interface Color {
+	color: string
+}
+
 export interface Project extends Item {
 	links: Array<Link>;
 	color: string;
