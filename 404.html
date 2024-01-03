@@ -6,18 +6,29 @@
 		<link rel="icon" href="/portfolio/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		
-		<link rel="modulepreload" href="/portfolio/_app/immutable/entry/start.bc461fa0.js">
+		<link rel="modulepreload" href="/portfolio/_app/immutable/entry/start.c485e51c.js">
 		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/scheduler.82c67a52.js">
-		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/singletons.14df7487.js">
-		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/paths.a31dfb33.js">
-		<link rel="modulepreload" href="/portfolio/_app/immutable/entry/app.960fb744.js">
+		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/singletons.fffe383f.js">
+		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/paths.34cbd82a.js">
+		<link rel="modulepreload" href="/portfolio/_app/immutable/entry/app.c920099b.js">
 		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/index.f9decbad.js">
 	</head>
+	<!-- Google tag (gtag.js) -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=G-T08K0WD5SY"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', 'G-T08K0WD5SY');
+	</script>
 	<body data-sveltekit-preload-data="hover">
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_evas0s = {
+					__sveltekit_acttkh = {
 						assets: "/portfolio",
 						base: "/portfolio",
 						env: {}
@@ -26,8 +37,8 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/portfolio/_app/immutable/entry/start.bc461fa0.js"),
-						import("/portfolio/_app/immutable/entry/app.960fb744.js")
+						import("/portfolio/_app/immutable/entry/start.c485e51c.js"),
+						import("/portfolio/_app/immutable/entry/app.c920099b.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
