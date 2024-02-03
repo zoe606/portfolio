@@ -1,0 +1,1 @@
+function e(n){return!o(n)||n.length===0}function f(n){return!o(n)||e(n.trim())}function i(n){if(typeof n=="boolean")return n;if(typeof n!="function")throw"(condition) should be a boolean or a function";const t=n();if(typeof t!="boolean")throw"(condition) result is not a boolean.";return t}function o(n){return i(typeof n=="string")}export{f as i};
