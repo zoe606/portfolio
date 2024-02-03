@@ -85,12 +85,12 @@ export const EXPERIENCES: ExperiencePageParams = {
 };
 
 export const SKILLS: SkillsPageParams = {
-	title: 'Skills',
+	title: 'Skills & Tools',
 	items: MY_SKILLS
 };
 
 export const RESUME: ResumePageParams = {
-	title: 'Resumé',
+	title: 'Resume',
 	item: ''
 };
 

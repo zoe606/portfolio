@@ -73,3 +73,7 @@ export function getTimeDiff(date1: Date, date2 = new Date(Date.now() + 1000 * 60
 export function capitalize(str: string) {
 	return str.toLowerCase().charAt(0).toUpperCase() + str.slice(1);
 }
+
+export function addDaysToDate(date: Date, days: number): Date {
+	return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
+}

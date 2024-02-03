@@ -26,6 +26,7 @@
 <div class="nav-menu">
 	<nav class="container !justify-between flex flex-row items-center text-sm">
 		<a
+			data-sveltekit-replacestate
 			href={`${base}/`}
 			class="nav-menu-left decoration-none flex flex-row items-center cursor-pointer px-4 text-[var(--secondary-text)] self-stretch hover:bg-[color:var(--main-hover)]"
 		>
@@ -34,19 +35,24 @@
 		</a>
 		<div class="flex flex-row flex-1 self-center justify-center">
 			{#each items as item}
-				<a href={`${base}${item.to}`} class="nav-menu-item !text-[var(--secondary-text)]">
-					<UIcon icon={item.icon} classes="text-1.3em" />
-					<span class="nav-menu-item-label">{item.title}</span>
+				<a
+					data-sveltekit-replacestate
+					href={`${base}${item.to}`}
+					class="nav-menu-item !text-[var(--secondary-text)]"
+				>
+					<UIcon icon={item.icon} classes="text-1.3em sm:text-1.5em" />
+					<span class="nav-menu-item-label text-base sm:text-xs">{item.title}</span>
 				</a>
 			{/each}
 		</div>
 		<div class="flex flex-row self-stretch items-stretch gap-1 text-1.15em">
 			<a
+				data-sveltekit-replacestate
 				href={`${base}/search`}
 				class="text-inherit col-center self-stretch px-2 hover:bg-[color:var(--main-hover)]"
 			>
 				<UIcon icon="i-carbon-search" />
-				<p class="text-xs">search</p>
+				<p class="nav-menu-item-label sm:text-0.9em">search</p>
 			</a>
 			<button
 				type="button"
@@ -55,9 +61,9 @@
 				on:click={() => toggleTheme()}
 			>
 				{#if $theme}
-					<UIcon icon="i-carbon-moon" />
-				{:else}
 					<UIcon icon="i-carbon-sun" />
+				{:else}
+					<UIcon icon="i-carbon-moon" />
 				{/if}
 			</button>
 		</div>

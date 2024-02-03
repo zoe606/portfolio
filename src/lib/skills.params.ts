@@ -207,7 +207,22 @@ const MY_SKILLS = [
 			' Vue.js is a progressive JavaScript framework for building user interfaces. It is approachable, versatile, and easy to integrate, making it an excellent choice for both small-scale projects and larger applications.',
 		logo: Assets.VueJs,
 		name: 'Vuejs'
-	})
+	}),
+	s({
+		slug: 'aws-s3',
+		color: Colors.Orange,
+		description:
+			' Architected solutions using Amazon S3, a versatile and scalable object storage service from AWS. Leveraged S3 to store and retrieve any amount of data, providing seamless access to web-scale computing resources. Ensured durability, high availability, and low-latency performance for diverse use cases, from simple storage to complex big data analytics and multimedia hosting.',
+		logo: Assets.S3,
+		name: 'Amazon S3'
+	}),
+	// s({
+	// 	slug: 'ci',
+	// 	color: Colors.Orange,
+	// 	description: ' PHP Framework',
+	// 	logo: Assets.CI,
+	// 	name: 'Codeigniter'
+	// })
 ];
 
 export default MY_SKILLS;

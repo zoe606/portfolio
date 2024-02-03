@@ -3,6 +3,7 @@ import { theme } from '$lib/stores/theme';
 import { base } from '$app/paths';
 
 const gh = (file: string) => `${base}/logos/${file}`;
+const ss = (file: string) => `${base}/ss/${file}`;
 
 const a = (light: string, dark?: string): Asset =>
 	dark ? { dark: gh(dark), light: gh(light) } : gh(light);
@@ -79,7 +80,15 @@ const Assets = {
 	Yii2: a('yii2.svg'),
 	Rails: a('rails.svg'),
 	Git: a('git.svg'),
-	Jquery:a('jquery.svg')
+	Jquery: a('jquery.svg'),
+	Ocsaver: a('ocsaver.svg'),
+	S3: a('aws-s3.svg'),
+	Privy: a('privy.png'),
+	Docotel: a('docotel.png'),
+	Dhealth: a('dhealth.webp'),
+	Stdkreatif: a('stdkreatif.png'),
+	UlasId: a('ulasid.jpeg'),
+	CI: a('codeigniter.svg'),
 };
 
 export default Assets;

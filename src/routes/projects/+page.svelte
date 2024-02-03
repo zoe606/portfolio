@@ -35,20 +35,22 @@
 		});
 	};
 
+	const orderedItems = items.slice().sort((a, b) => a.no - b.no);
+
 	$: {
-		displayed = items.filter((project) => {
-			const isFiltered =
-				filters.every((item) => !item.isSelected) ||
-				project.skills.some((tech) =>
-					filters.some((filter) => filter.isSelected && filter.slug === tech.slug)
-				);
+		displayed = orderedItems.filter((project) => {
+      const isFiltered =
+        filters.every((item) => !item.isSelected) ||
+        project.skills.some((tech) =>
+          filters.some((filter) => filter.isSelected && filter.slug === tech.slug)
+        );
 
-			const isSearched =
-				search.trim().length === 0 ||
-				project.name.trim().toLowerCase().includes(search.trim().toLowerCase());
+      const isSearched =
+        search.trim().length === 0 ||
+        project.name.trim().toLowerCase().includes(search.trim().toLowerCase());
 
-			return isFiltered && isSearched;
-		});
+      return isFiltered && isSearched;
+    });
 	}
 
 	const onSearch = (e: CustomEvent<{ search: string }>) => {
