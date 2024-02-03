@@ -25,7 +25,7 @@ export interface Item {
 	logo: Asset;
 	shortDescription: string;
 	description: string;
-	screenshots?: Array<{ src: string; label: string }>;
+	screenshots?: Array<{ src: Asset; label: string }>;
 }
 
 export interface Link {
@@ -47,6 +47,7 @@ export interface Color {
 }
 
 export interface Project extends Item {
+	no: number;
 	links: Array<Link>;
 	color: string;
 	period: {

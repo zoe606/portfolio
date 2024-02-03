@@ -1,24 +1,23 @@
 import adapter from '@sveltejs/adapter-static';
-import { vitePreprocess } from '@sveltejs/kit/vite';
+import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 const base = '/portfolio';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
-	// for more information about preprocessors
 	preprocess: vitePreprocess(),
-	vitePlugin: {
-		inspector: {
-			showToggleButton: 'always'
-		}
-	},
 
 	kit: {
-		adapter: adapter({ fallback: '404.html' }),
+		adapter: adapter({
+			fallback: '404.html',
+			pages: 'build',
+			assets: 'build',
+			minify: true
+		}),
+
 		paths: {
 			base: process.env.NODE_ENV === 'production' ? base : ''
-		}
+		},
 	}
 };
 

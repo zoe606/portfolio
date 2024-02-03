@@ -3,7 +3,7 @@
 	import MainTitle from '$lib/components/MainTitle/MainTitle.svelte';
 
 	import { base } from '$app/paths';
-	import type { Project } from '$lib/types';
+	import type { Asset, Project } from '$lib/types';
 	import { getAssetURL } from '$lib/data/assets';
 	import { PROJECTS } from '$lib/params';
 	import Markdown from '$lib/components/Markdown.svelte';
@@ -12,12 +12,19 @@
 	import Banner from '$lib/components/Banner/Banner.svelte';
 	import UIcon from '$lib/components/Icon/UIcon.svelte';
 	import CardDivider from '$lib/components/Card/CardDivider.svelte';
+	import BackButton from '$lib/components/Button/Back.svelte';
 
 	export let data: { project?: Project };
 
 	const { title } = PROJECTS;
 
 	const screenshots = data.project?.screenshots ?? [];
+
+	// Function to open the image in a new tab
+	function openInNewTab(url: any) {
+		const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+		if (newWindow) newWindow.opener = null;
+	}
 
 	$: computedTitle = data.project ? `${data.project.name} - ${title}` : title;
 </script>
@@ -69,6 +76,7 @@
 						{/each}
 					</div>
 				</div>
+				<BackButton />
 			</Banner>
 			<div class="pt-3 pb-1 overflow-x-hidden w-full">
 				<div class="px-10px m-y-5">
@@ -89,8 +97,13 @@
 						class="px-10px grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 m-t-10 "
 					>
 						{#each screenshots as item}
-							<div class="col-center gap-3 overflow-hidden w-100% h-100% rounded-10px">
-								<img class="aspect-video w-100%" src={item.src} alt={item.label} />
+							<!-- svelte-ignore a11y-click-events-have-key-events -->
+							<!-- svelte-ignore a11y-no-static-element-interactions -->
+							<div
+								class="col-center gap-3 overflow-hidden w-100% h-100% rounded-10px"
+								on:click={() => openInNewTab(item.src)}
+							>
+								<img class="aspect-video w-100%" src={item.src} alt={item.label} loading="lazy" />
 								<p class="text-[var(--tertiary-text)] font-300">{item.label}</p>
 							</div>
 						{/each}

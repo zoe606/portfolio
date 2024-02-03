@@ -1,7 +1,7 @@
 import Assets from './data/assets';
 import Colors from './data/colors';
 import { getSkills } from './skills.params';
-import { ContractType, type Experience , type Link} from './types';
+import { ContractType, type Experience, type Link } from './types';
 
 const MY_EXPERIENCES: Array<Experience> = [
 	{
@@ -11,7 +11,6 @@ const MY_EXPERIENCES: Array<Experience> = [
 		// 	'focus on backend development to crafting high availabelty services with golang.maintaning old services with ruby to bugfixing or develop new feature. disscuss and fixing current obstacle and etc',
 		description:
 			'As a Backend Engineer at Privy, I spearheaded the development of high-availability services, leveraging the power of Golang to craft robust solutions. My responsibilities extended to maintaining legacy services using Ruby, addressing bugs, and seamlessly integrating new features. Engaging in collaborative discussions, I proactively tackled obstacles, ensuring smooth workflows and optimal performance. I contribute to the dynamic landscape of software development, driving innovation and excellence.',
-
 		contract: ContractType.FullTime,
 		type: 'Software Development',
 		location: 'Yogyakarta, Central Java',
@@ -30,8 +29,9 @@ const MY_EXPERIENCES: Array<Experience> = [
 		name: 'Backend Engineer',
 		color: Colors.Red,
 		links: [],
-		logo: Assets.Unknown,
-		shortDescription: ''
+		logo: Assets.Privy,
+		shortDescription: '',
+		no: 1
 	},
 	{
 		slug: 'dev-team-lead',
@@ -59,8 +59,9 @@ const MY_EXPERIENCES: Array<Experience> = [
 		name: 'Team Lead Development',
 		color: '#ffffff',
 		links: [],
-		logo: Assets.Unknown,
-		shortDescription: ''
+		logo: Assets.Dhealth,
+		shortDescription: '',
+		no: 2
 	},
 	{
 		slug: 'web-developer',
@@ -86,8 +87,9 @@ const MY_EXPERIENCES: Array<Experience> = [
 		name: 'Web Developer',
 		color: '#ffffff',
 		links: [],
-		logo: Assets.Unknown,
-		shortDescription: ''
+		logo: Assets.Docotel,
+		shortDescription: '',
+		no: 3
 	},
 	{
 		slug: 'internship',
@@ -102,8 +104,9 @@ const MY_EXPERIENCES: Array<Experience> = [
 		name: 'Internship',
 		color: '#ffffff',
 		links: [{ to: 'https://www.dhealth.co.id/', label: 'Dhealth', newTab: true }],
-		logo: Assets.Unknown,
-		shortDescription: 'Revamp website dhealth with modern framework javascript '
+		logo: Assets.Docotel,
+		shortDescription: 'Revamp website dhealth with modern framework javascript ',
+		no: 4
 	},
 	{
 		slug: 'software-freelance',
@@ -130,7 +133,8 @@ const MY_EXPERIENCES: Array<Experience> = [
 		color: '#ffffff',
 		links: [],
 		logo: Assets.Unknown,
-		shortDescription: 'Creating awesome applications for customers.'
+		shortDescription: 'Creating awesome applications for customers.',
+		no: 5
 	}
 	// {
 	// 	slug: 'software-freelance-junior',
