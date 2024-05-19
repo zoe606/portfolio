@@ -1,7 +1,7 @@
 import { browser } from '$app/environment';
 import { writable } from 'svelte/store';
 
-const key = '@riadh-adrani-theme';
+const key = '@zoe606-theme';
 
 const updateLocalStorage = (value: boolean) => {
 	if (browser) {
@@ -29,6 +29,8 @@ export const onHydrated = () => {
 		if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
 			// dark mode
 			toggleTheme(true);
+		} else {
+			toggleTheme(false);
 		}
 	} else {
 		toggleTheme(JSON.parse(fromStore));

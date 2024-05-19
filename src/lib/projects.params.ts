@@ -22,10 +22,10 @@ const MY_PROJECTS: Array<Project> = [
 			to: addDaysToDate(new Date(2023, 1, 1), 14) // February 15, 2023 (14 days later)
 		},
 		skills: getSkills('ruby', 'ruby-on-rails', 'pgsql'),
-		type: 'Landing Website'
+		type: 'Landing and Integration'
 	},
 	{
-		no: 1,
+		no: 2,
 		slug: 'privy-core-middleware',
 		color: Colors.Red,
 		description:
@@ -39,12 +39,21 @@ const MY_PROJECTS: Array<Project> = [
 			from: new Date(2023, 2, 1), // February 1, 2023
 			to: new Date(2023, 8, 1) // February 15, 2023 (14 days later)
 		},
-		skills: getSkills('ruby', 'ruby-on-rails', 'pgsql', 'mongodb', 'kafka', 'redis', 'docker'),
-		type: 'Middleware',
+		skills: getSkills(
+			'ruby',
+			'ruby-on-rails',
+			'pgsql',
+			'mongodb',
+			'kafka',
+			'redis',
+			'docker',
+			'minio'
+		),
+		type: 'Middleware (Internal Tools)',
 		screenshots: []
 	},
 	{
-		no: 2,
+		no: 1,
 		slug: 'privy-pgp-x-pgpf',
 		color: Colors.Blue,
 		description:
@@ -102,7 +111,7 @@ const MY_PROJECTS: Array<Project> = [
 			from: new Date(2023, 6, 1), // February 1, 2023
 			to: new Date(2023, 7, 1) // February 15, 2023 (14 days later)
 		},
-		skills: getSkills('go', 'docker', 'redis', 'aws-s3', 'pub/sub'),
+		skills: getSkills('go', 'docker', 'redis', 'aws-s3', 'pub/sub', 'pgsql'),
 		type: 'ATS (Internal Tools)',
 		screenshots: [
 			{ label: '', src: Screenshoot.ats1 },
@@ -202,6 +211,49 @@ const MY_PROJECTS: Array<Project> = [
 		skills: getSkills('php', 'laravel', 'jquery', 'mysql'),
 		type: 'CMS & Landing Page',
 		screenshots: []
+	},
+	{
+		no: 3,
+		slug: 'iate-polban',
+		color: Colors.Yellow,
+		description:
+			'Iate Polban is a comprehensive dashboard and mobile app solution developed for the Polban community to locate alumni. My responsibilities included creating APIs and designing the dashboard pages. Utilizing technologies such as PHP, Laravel, Vue.js, PostgreSQL, and Redis, this project enhances user experience by providing efficient tools for tracking alumni locations.',
+		shortDescription:
+			'Developed APIs and dashboard for IATE Polban’s alumni location app using PHP, Laravel, Vue.js, PostgreSQL, and Redis.',
+		links: [],
+		logo: Assets.Iate,
+		name: 'Iate Polban',
+		period: {
+			from: new Date(2024, 2, 4), // March 2024
+			to: new Date(2024, 3, 4) // April 2024
+		},
+		skills: getSkills('php', 'laravel', 'vuejs', 'pgsql', 'redis'),
+		type: 'Dashboard & Mobile Apps',
+		screenshots: [
+			{ label: '', src: Screenshoot.iate1 },
+			{ label: '', src: Screenshoot.iate2 },
+			{ label: '', src: Screenshoot.iate3 },
+			{ label: '', src: Screenshoot.iate4 },
+			{ label: '', src: Screenshoot.iate5 }
+		]
+	},
+	{
+		no: 1,
+		slug: 'privy-mkk',
+		color: Colors.Purple,
+		description:
+			'Mandiri Credit Card (MKK) is an existing service with a substantial codebase. My role involves maintaining the system, resolving bugs, and implementing custom client requests. The project utilizes Ruby, Ruby on Rails, and PostgreSQL.',
+		shortDescription:
+			'Maintained and enhanced Mandiri Credit Card service using Ruby, Rails, and PostgreSQL.',
+		links: [],
+		logo: Assets.Ruby,
+		name: 'Mandiri Credit Card (MKK)',
+		period: {
+			from: new Date(2024, 1, 1) // February 1, 2024
+			// to: addDaysToDate(new Date(2024, 1, 1), 14) // February 15, 2024 (14 days later)
+		},
+		skills: getSkills('ruby', 'ruby-on-rails', 'pgsql'),
+		type: 'Landing and Integration'
 	}
 ];
 

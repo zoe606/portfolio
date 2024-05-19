@@ -2,7 +2,6 @@ import type { Asset } from '$lib/types';
 import { theme } from '$lib/stores/theme';
 import { base } from '$app/paths';
 
-const gh = (file: string) => `${base}/logos/${file}`;
 const ss = (file: string) => `${base}/ss/${file}`;
 
 const a = (light: string, dark?: string): Asset =>
@@ -22,6 +21,11 @@ const Screenshoot = {
 	std1: a('std-1.png'),
 	uls1: a('uls-1.jpg'),
 	bbh1: a('bbh-1.png'),
+	iate1: a('iate-1.webp'),
+	iate2: a('iate-2.jpg'),
+	iate3: a('iate-3.jpg'),
+	iate4: a('iate-4.jpg'),
+	iate5: a('iate-5.jpg'),
 };
 
 export default Screenshoot;

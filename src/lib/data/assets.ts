@@ -3,8 +3,6 @@ import { theme } from '$lib/stores/theme';
 import { base } from '$app/paths';
 
 const gh = (file: string) => `${base}/logos/${file}`;
-const ss = (file: string) => `${base}/ss/${file}`;
-
 const a = (light: string, dark?: string): Asset =>
 	dark ? { dark: gh(dark), light: gh(light) } : gh(light);
 
@@ -89,6 +87,7 @@ const Assets = {
 	Stdkreatif: a('stdkreatif.png'),
 	UlasId: a('ulasid.jpeg'),
 	CI: a('codeigniter.svg'),
+	Iate: a('iate.png'),
 };
 
 export default Assets;
