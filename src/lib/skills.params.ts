@@ -1,6 +1,5 @@
 import Assets from './data/assets';
 import type { Skill } from './types';
-import svelte from './md/svelte.md?raw';
 import Colors from './data/colors';
 
 const s = (skill: Skill) => skill;
@@ -163,7 +162,7 @@ const MY_SKILLS = [
 	}),
 	s({
 		slug: 'yii2',
-		color: Colors.Cyan,
+		color: Colors.Green,
 		description:
 			'Yii 2 is a high-performance PHP framework designed for developing modern web applications. It follows the MVC pattern and includes features such as code generation and a powerful caching system for efficient development.',
 		logo: Assets.Yii2,
@@ -216,13 +215,20 @@ const MY_SKILLS = [
 		logo: Assets.S3,
 		name: 'Amazon S3'
 	}),
-	// s({
-	// 	slug: 'ci',
-	// 	color: Colors.Orange,
-	// 	description: ' PHP Framework',
-	// 	logo: Assets.CI,
-	// 	name: 'Codeigniter'
-	// })
+	s({
+		slug: 'ci',
+		color: Colors.Orange,
+		description: ' PHP Framework',
+		logo: Assets.CI,
+		name: 'Codeigniter'
+	}),
+	s({
+		slug: 'nextjs',
+		color: Colors.Black,
+		description: ' React Framework',
+		logo: Assets.NextJs,
+		name: 'NextJs'
+	}),
 ];
 
 export default MY_SKILLS;

@@ -26,6 +26,31 @@ const MY_PROJECTS: Array<Project> = [
 	},
 	{
 		no: 2,
+		slug: 'monoproperty',
+		color: Colors.Grey,
+		description:
+			'MonoProperty is a modern and dynamic property listing platform built with Next.js. As a front-end developer, I focused on creating a seamless user experience for both property seekers and real estate agents. The platform features a responsive design, advanced search functionalities, and easy property management. My contributions included implementing key user interface components using JavaScript, React, and CSS, ensuring the site is both visually appealing and highly functional.',
+		shortDescription:
+			'A dynamic property listing platform with advanced search and management features, built with Next.js.',
+		links: [],
+		logo: Assets.NextJs,
+		name: 'MonoProperty',
+		period: {
+			from: new Date(2024, 6, 0),
+			to: new Date(2024, 8, 0) // February 1, 2023
+		},
+		skills: getSkills('js', 'reactjs', 'css', 'html', 'nextjs'),
+		type: 'Landing Property',
+		screenshots: [
+			{ label: '', src: Screenshoot.mp1 },
+			{ label: '', src: Screenshoot.mp2 },
+			{ label: '', src: Screenshoot.mp3 },
+			{ label: '', src: Screenshoot.mp4 },
+			{ label: '', src: Screenshoot.mp5 }
+		]
+	},
+	{
+		no: 2,
 		slug: 'privy-core-middleware',
 		color: Colors.Red,
 		description:

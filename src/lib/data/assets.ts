@@ -88,6 +88,7 @@ const Assets = {
 	UlasId: a('ulasid.jpeg'),
 	CI: a('codeigniter.svg'),
 	Iate: a('iate.png'),
+	NextJs: a('nextjs.svg'),
 };
 
 export default Assets;
