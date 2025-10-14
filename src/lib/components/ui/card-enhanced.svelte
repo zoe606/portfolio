@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { changeColorOpacity } from '@riadh-adrani/utils';
+	import { cn } from '$lib/utils/cn';
+	import { changeColorOpacity } from '$lib/utils/color';
 	import { onMount } from 'svelte';
 	import type { MouseEventHandler } from 'svelte/elements';
 
@@ -8,7 +9,8 @@
 	export let color = '#ffffff00';
 	export let margin = '0px';
 	export let tiltDegree = 5;
-	export let classes: Array<string> = [];
+	let className: string = '';
+	export { className as class };
 	export let href: undefined | string = undefined;
 	export let bgImg: string | undefined = undefined;
 
@@ -24,7 +26,6 @@
 		}
 	}
 
-	// svelte typing is broken...
 	const onHover: MouseEventHandler<HTMLDivElement> = (ev) => {
 		const target = ev.currentTarget;
 
@@ -56,26 +57,22 @@
 		el.style.setProperty('margin', margin);
 		el.style.setProperty('--bg-img', bgImg ? `url(${bgImg})` : '');
 	});
+
+	$: cardClasses = cn(
+		'card-enhanced text-inherit decoration-none inline-flex flex-col border-1px border-solid border-[var(--border)] rounded-15px duration relative',
+		className
+	);
 </script>
 
 <!-- svelte-ignore a11y-no-static-element-interactions -->
-<svelte:element
-	this={href ? 'a' : 'div'}
-	{href}
-	bind:this={el}
-	on:mousemove={onHover}
-	class={`card text-inherit decoration-none inline-flex flex-col border-1px border-solid border-[var(--border)] rounded-15px duration relative ${classes.join(
-		' '
-	)}`}
-	style:bgColor={'red'}
->
-	<div class="card-bg-img flex-1 flex flex-col p-25px rounded-15px">
+<svelte:element this={href ? 'a' : 'div'} {href} bind:this={el} on:mousemove={onHover} class={cardClasses}>
+	<div class="card-enhanced-bg flex-1 flex flex-col p-25px rounded-15px">
 		<slot />
 	</div>
 </svelte:element>
 
 <style lang="scss">
-	.card {
+	.card-enhanced {
 		--border-color: transparent;
 		--bg-color: transparent;
 		--drop-color: transparent;
@@ -88,10 +85,11 @@
 		--rot-x: 0;
 		--rot-y: 0;
 
-		background: linear-gradient(90deg, var(--main) 0%, var(--main) 60%, var(--main-60) 100%),
+		background:
+			linear-gradient(90deg, var(--main) 0%, var(--main) 60%, var(--main-60) 100%),
 			no-repeat right 40% / 40% var(--bg-img);
 
-		&-bg-img {
+		&-bg {
 			&:hover {
 				background-color: var(--bg-color);
 				background-image: radial-gradient(

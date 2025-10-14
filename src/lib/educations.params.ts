@@ -3,29 +3,29 @@ import type { Education } from './types';
 
 export const MY_EDUCATIONS: Array<Education> = [
 	{
-		degree: 'Bachelor of Applied Science - BASc, Computer Science/Informatics',
-		description: '',
-		location: 'Bandung',
+		degree: 'Bachelor of Applied Science in Computer Science/Informatics',
+		description:
+			'Comprehensive computer science education covering software engineering, algorithms, data structures, and modern programming paradigms. Developed strong foundation in web and mobile application development, database management, and system architecture.',
+		location: 'Bandung, Indonesia',
 		logo: Assets.Unknown,
 		name: '',
-		organization: 'Politeknik Pos Indonesia',
+		organization: 'Indonesia POS Polytechnic',
 		period: { from: new Date(2015, 0, 1), to: new Date(2019, 5, 1) },
-		shortDescription: '',
-		slug: 'last-education',
+		shortDescription: 'Bachelor of Applied Science in Computer Science/Informatics',
+		slug: 'bachelor-degree',
 		subjects: [
-			'Assembly',
-			'Algorithms and Data structures',
-			'Algebra',
-			'Python',
+			'Algorithms and Data Structures',
 			'Computer Architecture',
-			'Java',
-			'English',
-			'C#',
 			'Web & Mobile Programming',
-			'Database',
-			'Machine Learning'
+			'Database Management',
+			'Machine Learning',
+			'Python',
+			'Java',
+			'C#',
+			'Assembly',
+			'Software Engineering'
 		]
-	},
+	}
 	// {
 	// 	degree: 'PhD of Computer Science',
 	// 	description: '',

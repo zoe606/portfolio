@@ -6,7 +6,7 @@
 	import MY_EXPERIENCES from '$lib/experiences.params';
 	import MY_PROJECTS from '$lib/projects.params';
 	import MY_SKILLS from '$lib/skills.params';
-	import Chip from '$lib/components/Chip/Chip.svelte';
+	import { Badge } from '$lib/components/ui';
 	import UIcon from '$lib/components/Icon/UIcon.svelte';
 
 	const { title } = SEARCH;
@@ -87,10 +87,10 @@
 			{:else}
 				<div class="flex flex-row flex-wrap gap-1">
 					{#each result as item}
-						<Chip href={`${base}/${item.to}`} classes="flex flex-row items-center gap-2">
+						<Badge href={`${base}/${item.to}`} class="flex flex-row items-center gap-2">
 							<UIcon icon={item.icon} />
 							<span>{item.name}</span>
-						</Chip>
+						</Badge>
 					{/each}
 				</div>
 			{/if}

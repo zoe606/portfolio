@@ -1,6 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// Removed invalid @tailwind directives - UnoCSS doesn't use these
+// UnoCSS is configured via uno.config.ts and loaded automatically
+// See: https://unocss.dev/guide/
 
 :root {
 	--dark-0: #000;
@@ -58,8 +58,8 @@ body {
 
 * {
 	transition-duration: 200ms;
-	transition-property: background, border-color, opacity, box-shadow, top, bottom, left, margin,
-		right;
+	transition-property:
+		background, border-color, opacity, box-shadow, top, bottom, left, margin, right;
 }
 
 :root[data-theme='dark'] {

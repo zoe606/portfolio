@@ -30,7 +30,7 @@ const Screenshoot = {
 	mp2: a('mp2.png'),
 	mp3: a('mp3.png'),
 	mp4: a('mp4.png'),
-	mp5: a('mp5.png'),
+	mp5: a('mp5.png')
 };
 
 export default Screenshoot;

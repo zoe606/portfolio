@@ -5,16 +5,31 @@ import { ContractType, type Experience, type Link } from './types';
 
 const MY_EXPERIENCES: Array<Experience> = [
 	{
-		slug: 'privy-backend',
-		company: 'Privy',
-		// description:
-		// 	'focus on backend development to crafting high availabelty services with golang.maintaning old services with ruby to bugfixing or develop new feature. disscuss and fixing current obstacle and etc',
+		slug: 'luce-fullstack',
+		company: 'Luce Maintenance Group Pte Ltd',
 		description:
-			'As a Backend Engineer at Privy, I spearheaded the development of high-availability services, leveraging the power of Golang to craft robust solutions. My responsibilities extended to maintaining legacy services using Ruby, addressing bugs, and seamlessly integrating new features. Engaging in collaborative discussions, I proactively tackled obstacles, ensuring smooth workflows and optimal performance. I contribute to the dynamic landscape of software development, driving innovation and excellence.',
+			'Led backend scalability, security, and refactoring initiatives across a large monolithic system composed of multiple components. Authored and standardized technical documentation for all core components, improving developer onboarding and maintainability. Boosted test coverage from 26% (Jan) to 77% (Jul) through systematic testing with RSpec & VCR. Upgraded Rails 7.0 → 7.2 safely by addressing transaction rollback, encryption, and dependency issues. Improved dependency freshness: Backend 26% → 83%, Frontend 25% → 78%. Reduced operational errors and improved performance metrics across key systems. Proactively monitored application health using Sentry and New Relic. Contributed frontend and mobile features using React and React Native.',
 		contract: ContractType.FullTime,
 		type: 'Software Development',
-		location: 'Yogyakarta, Central Java',
-		period: { from: new Date(2023, 0, 1) },
+		location: 'Hybrid, Singapore-based',
+		period: { from: new Date(2025, 0, 1) },
+		skills: getSkills('ruby', 'ruby-on-rails', 'reactjs', 'pgsql', 'redis', 'docker', 'git'),
+		name: 'Full-stack Engineer',
+		color: Colors.Blue,
+		links: [],
+		logo: Assets.Unknown,
+		shortDescription: 'Leading backend scalability and security initiatives',
+		no: 1
+	},
+	{
+		slug: 'privy-backend',
+		company: 'PrivyID',
+		description:
+			'Designed and deployed a high-throughput wallet ID generator in Go, cutting generation time from 2 hours to 5 minutes using goroutines and distributed workers. Maintained wallet service handling heavy production load, ensuring reliability and fault tolerance. Improved legacy Ruby codebases for performance and maintainability. Monitored Datadog dashboards and alerts for real-time observability. Collaborated with cross-functional teams to align engineering deliverables with product goals.',
+		contract: ContractType.FullTime,
+		type: 'Software Development',
+		location: 'Onsite, Indonesia-based',
+		period: { from: new Date(2023, 0, 1), to: new Date(2024, 10, 1) },
 		skills: getSkills(
 			'go',
 			'ruby',
@@ -30,20 +45,18 @@ const MY_EXPERIENCES: Array<Experience> = [
 		color: Colors.Red,
 		links: [],
 		logo: Assets.Privy,
-		shortDescription: '',
-		no: 1
+		shortDescription: 'High-throughput wallet ID generator and service maintenance',
+		no: 2
 	},
 	{
 		slug: 'dev-team-lead',
-		company: 'Citraya Nusatama (Dhealth)',
-		// description:
-		// 	'in this my role i learn a new a lot things becauese in this role i ploted as new team lead development some teams, the new skill not only in my programming skill but other skill wich required to my current job desc. like managing team development flow. pairing and reviewing code. review team perfomance and finding solution if the perfomnace team was bad or make strategies to make perfomance team is stable. preapre task and flow to develop new feature to my teams',
+		company: "Citraraya Nusatama (D'Health)",
 		description:
-			"As a Dev Team Lead at Citraya Nusatama (Dhealth), I embarked on a transformative journey that enriched not only my technical prowess but also my leadership skills. Entrusted with the responsibility of leading dynamic development teams, I navigated challenges with a holistic approach. Beyond coding, my role extended to managing the team's development flow, fostering collaboration through pair programming, and ensuring code quality through thorough reviews. Proactively assessing team performance, I implemented strategic solutions to enhance productivity and stability. Task preparation and workflow optimization were key facets of my role, empowering my teams to efficiently tackle new features and challenges.",
+			'Led a team of 5 engineers to build and maintain a hospital information system used by 10+ hospitals. Conducted regular code reviews, mentorship, and technical planning sessions. Standardized engineering practices, reducing delivery delays and improving code quality. Collaborated with QA and product teams to meet feature delivery targets.',
 		contract: ContractType.FullTime,
 		type: 'Software Development',
-		location: 'Bandung, West Java',
-		period: { from: new Date(2021, 0, 1), to: new Date(2022, 12, 4) },
+		location: 'Hybrid, Indonesia',
+		period: { from: new Date(2021, 0, 1), to: new Date(2022, 11, 31) },
 		skills: getSkills(
 			'js',
 			'html',
@@ -56,22 +69,22 @@ const MY_EXPERIENCES: Array<Experience> = [
 			'mysql',
 			'pgsql'
 		),
-		name: 'Team Lead Development',
+		name: 'Development Team Lead',
 		color: '#ffffff',
 		links: [],
 		logo: Assets.Dhealth,
-		shortDescription: '',
-		no: 2
+		shortDescription: 'Led team of 5 engineers building hospital information system',
+		no: 3
 	},
 	{
 		slug: 'web-developer',
 		company: 'Docotel Teknologi',
 		description:
-			'As a Web Developer at Docotel Teknologi, I played a pivotal role in crafting innovative solutions to meet diverse challenges. My responsibilities included developing a robust Accounting System, creating both front-end and back-end components for the cutting-edge dhealth system, and seamlessly integrating existing hospital systems with dhealth. I excelled in connecting dhealth with essential 3rd party systems such as BPJS, Eklaim, and SatuSehat Kemenkes. Additionally, I spearheaded the development of APIs tailored for mobile apps, ensuring optimal user experiences. My approach to project implementation was dynamic and efficient, employing Agile methodologies with either Scrum or Kanban.',
+			'Developed HIS modules using GatsbyJS (React) and Vue. Integrated national healthcare systems — BPJS, eKlaim, SatuSehat — into hospital platforms. Built internal mobile apps and accounting modules. Contributed to SATPAS (SIM Administration System) under agile workflows.',
 		contract: ContractType.FullTime,
 		type: 'Software Development',
-		location: 'Bandung, West Java',
-		period: { from: new Date(2019, 3, 1), to: new Date(2021, 0, 4) },
+		location: 'Onsite, Indonesia',
+		period: { from: new Date(2019, 3, 1), to: new Date(2021, 0, 1) },
 		skills: getSkills(
 			'js',
 			'html',
@@ -79,6 +92,8 @@ const MY_EXPERIENCES: Array<Experience> = [
 			'jquery',
 			'php',
 			'yii2',
+			'reactjs',
+			'vuejs',
 			'docker',
 			'redis',
 			'mysql',
@@ -88,8 +103,8 @@ const MY_EXPERIENCES: Array<Experience> = [
 		color: '#ffffff',
 		links: [],
 		logo: Assets.Docotel,
-		shortDescription: '',
-		no: 3
+		shortDescription: 'Developed HIS modules and integrated national healthcare systems',
+		no: 4
 	},
 	{
 		slug: 'internship',
@@ -106,7 +121,7 @@ const MY_EXPERIENCES: Array<Experience> = [
 		links: [{ to: 'https://www.dhealth.co.id/', label: 'Dhealth', newTab: true }],
 		logo: Assets.Docotel,
 		shortDescription: 'Revamp website dhealth with modern framework javascript ',
-		no: 4
+		no: 5
 	},
 	{
 		slug: 'software-freelance',
@@ -134,7 +149,7 @@ const MY_EXPERIENCES: Array<Experience> = [
 		links: [],
 		logo: Assets.Unknown,
 		shortDescription: 'Creating awesome applications for customers.',
-		no: 5
+		no: 6
 	}
 	// {
 	// 	slug: 'software-freelance-junior',

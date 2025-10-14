@@ -97,6 +97,14 @@ const MY_SKILLS = [
 		name: 'Grpc'
 	}),
 	s({
+		slug: 'graphql',
+		color: Colors.Pink,
+		description:
+			'GraphQL is a query language for APIs and a runtime for executing those queries. It provides a complete and understandable description of the data in your API, giving clients the power to ask for exactly what they need and nothing more.',
+		logo: Assets.Unknown,
+		name: 'GraphQL'
+	}),
+	s({
 		slug: 'js',
 		color: Colors.Yellow,
 		description:
@@ -192,6 +200,14 @@ const MY_SKILLS = [
 		logo: Assets.ReactJs,
 		name: 'Reactjs'
 	}),
+	s({
+		slug: 'react-native',
+		color: Colors.Blue,
+		description:
+			'React Native is a framework for building native mobile applications using React. It allows developers to use React along with native platform capabilities, enabling cross-platform mobile development with a single codebase.',
+		logo: Assets.ReactJs,
+		name: 'React Native'
+	}),
 	// s({
 	// 	slug: 'svelte',
 	// 	color: '#F08A5D',
@@ -229,6 +245,30 @@ const MY_SKILLS = [
 		logo: Assets.NextJs,
 		name: 'NextJs'
 	}),
+	s({
+		slug: 'sentry',
+		color: Colors.Purple,
+		description:
+			'Sentry is an error tracking and performance monitoring platform that helps developers identify, triage, and resolve issues in real-time. It provides comprehensive error reporting and application monitoring for production environments.',
+		logo: Assets.Unknown,
+		name: 'Sentry'
+	}),
+	s({
+		slug: 'new-relic',
+		color: Colors.Green,
+		description:
+			'New Relic is an observability platform that provides real-time insights into application performance, infrastructure monitoring, and user experience. It helps teams monitor, debug, and optimize their entire stack.',
+		logo: Assets.Unknown,
+		name: 'New Relic'
+	}),
+	s({
+		slug: 'linux',
+		color: Colors.Black,
+		description:
+			'Linux is an open-source operating system widely used for servers, development environments, and production deployments. Proficiency in Linux includes command-line operations, system administration, and shell scripting.',
+		logo: Assets.Unknown,
+		name: 'Linux'
+	})
 ];
 
 export default MY_SKILLS;
