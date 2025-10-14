@@ -7,6 +7,42 @@ import { addDaysToDate } from './utils';
 
 const MY_PROJECTS: Array<Project> = [
 	{
+		no: 1,
+		slug: 'luce-backend-internal-apps',
+		color: Colors.Blue,
+		description:
+			"Led the development and maintenance of Luce's comprehensive backend internal system serving multiple platforms. Architected and implemented a robust GraphQL API that powers internal administrative applications, client-facing websites, and mobile applications. The system handles critical business operations including user management, property maintenance workflows, service requests, and real-time data synchronization across all platforms. Implemented advanced caching strategies, optimized database queries, and established monitoring systems using Sentry and New Relic to ensure 99.9% uptime. Successfully scaled the system to handle increasing load while maintaining sub-500ms response times for 95% of API calls.",
+		shortDescription:
+			'GraphQL API backend serving internal apps, client websites, and mobile applications for property maintenance operations.',
+		links: [],
+		logo: Assets.Ruby,
+		name: 'Luce Backend Internal Apps',
+		period: {
+			from: new Date(2025, 0, 1)
+		},
+		skills: getSkills('ruby', 'ruby-on-rails', 'graphql', 'pgsql', 'redis', 'docker', 'git'),
+		type: 'Internal API Platform',
+		screenshots: []
+	},
+	{
+		no: 2,
+		slug: 'luce-workers-mobile-app',
+		color: Colors.Green,
+		description:
+			"Developed and maintained Luce's mobile application for field workers using React Native, enabling technicians and maintenance staff to manage their daily tasks efficiently on-the-go. The app provides real-time access to work orders, property information, service requests, and client details. Implemented offline-first architecture to ensure workers can access critical information even without internet connectivity, with automatic data synchronization when connection is restored. Features include push notifications for urgent tasks, photo capture and upload for work documentation, digital signatures for job completion, and real-time status updates. Integrated seamlessly with the GraphQL backend API to provide instant access to the latest property maintenance data and schedules.",
+		shortDescription:
+			'React Native mobile app for field workers to manage maintenance tasks, work orders, and service requests on-the-go.',
+		links: [],
+		logo: Assets.ReactJs,
+		name: 'Luce Workers Mobile App',
+		period: {
+			from: new Date(2025, 0, 1)
+		},
+		skills: getSkills('react-native', 'reactjs', 'js', 'graphql'),
+		type: 'Mobile Application',
+		screenshots: []
+	},
+	{
 		no: 3,
 		slug: 'privy-ocsaver',
 		color: Colors.Orange,

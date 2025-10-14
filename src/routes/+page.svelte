@@ -5,8 +5,7 @@
 	import { TITLE_SUFFIX } from '$lib/params';
 	import { HOME, getPlatfromIcon } from '$lib/params';
 	import MY_SKILLS from '$lib/skills.params';
-	import { useTitle, capitalize } from '$lib/utils/helpers';
-	import { isBlank } from '@riadh-adrani/utils';
+	import { useTitle, capitalize, isBlank } from '$lib/utils/helpers';
 
 	const { description, lastName, links, name, title, skills } = HOME;
 
@@ -26,7 +25,7 @@
 >
 	<div class="md:flex-1 gap-10px">
 		<MainTitle classes="md:text-left ">{name} {lastName},</MainTitle>
-		<p class="text-[var(--tertiary-text)]  text-center md:text-left text-[1.2em] font-extralight">
+		<p class="text-[var(--tertiary-text)] text-center md:text-left text-[1.2em] font-extralight">
 			{description}
 		</p>
 		<div class="row justify-center md:justify-start p-y-15px p-x-0px gap-2">

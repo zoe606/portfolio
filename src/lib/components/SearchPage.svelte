@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { createEventDispatcher, onMount } from 'svelte';
 	import CommonPage from './CommonPage.svelte';
-	import Input from './Input/Input.svelte';
+	import { Input } from '$lib/components/ui';
 	import { browser } from '$app/environment';
-	import { replaceState } from '$app/navigation'
+	import { replaceState } from '$app/navigation';
 
 	export let title = 'Title';
 	export let search = '';
@@ -19,17 +19,13 @@
 	$: {
 		// if (browser && mounted) {
 		// 	let searchParams = new URLSearchParams(window.location.search);
-
 		// 	searchParams.set('q', search);
-
 		// 	const url = `${window.location.protocol}//${window.location.host}${
 		// 		window.location.pathname
 		// 	}?${searchParams.toString()}`;
-
 		// 	const state = window.history.state;
 		// 	// replaceState(url, state)
 		// 	// replaceState(url, state)
-
 		// 	// window.history.replaceState(state, '', url);
 		// }
 	}

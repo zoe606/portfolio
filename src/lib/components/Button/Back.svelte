@@ -15,7 +15,9 @@
 		border: 2px solid var(--your-button-text-color); /* Add a border for clarity */
 		border-radius: 20px; /* Adjust the value to control the roundness */
 		cursor: pointer;
-		transition: background-color 0.3s, color 0.3s; /* Add transition for smooth hover effect */
+		transition:
+			background-color 0.3s,
+			color 0.3s; /* Add transition for smooth hover effect */
 	}
 
 	.back-button:hover {

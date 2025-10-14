@@ -1,6 +1,5 @@
 <script lang="ts">
-	import Card from '$lib/components/Card/Card.svelte';
-	import Chip from '$lib/components/Chip/Chip.svelte';
+	import { CardEnhanced, Badge } from '$lib/components/ui';
 	import UIcon from '$lib/components/Icon/UIcon.svelte';
 	import SearchPage from '$lib/components/SearchPage.svelte';
 	import { getAssetURL } from '$lib/data/assets';
@@ -50,7 +49,7 @@
 						<UIcon icon="i-carbon-condition-point" />
 					</div>
 					<div class="col flex-1 items-stretch">
-						<Card>
+						<CardEnhanced>
 							<div class="flex-1 col gap-2 items-stretch">
 								<img
 									src={getAssetURL(education.logo)}
@@ -66,11 +65,11 @@
 								</div>
 								<div class="row flex-wrap gap-1">
 									{#each education.subjects as subject}
-										<Chip>{subject}</Chip>
+										<Badge>{subject}</Badge>
 									{/each}
 								</div>
 							</div>
-						</Card>
+						</CardEnhanced>
 					</div>
 				</div>
 			{/each}

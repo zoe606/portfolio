@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CardDivider from '$lib/components/Card/CardDivider.svelte';
+	import { Separator } from '$lib/components/ui';
 	import CardLogo from '$lib/components/Card/CardLogo.svelte';
 	import MainTitle from '$lib/components/MainTitle/MainTitle.svelte';
 	import MY_EXPERIENCES from '$lib/experiences.params';
@@ -11,7 +11,7 @@
 	import { SKILLS } from '$lib/params';
 	import Markdown from '$lib/components/Markdown.svelte';
 	import TabTitle from '$lib/components/TabTitle.svelte';
-	import Chip from '$lib/components/Chip/Chip.svelte';
+	import { Badge } from '$lib/components/ui';
 	import Banner from '$lib/components/Banner/Banner.svelte';
 	import UIcon from '$lib/components/Icon/UIcon.svelte';
 
@@ -93,18 +93,18 @@
 				</div>
 			</div>
 			<div class="self-stretch mb-2">
-				<CardDivider />
+				<Separator />
 			</div>
-			<div class="flex flex-row gap-1 self-stretch flex-wrap ">
+			<div class="flex flex-row gap-1 self-stretch flex-wrap">
 				<div class="px-10px">
 					{#each related as item}
-						<Chip
-							classes="inline-flex flex-row items-center justify-center"
+						<Badge
+							class="inline-flex flex-row items-center justify-center"
 							href={`${base}${item.url}`}
 						>
 							<CardLogo src={item.img} alt={item.name} radius={'0px'} size={15} classes="mr-2" />
 							<span class="text-[0.9em]">{item.display}</span>
-						</Chip>
+						</Badge>
 					{/each}
 				</div>
 			</div>

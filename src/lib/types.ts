@@ -43,7 +43,7 @@ export interface Skill extends Omit<Item, 'shortDescription'> {
 }
 
 export interface Color {
-	color: string
+	color: string;
 }
 
 export interface Project extends Item {

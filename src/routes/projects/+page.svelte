@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Chip from '$lib/components/Chip/Chip.svelte';
+	import { Badge } from '$lib/components/ui';
 	import ProjectCard from '$lib/components/ProjectCard/ProjectCard.svelte';
 	import SearchPage from '$lib/components/SearchPage.svelte';
 	import { PROJECTS } from '$lib/params';
@@ -39,18 +39,18 @@
 
 	$: {
 		displayed = orderedItems.filter((project) => {
-      const isFiltered =
-        filters.every((item) => !item.isSelected) ||
-        project.skills.some((tech) =>
-          filters.some((filter) => filter.isSelected && filter.slug === tech.slug)
-        );
+			const isFiltered =
+				filters.every((item) => !item.isSelected) ||
+				project.skills.some((tech) =>
+					filters.some((filter) => filter.isSelected && filter.slug === tech.slug)
+				);
 
-      const isSearched =
-        search.trim().length === 0 ||
-        project.name.trim().toLowerCase().includes(search.trim().toLowerCase());
+			const isSearched =
+				search.trim().length === 0 ||
+				project.name.trim().toLowerCase().includes(search.trim().toLowerCase());
 
-      return isFiltered && isSearched;
-    });
+			return isFiltered && isSearched;
+		});
 	}
 
 	const onSearch = (e: CustomEvent<{ search: string }>) => {
@@ -75,8 +75,8 @@
 <SearchPage {title} on:search={onSearch}>
 	<div class="projects-filters">
 		{#each filters as tech}
-			<Chip active={tech.isSelected} classes={'text-0.8em'} on:click={() => onSelected(tech.slug)}
-				>{tech.name}</Chip
+			<Badge variant={tech.isSelected ? 'default' : 'outline'} class={'text-0.8em'} on:click={() => onSelected(tech.slug)}
+				>{tech.name}</Badge
 			>
 		{/each}
 	</div>

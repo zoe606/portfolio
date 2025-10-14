@@ -48,18 +48,17 @@ export const HOME: HomePageParams = {
 	title: 'Home',
 	name: 'Librantara',
 	lastName: 'Erlangga',
-	description: getDescription(2019), // Pass the start year of your experience
-	// description:
-	// 	'Innovative full-stack developer with 4+ years of experience, excelling in PHP, Golang, Ruby, and seamless third-party integrations. Proven track record with 10+ healthcare institutions adopting my solutions. Current role involves crafting and maintaining high-quality services, while my expertise continues to grow.',
+	description:
+		'Versatile Backend Software Engineer with 5+ years of experience building scalable and reliable systems across startup, fintech, and healthcare environments. Proven ability to design, refactor, and modernize Ruby on Rails and GraphQL architectures, integrate complex APIs, and lead initiatives that improve performance, reliability, and developer productivity. Experienced in driving codebase modernization, dependency management, and system optimization for large-scale production environments.',
 	links: [
-		{ platform: Platform.GitHub, link: 'https://github.com/zoe606'},
+		{ platform: Platform.GitHub, link: 'https://github.com/zoe606' },
 		{
 			platform: Platform.Linkedin,
 			link: 'https://www.linkedin.com/in/librantara-erlangga/'
 		},
 		{
 			platform: Platform.Email,
-			link: 'rive99erlangga@gmail.com'
+			link: 'librantaraerlangga@gmail.com'
 		}
 	]
 };
@@ -91,7 +90,7 @@ export const SKILLS: SkillsPageParams = {
 
 export const RESUME: ResumePageParams = {
 	title: 'Resume',
-	item: ''
+	item: '/portfolio/Librantara_Erlangga_CV_2025.pdf'
 };
 
 export const SEARCH: SearchPageParams = {

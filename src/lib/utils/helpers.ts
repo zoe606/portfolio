@@ -77,3 +77,12 @@ export function capitalize(str: string) {
 export function addDaysToDate(date: Date, days: number): Date {
 	return new Date(date.getTime() + days * 24 * 60 * 60 * 1000);
 }
+
+/**
+ * Check if a value is blank (null, undefined, or empty string)
+ * @param value - Value to check
+ * @returns true if value is blank
+ */
+export function isBlank(value: string | null | undefined): boolean {
+	return value === null || value === undefined || value.trim() === '';
+}

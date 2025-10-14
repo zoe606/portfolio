@@ -4,8 +4,28 @@
 	import '$lib/index.scss';
 	import { onHydrated, theme } from '$lib/stores/theme';
 	import { onMount } from 'svelte';
-	
-	onMount(() => onHydrated());
+	import { onCLS, onINP, onLCP, onFCP, onTTFB, type Metric } from 'web-vitals';
+
+	onMount(() => {
+		onHydrated();
+
+		// Performance monitoring with Web Vitals
+		const logVital = (metric: Metric) => {
+			// Log to console in development
+			if (import.meta.env.DEV) {
+				console.log(`[Web Vitals] ${metric.name}:`, metric.value, metric);
+			}
+			// In production, you could send to analytics service:
+			// sendToAnalytics(metric);
+		};
+
+		// Track Core Web Vitals
+		onCLS(logVital); // Cumulative Layout Shift
+		onINP(logVital); // Interaction to Next Paint (replaces FID in v3+)
+		onLCP(logVital); // Largest Contentful Paint
+		onFCP(logVital); // First Contentful Paint
+		onTTFB(logVital); // Time to First Byte
+	});
 </script>
 
 <div class={`body contents ${$theme ? 'theme-dark' : 'theme-light'}`}>

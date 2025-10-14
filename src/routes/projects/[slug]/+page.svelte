@@ -8,10 +8,10 @@
 	import { PROJECTS } from '$lib/params';
 	import Markdown from '$lib/components/Markdown.svelte';
 	import TabTitle from '$lib/components/TabTitle.svelte';
-	import Chip from '$lib/components/Chip/Chip.svelte';
+	import { Badge } from '$lib/components/ui';
 	import Banner from '$lib/components/Banner/Banner.svelte';
 	import UIcon from '$lib/components/Icon/UIcon.svelte';
-	import CardDivider from '$lib/components/Card/CardDivider.svelte';
+	import { Separator } from '$lib/components/ui';
 	import BackButton from '$lib/components/Button/Back.svelte';
 
 	export let data: { project?: Project };
@@ -46,21 +46,21 @@
 					</div>
 					<p class="font-300 text-center text-[var(--tertiary-text)] m-y-2">{data.project.type}</p>
 					<div class="w-75%">
-						<CardDivider />
+						<Separator />
 					</div>
 					<div class="row-center flex-wrap text-[0.9em] text-[var(--tertiary-text)] m-b-2">
 						{#each data.project.links as item}
-							<Chip href={item.to}>
+							<Badge href={item.to}>
 								<div class="row-center gap-2">
 									<UIcon icon="i-carbon-link" />
 									<span>{item.label}</span>
 								</div>
-							</Chip>
+							</Badge>
 						{/each}
 					</div>
 					<div class="row-center flex-wrap m-b-2">
 						{#each data.project.skills as item}
-							<Chip
+							<Badge
 								classes="inline-flex flex-row items-center justify-center"
 								href={`${base}/skills/${item.slug}`}
 							>
@@ -72,7 +72,7 @@
 									classes="mr-2"
 								/>
 								<span class="text-[0.9em]">{item.name}</span>
-							</Chip>
+							</Badge>
 						{/each}
 					</div>
 				</div>
@@ -90,11 +90,11 @@
 					{/if}
 				</div>
 				<div class="w-100% m-t-8">
-					<CardDivider />
+					<Separator />
 				</div>
 				{#if screenshots.length > 0}
 					<div
-						class="px-10px grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 m-t-10 "
+						class="px-10px grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 m-t-10"
 					>
 						{#each screenshots as item}
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
