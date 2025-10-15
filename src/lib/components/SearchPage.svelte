@@ -1,38 +1,36 @@
 <script lang="ts">
-	import { createEventDispatcher, onMount } from 'svelte';
+	import { onMount } from 'svelte';
+	import type { Snippet } from 'svelte';
 	import CommonPage from './CommonPage.svelte';
 	import { Input } from '$lib/components/ui';
 	import { browser } from '$app/environment';
 	import { replaceState } from '$app/navigation';
 
-	export let title = 'Title';
-	export let search = '';
-
-	const dispatch = createEventDispatcher();
-
-	let mounted = false;
-
-	$: {
-		dispatch('search', { search: search.trim().toLowerCase() });
+	interface Props {
+		title?: string;
+		search?: string;
+		onsearch?: (event: CustomEvent<{ search: string }>) => void;
+		children?: Snippet;
 	}
 
-	$: {
-		// if (browser && mounted) {
-		// 	let searchParams = new URLSearchParams(window.location.search);
-		// 	searchParams.set('q', search);
-		// 	const url = `${window.location.protocol}//${window.location.host}${
-		// 		window.location.pathname
-		// 	}?${searchParams.toString()}`;
-		// 	const state = window.history.state;
-		// 	// replaceState(url, state)
-		// 	// replaceState(url, state)
-		// 	// window.history.replaceState(state, '', url);
-		// }
-	}
+	let {
+		title = 'Title',
+		search = $bindable(''),
+		onsearch,
+		children
+	}: Props = $props();
+
+	let mounted = $state(false);
+
+	// Trigger search callback whenever search value changes
+	$effect(() => {
+		if (onsearch) {
+			onsearch(new CustomEvent('search', { detail: { search: search.trim().toLowerCase() } }));
+		}
+	});
 
 	onMount(() => {
 		let searchParams = new URLSearchParams(window.location.search);
-
 		search = searchParams.get('q') ?? '';
 		mounted = true;
 	});
@@ -43,6 +41,6 @@
 		<Input bind:value={search} placeholder={'Search...'} />
 	</div>
 	<div class="w-100% col flex-1">
-		<slot />
+		{@render children?.()}
 	</div>
 </CommonPage>

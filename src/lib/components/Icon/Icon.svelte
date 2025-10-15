@@ -2,12 +2,15 @@
 	import type { Icons } from '$lib/utils';
 	import { viewBox } from './Icons';
 
-	let el: SVGElement;
+	interface Props {
+		icon: Icons;
+		size?: string;
+		color?: string;
+	}
 
-	export let size = '30px';
-	export let color = 'var(--main-text)';
+	let { icon, size = '30px', color = 'var(--main-text)' }: Props = $props();
 
-	export let icon: Icons;
+	let el: SVGElement = $state()!;
 </script>
 
 <svg

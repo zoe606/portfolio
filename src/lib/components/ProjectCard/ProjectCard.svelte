@@ -73,6 +73,7 @@
 				logo={getAssetURL(tech.logo)}
 				name={tech.name}
 				href={`${base}/skills/${tech.slug}`}
+				disableLink={true}
 			/>
 		{/each}
 	</div>

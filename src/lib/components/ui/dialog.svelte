@@ -34,6 +34,7 @@
 		on:keydown={handleKeydown}
 		role="dialog"
 		aria-modal="true"
+		tabindex="0"
 	>
 		<div
 			class={cn(
