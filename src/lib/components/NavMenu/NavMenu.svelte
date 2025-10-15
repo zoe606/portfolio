@@ -6,13 +6,13 @@
 	import { base } from '$app/paths';
 	import UIcon from '../Icon/UIcon.svelte';
 
-	let currentRoute = '/';
+	let currentRoute = $state('/');
 
-	$: {
+	$effect(() => {
 		if ($page) {
 			currentRoute = $page.url.pathname;
 		}
-	}
+	});
 
 	const items = [
 		{ title: NavBar.skills, to: '/skills', icon: 'i-carbon-software-resource-cluster' },
@@ -58,7 +58,7 @@
 				type="button"
 				aria-label="toggle-theme"
 				class="bg-transparent text-1em border-none cursor-pointer hover:bg-[color:var(--main-hover)] text-[var(--secondary-text)] px-2"
-				on:click={() => toggleTheme()}
+				onclick={() => toggleTheme()}
 			>
 				{#if $theme}
 					<UIcon icon="i-carbon-sun" />

@@ -1,15 +1,29 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { cn } from '$lib/utils/cn';
 
 	type Variant = 'default' | 'secondary' | 'destructive' | 'outline' | 'ghost' | 'link';
 	type Size = 'default' | 'sm' | 'lg' | 'icon';
 
-	export let variant: Variant = 'default';
-	export let size: Size = 'default';
-	export let href: string | undefined = undefined;
-	export let disabled = false;
-	let className: string = '';
-	export { className as class };
+	interface Props {
+		variant?: Variant;
+		size?: Size;
+		href?: string;
+		disabled?: boolean;
+		class?: string;
+		onclick?: (event: MouseEvent) => void;
+		children?: Snippet;
+	}
+
+	let {
+		variant = 'default',
+		size = 'default',
+		href = undefined,
+		disabled = false,
+		class: className = '',
+		onclick,
+		children
+	}: Props = $props();
 
 	const variants: Record<Variant, string> = {
 		default:
@@ -30,11 +44,12 @@
 		icon: 'h-10 w-10 p-0'
 	};
 
-	$: baseClasses =
-		'inline-flex items-center justify-center row-center rounded-8px border-1px border-solid font-medium transition-all duration-150ms cursor-pointer decoration-none disabled:pointer-events-none disabled:opacity-50';
-	$: variantClasses = variants[variant];
-	$: sizeClasses = sizes[size];
-	$: combinedClasses = cn(baseClasses, variantClasses, sizeClasses, className);
+	let baseClasses = $derived(
+		'inline-flex items-center justify-center row-center rounded-8px border-1px border-solid font-medium transition-all duration-150ms cursor-pointer decoration-none disabled:pointer-events-none disabled:opacity-50'
+	);
+	let variantClasses = $derived(variants[variant]);
+	let sizeClasses = $derived(sizes[size]);
+	let combinedClasses = $derived(cn(baseClasses, variantClasses, sizeClasses, className));
 </script>
 
 <svelte:element
@@ -42,10 +57,10 @@
 	{href}
 	{disabled}
 	class={combinedClasses}
-	on:click
+	{onclick}
 	tabindex={disabled ? -1 : 0}
 	role={href ? undefined : 'button'}
 	aria-disabled={disabled}
 >
-	<slot />
+	{@render children?.()}
 </svelte:element>

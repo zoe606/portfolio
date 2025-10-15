@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/cn';
 
-	export let checked = false;
-	export let disabled = false;
-	let className: string = '';
-	export { className as class };
+	interface Props {
+		checked?: boolean;
+		disabled?: boolean;
+		class?: string;
+	}
+
+	let { checked = $bindable(false), disabled = false, class: className = '' }: Props = $props();
 
 	function toggle() {
 		if (!disabled) {
@@ -24,14 +27,15 @@
 	type="button"
 	role="switch"
 	aria-checked={checked}
+	aria-label="Toggle switch"
 	{disabled}
 	class={cn(
 		'switch-root peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-50',
 		checked ? 'bg-[var(--accent)]' : 'bg-[var(--border)]',
 		className
 	)}
-	on:click={toggle}
-	on:keydown={handleKeydown}
+	onclick={toggle}
+	onkeydown={handleKeydown}
 	tabindex={disabled ? -1 : 0}
 >
 	<span
@@ -39,7 +43,7 @@
 			'switch-thumb pointer-events-none block h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform duration-200',
 			checked ? 'translate-x-5' : 'translate-x-0'
 		)}
-	/>
+	></span>
 </button>
 
 <style lang="scss">

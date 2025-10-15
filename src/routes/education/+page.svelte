@@ -30,7 +30,7 @@
 	};
 </script>
 
-<SearchPage {title} {search} on:search={onSearch}>
+<SearchPage {title} {search} onsearch={onSearch}>
 	<div class="col items-center relative mt-10 flex-1">
 		{#if result.length === 0}
 			<div class="p-5 col-center gap-3 m-y-auto text-[var(--accent-text)] flex-1">
@@ -44,7 +44,7 @@
 						index % 2 !== 0 ? 'flex-row' : 'flex-row-reverse'
 					} relative items-center w-full my-[10px]`}
 				>
-					<div class="flex-1 hidden lg:flex" />
+					<div class="flex-1 hidden lg:flex"></div>
 					<div class="hidden lg:inline p-15px bg-[var(--main)] rounded">
 						<UIcon icon="i-carbon-condition-point" />
 					</div>

@@ -14,12 +14,15 @@
 
 	const { items, title } = PROJECTS;
 
-	let filters: Array<SkillFilter> = MY_SKILLS.filter((it) => {
-		return items.some((project) => project.skills.some((skill) => skill.slug === it.slug));
-	});
+	// Use $state for reactive filters
+	let filters = $state<Array<SkillFilter>>(
+		MY_SKILLS.filter((it) => {
+			return items.some((project) => project.skills.some((skill) => skill.slug === it.slug));
+		})
+	);
 
-	let search = '';
-	let displayed: Array<Project> = [];
+	let search = $state('');
+	let displayed = $state<Array<Project>>([]);
 
 	const isSelected = (slug: string): boolean => {
 		return filters.some((item) => item.slug === slug && item.isSelected);
@@ -30,14 +33,14 @@
 			if (tech.slug === slug) {
 				tech.isSelected = !isSelected(slug);
 			}
-
 			return tech;
 		});
 	};
 
 	const orderedItems = items.slice().sort((a, b) => a.no - b.no);
 
-	$: {
+	// Use $derived for computed displayed projects
+	$effect(() => {
 		displayed = orderedItems.filter((project) => {
 			const isFiltered =
 				filters.every((item) => !item.isSelected) ||
@@ -51,7 +54,7 @@
 
 			return isFiltered && isSearched;
 		});
-	}
+	});
 
 	const onSearch = (e: CustomEvent<{ search: string }>) => {
 		search = e.detail.search;
@@ -62,9 +65,7 @@
 
 		if (query) {
 			const queryParams = new URLSearchParams(location.search);
-
 			const item = queryParams.get('item');
-
 			if (item) {
 				search = item;
 			}
@@ -72,12 +73,16 @@
 	});
 </script>
 
-<SearchPage {title} on:search={onSearch}>
+<SearchPage {title} onsearch={onSearch}>
 	<div class="projects-filters">
 		{#each filters as tech}
-			<Badge variant={tech.isSelected ? 'default' : 'outline'} class={'text-0.8em'} on:click={() => onSelected(tech.slug)}
-				>{tech.name}</Badge
+			<Badge
+				variant={tech.isSelected ? 'default' : 'outline'}
+				class={'text-0.8em'}
+				onclick={() => onSelected(tech.slug)}
 			>
+				{tech.name}
+			</Badge>
 		{/each}
 	</div>
 	{#if displayed.length === 0}

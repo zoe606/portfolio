@@ -1,15 +1,22 @@
 <script lang="ts">
+	import type { Snippet } from 'svelte';
 	import { cn } from '$lib/utils/cn';
 
-	let className: string = '';
-	export { className as class };
+	interface Props {
+		class?: string;
+		children?: Snippet;
+	}
 
-	$: cardClasses = cn(
-		'rounded-15px border-1px border-solid border-[var(--border)] bg-[var(--main)] text-[var(--tertiary-text)]',
-		className
+	let { class: className = '', children }: Props = $props();
+
+	let cardClasses = $derived(
+		cn(
+			'rounded-15px border-1px border-solid border-[var(--border)] bg-[var(--main)] text-[var(--tertiary-text)]',
+			className
+		)
 	);
 </script>
 
 <div class={cardClasses}>
-	<slot />
+	{@render children?.()}
 </div>

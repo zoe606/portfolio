@@ -70,8 +70,8 @@
 	}
 </script>
 
-<SearchPage {title} on:search={(e) => (query = e.detail.search)}>
-	<div class="flex flex-col items-stretch gap-10 p-2" />
+<SearchPage {title} onsearch={(e) => (query = e.detail.search)}>
+	<div class="flex flex-col items-stretch gap-10 p-2"></div>
 	{#if !query}
 		<div class="flex-1 self-center col-center m-t-10 gap-5 font-300 text-[var(--accent-text)]">
 			<UIcon icon="i-carbon-search-locate-mirror" classes="text-2em" />

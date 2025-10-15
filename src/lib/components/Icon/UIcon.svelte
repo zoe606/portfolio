@@ -1,7 +1,10 @@
 <script lang="ts">
-	export let icon = '';
+	interface Props {
+		icon?: string;
+		classes?: string;
+	}
 
-	export let classes = '';
+	let { icon = '', classes = '' }: Props = $props();
 </script>
 
-<i class={`${icon} ${classes}`} />
+<i class={`${icon} ${classes}`}></i>
