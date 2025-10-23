@@ -4,218 +4,250 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a **SvelteKit-based portfolio website** using a Vercel-like design template. The project is configured for deployment to GitHub Pages with static site generation.
+This is a personal portfolio website built with **SvelteKit 2**, **Svelte 5**, and **Vite 7**. It's configured for static site generation and deployed to GitHub Pages with a base path of `/portfolio`.
 
-**Tech Stack:**
+**Key Technologies:**
 
-- SvelteKit 2.x with Svelte 4.2.1
-- TypeScript
-- UnoCSS for atomic CSS utilities
-- SCSS for custom styling
-- Vite as build tool
-- Static adapter for GitHub Pages deployment
+- **Svelte 5** (latest with runes and modern reactivity)
+- **SvelteKit 2** with static adapter
+- **Vite 7** for build tooling
+- **UnoCSS** for utility-first styling with custom shortcuts
+- **TypeScript** for type safety
+- **shadcn-svelte** for UI components
+- **Marked** with plugins for markdown rendering (GFM heading IDs, mangle)
+- **Prism.js** for syntax highlighting
+- **web-vitals** for performance monitoring
 
 ## Essential Commands
 
 ### Development
 
 ```bash
-# Start development server
-yarn dev
-
-# Type check (without watch)
-yarn check
-
-# Type check with watch mode
-yarn check:watch
+yarn dev              # Start dev server
+yarn build            # Build for production
+yarn preview          # Preview production build
 ```
 
-### Building & Preview
+### Code Quality
 
 ```bash
-# Build for production (outputs to build/)
-yarn build
-
-# Preview production build
-yarn preview
+yarn check            # Type-check with svelte-check (one-time)
+yarn check:watch      # Type-check with watch mode
+yarn lint             # Run Prettier and ESLint checks
+yarn format           # Format code with Prettier
 ```
 
-### Linting & Formatting
+**Note:** There are no test commands configured in this project.
 
-```bash
-# Run linting (Prettier + ESLint)
-yarn lint
+## Architecture & Structure
 
-# Format code with Prettier
-yarn format
-```
+### Data-Driven Content System
 
-## Architecture & Code Structure
+All portfolio content is centrally managed through parameter files in `src/lib/`:
 
-### Configuration Files
+- `params.ts` - Main configuration hub (title suffix, navbar, page params)
+- `projects.params.ts` - Project definitions
+- `experiences.params.ts` - Work experience entries
+- `skills.params.ts` - Skills and tools
+- `educations.params.ts` - Education history
 
-**`svelte.config.js`** - Key configuration:
+**To update portfolio content:** Modify the appropriate `.params.ts` file. The type system enforces structure via `src/lib/types.ts`.
 
-- Uses `@sveltejs/adapter-static` for static site generation
-- Base path is `/portfolio` in production (for GitHub Pages)
-- Outputs to `build/` directory with 404.html fallback
+### Core Type System (`src/lib/types.ts`)
 
-**`uno.config.ts`** - UnoCSS setup:
+Key interfaces that define the data structure:
 
-- Defines utility shortcuts: `col`, `row`, `col-center`, `row-center`
-- Uses Inter font from Google Fonts
-- Includes preset-icons for icon support
+- `Item` - Base interface (slug, name, logo, description)
+- `Project` - Projects with links, skills, period, color
+- `Experience` - Work history extending Project (company, location, contract type)
+- `Skill` - Skills with color coding
+- `Education` - Education entries with organization, degree, subjects
+- `HomePageParams`, `ProjectPageParams`, etc. - Page-level parameter interfaces
 
-**`vite.config.ts`**:
+### Static Site Generation
 
-- Configures UnoCSS and SvelteKit plugins
+**Important:** This site uses **full static prerendering** (`export const prerender = true` in `+layout.server.ts`). All pages are built at compile time.
 
-### Data Architecture
+**GitHub Pages Configuration:**
 
-The portfolio content is data-driven and centralized in `src/lib/` files:
+- Base path: `/portfolio` (configured in `svelte.config.js`)
+- Adapter: `@sveltejs/adapter-static` with fallback to `404.html`
+- Base path is only applied in production (`process.env.NODE_ENV === 'production'`)
 
-**Core Data Files:**
+### Styling System
 
-- `src/lib/params.ts` - Main configuration exporting all page data (HOME, PROJECTS, EXPERIENCES, SKILLS, EDUCATION, etc.)
-- `src/lib/types.ts` - TypeScript type definitions for all entities (Project, Experience, Education, Skill, etc.)
-- `src/lib/projects.params.ts` - Project data
-- `src/lib/experiences.params.ts` - Work experience data
-- `src/lib/skills.params.ts` - Skills and tools data
-- `src/lib/educations.params.ts` - Education data
+**UnoCSS Configuration** (`uno.config.ts`):
 
-**To customize portfolio content:** Edit the `src/lib/*.params.ts` files - do NOT modify individual route components.
+- Atomic utility classes with `presetUno()`
+- Custom shortcuts: `col`, `row`, `col-center`, `row-center`
+- Icon system via `@unocss/preset-icons` with `@iconify-json/carbon`
+- Web fonts: Inter (weights 100-900) via Google Fonts
+- **Main styles:** `src/lib/index.scss` for custom SCSS
 
-### Theme System
+**Theme System:**
 
-**`src/lib/stores/theme.ts`**:
-
-- Writable store managing dark/light theme state
-- Persists theme preference to localStorage with key `@zoe606-theme`
-- `toggleTheme(value?)` - Toggle or set theme explicitly
-- `onHydrated()` - Initialize theme from localStorage or system preference on mount
-- Theme class applied at root: `theme-dark` or `theme-light`
-
-**Custom styling:** Edit `src/lib/index.scss` for global styles and CSS variables.
+- Dark/light mode toggle via `src/lib/stores/theme.ts`
+- Theme persisted to localStorage with key `@zoe606-theme`
+- CSS custom properties defined in SCSS, switched via `data-theme` attribute
+- Auto-detection of system preference on first visit
 
 ### Component Architecture
 
-**Reusable Components** in `src/lib/components/`:
+**Reusable UI Components** (`src/lib/components/ui/`):
 
-- `Card/` - Card components with subcomponents (CardTitle, CardLogo, CardLink, CardDivider)
-- `Chip/` - Tag/badge components with optional icons
-- `Icon/` - Icon wrapper components (Icon.svelte uses UnoCSS icons, UIcon.svelte is custom)
-- `ExperienceCard.svelte` - Display experience items
-- `ProjectCard.svelte` - Display project items
-- `NavMenu.svelte` - Navigation menu with theme toggle
-- `Markdown.svelte` - Markdown renderer using marked library
+- Built with **shadcn-svelte** design system
+- Includes: avatar, badge, button, card, dialog, dropdown-menu, input, separator, switch, tabs, tooltip
+- All components use modern Svelte 5 runes syntax
+
+**Feature Components** (`src/lib/components/`):
+
+- `Banner/` - Hero banner component
+- `Card/` - Card components with logo, link, title variants
+- `Carrousel/` - Image carousel for screenshots
+- `ExperienceCard/` - Experience entries display
+- `ProjectCard/` - Project entries display
+- `Markdown.svelte` - Markdown renderer using marked + Prism.js + DOMPurify
 - `SearchPage.svelte` - Search functionality component
-- `CommonPage.svelte` - Common page layout wrapper
+- `CommonPage.svelte` - Base page layout wrapper
+- `NavMenu/` - Navigation menu with theme toggle
+- `Icon/` - Icon system (UIcon for UnoCSS icons, Icon for custom icons)
 
-**Page Components** in `src/routes/`:
+### Markdown Processing
 
-- `+page.svelte` - Home page
-- `projects/` - Projects listing and detail pages
-- `experience/` - Experience listing and detail pages
-- `skills/` - Skills listing and detail pages
-- `education/` - Education listing page
-- `resume/` - Resume page
-- `search/` - Search page
+**Stack:** `marked` → `DOMPurify` → `Prism.js`
 
-### Routing & Data Loading
+The `Markdown.svelte` component:
 
-**Dynamic Routes:**
+1. Uses `marked` with `gfmHeadingId()` and `mangle()` plugins
+2. Sanitizes HTML with `DOMPurify` for security
+3. Applies syntax highlighting with `Prism.js` (supports TypeScript)
+4. Theme: `prism-tomorrow.css`
 
-- `projects/[slug]/+page.ts` - Loads project by slug from `MY_PROJECTS` array
-- `experience/[slug]/+page.ts` - Loads experience by slug from `MY_EXPERIENCES` array
-- `skills/[slug]/+page.ts` - Loads skill by slug from `MY_SKILLS` array
+Markdown content is stored in `src/lib/md/` directory.
 
-All data loading uses SvelteKit's `+page.ts` files with `load` functions that filter by slug.
+### Performance Monitoring
 
-### Utilities
+**Web Vitals integration** in `+layout.svelte`:
 
-**`src/lib/utils/helpers.ts`**:
+- Tracks CLS, INP, LCP, FCP, TTFB
+- Logs to console in development
+- Ready for analytics service integration in production
 
-- `countMonths(from, to)` - Calculate months between dates
-- `getTimeDiff(date1, date2)` - Human-readable time difference
-- `useImage(url, base)` - Construct image URLs with base path
-- `useTitle(title, suffix)` - Construct page titles
-- `capitalize(str)` - Capitalize first letter
-- `addDaysToDate(date, days)` - Date arithmetic
+### Utilities (`src/lib/utils/`)
 
-**`src/lib/utils/index.ts`** - Re-exports utilities including Icons enum.
+- `analytics.svelte.ts` - Analytics tracking utilities
+- `cn.ts` - Class name utilities (likely clsx wrapper)
+- `color.ts` - Color manipulation utilities
+- `eventDelegation.svelte.ts` - Event delegation patterns
+- `helpers.ts` - General helper functions
+- `scrollPreservation.svelte.ts` - Scroll position preservation
+- `index.ts` - Utility exports including `Icons` enum
 
-## Deployment to GitHub Pages
+### Route Structure
 
-**Important Steps:**
+All routes in `src/routes/`:
 
-1. Update `base` constant in `svelte.config.js` to match your GitHub repo name
-2. Enable GitHub Pages in repository settings
-3. Run `yarn build` to generate static files in `build/`
-4. Deploy the `build/` directory to GitHub Pages
+- `/` - Home page with bio and links
+- `/projects` - Projects showcase
+- `/experience` - Work experience timeline
+- `/skills` - Skills and tools
+- `/education` - Education history
+- `/resume` - PDF resume viewer
+- `/search` - Search functionality
 
-**Current base path:** `/portfolio`
+## Development Workflow
 
-## Development Patterns
+### Adding New Content
 
-### Adding New Portfolio Items
+**Projects:**
 
-**To add a project:**
+1. Edit `src/lib/projects.params.ts`
+2. Add project object with all required fields (from `Project` type)
+3. Build will automatically generate project pages
 
-1. Add entry to `src/lib/projects.params.ts` array with required fields (slug, name, logo, description, etc.)
-2. Optionally add markdown content in `src/lib/md/` and reference in description
-3. Add project logo asset to `src/lib/data/assets.ts`
+**Experience:**
 
-**To add an experience:**
+1. Edit `src/lib/experiences.params.ts`
+2. Add experience object (from `Experience` type)
 
-1. Add entry to `src/lib/experiences.params.ts` with company, location, contract type, period, etc.
-2. Follow same pattern as projects
+**Skills:**
 
-**To add a skill:**
+1. Edit `src/lib/skills.params.ts`
+2. Add skill object with name, logo, color
 
-1. Add entry to `src/lib/skills.params.ts` with name, color, logo, etc.
-2. Define color in `src/lib/data/colors.ts` if needed
+**Education:**
 
-### Asset Management
+1. Edit `src/lib/educations.params.ts`
+2. Add education object with organization, degree, subjects, period
 
-**Assets are referenced via:**
+### Adding New UI Components
 
-- `src/lib/data/assets.ts` - Centralized asset paths
-- Type `Asset = string | { light: string; dark: string }` supports theme-specific assets
-- Use `useImage()` helper to construct URLs with base path
+When using shadcn-svelte components, run:
 
-### Markdown Rendering
+```bash
+npx shadcn-svelte@latest add [component-name]
+```
 
-The `Markdown.svelte` component uses:
+This installs to `src/lib/components/ui/`.
 
-- `marked` library for parsing
-- `marked-gfm-heading-id` for heading IDs
-- `marked-mangle` for email obfuscation
-- `prismjs` for syntax highlighting
-- `dompurify` for XSS protection
+### Theme Customization
 
-## TypeScript Patterns
+**CSS Variables:** Update `src/lib/index.scss` for theme colors and variables
 
-**Key Types in `src/lib/types.ts`:**
+**UnoCSS Utilities:** Modify `uno.config.ts` for new shortcuts or presets
 
-- `Item` - Base type for portfolio items (projects, skills, etc.)
-- `Project extends Item` - Includes links, period, skills, color, type
-- `Experience extends Project` - Adds company, location, contract
-- `Education extends Item` - Adds organization, location, period, subjects, degree
-- `Skill extends Omit<Item, 'shortDescription'>` - Adds color
+### Deployment Checklist
 
-**Enums:**
+Before deploying to GitHub Pages:
 
-- `Platform` - Social media platforms (GitHub, LinkedIn, Email, etc.)
-- `ContractType` - Employment types (FullTime, PartTime, Freelance, etc.)
+1. Ensure `base` parameter in `svelte.config.js` matches your repo path
+2. Verify GitHub Pages is enabled in repository settings
+3. Update `RESUME.item` path in `src/lib/params.ts` to include base path
+4. Run `yarn build` to generate static files in `build/` directory
+5. GitHub Pages should point to `build/` directory or use GitHub Actions
 
-## Known Issues
+## Common Patterns
 
-- Svelte no longer supports Node 14 - use Node 16+ (Node 18+ recommended)
+### Creating Type-Safe Pages
 
-## Custom Favicon
+Page parameters follow the pattern:
 
-Replace `static/favicon.ico` to customize the browser tab icon.
+```typescript
+export const MY_PAGE: MyPageParams = {
+	title: 'Page Title',
+	items: MY_ITEMS // from corresponding .params.ts file
+};
+```
 
-## Task Master AI Instructions
-**Import Task Master's development workflow commands and guidelines, treat as if import is in the main CLAUDE.md file.**
-@./.taskmaster/CLAUDE.md
+### Working with Assets
+
+Assets use the `Asset` type which can be:
+
+- Simple string: `"path/to/image.png"`
+- Theme-aware object: `{ light: "light.png", dark: "dark.png" }`
+
+### Icon Usage
+
+Two icon systems:
+
+1. **UIcon** - UnoCSS icons from Iconify (`@iconify-json/carbon`)
+2. **Icon** - Custom SVG icons via `Icons` enum in utils
+
+### State Management
+
+Uses Svelte 5 runes for reactivity:
+
+- `$state` for reactive state
+- `$derived` for computed values
+- `$effect` for side effects
+
+Stores still use Svelte's writable/readable for cross-component state (e.g., theme).
+
+## Important Notes
+
+- **Node.js:** Requires Node 16+ (Svelte 5 dropped Node 14 support)
+- **Prerendering:** All routes are statically generated at build time
+- **Base path:** Production builds include `/portfolio` prefix for GitHub Pages
+- **TypeScript:** Strict mode enabled, all new code should be typed
+- **Markdown security:** All markdown is sanitized with DOMPurify before rendering
+- **Performance:** Web Vitals monitoring is built-in and active

@@ -7,8 +7,9 @@
 	import { isBlank } from '$lib/utils/helpers';
 	import { getAssetURL } from '$lib/data/assets';
 	import UIcon from '$lib/components/Icon/UIcon.svelte';
+	import TabTitle from '$lib/components/TabTitle.svelte';
 
-	const { items, title } = SKILLS;
+	const { items, title, description } = SKILLS;
 
 	let result: Array<Skill> = items;
 
@@ -23,6 +24,7 @@
 	};
 </script>
 
+<TabTitle {title} {description} path="/skills" />
 <SearchPage {title} onsearch={onSearch}>
 	{#if result.length === 0}
 		<div class="p-5 col-center gap-3 m-y-auto text-[var(--accent-text)] flex-1">

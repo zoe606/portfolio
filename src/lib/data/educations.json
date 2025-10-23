@@ -1,0 +1,25 @@
+[
+	{
+		"degree": "Bachelor of Applied Science in Computer Science/Informatics",
+		"description": "Comprehensive computer science education covering software engineering, algorithms, data structures, and modern programming paradigms. Developed strong foundation in web and mobile application development, database management, and system architecture.",
+		"location": "Bandung, Indonesia",
+		"logo": "Unknown",
+		"name": "",
+		"organization": "Indonesia POS Polytechnic",
+		"period": { "from": "2015-01-01", "to": "2019-06-01" },
+		"shortDescription": "Bachelor of Applied Science in Computer Science/Informatics",
+		"slug": "bachelor-degree",
+		"subjects": [
+			"Algorithms and Data Structures",
+			"Computer Architecture",
+			"Web & Mobile Programming",
+			"Database Management",
+			"Machine Learning",
+			"Python",
+			"Java",
+			"C#",
+			"Assembly",
+			"Software Engineering"
+		]
+	}
+]

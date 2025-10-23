@@ -1,0 +1,59 @@
+{
+	"titleSuffix": "Librantara Erlangga Portfolio",
+	"metadata": {
+		"baseUrl": "https://zoe606.github.io/portfolio",
+		"siteName": "Librantara Erlangga Portfolio",
+		"defaultDescription": "Versatile Backend Software Engineer with 5+ years of experience across startup, fintech, and healthcare environments, specialising in Ruby on Rails, GraphQL, and performance-focused backend architecture.",
+		"twitterHandle": "@librantara"
+	},
+	"navBar": {
+		"home": "Home",
+		"personal": "Projects",
+		"career": "Experiences",
+		"resume": "Resume",
+		"skills": "Skills",
+		"Education": "Education"
+	},
+	"home": {
+		"title": "Home",
+		"name": "Librantara",
+		"lastName": "Erlangga",
+		"description": "Versatile Backend Software Engineer with 5+ years of experience building scalable and reliable systems across startup, fintech, and healthcare environments. Proven ability to design, refactor, and modernize Ruby on Rails and GraphQL architectures, integrate complex APIs, and lead initiatives that improve performance, reliability, and developer productivity. Experienced in driving codebase modernization, dependency management, and system optimization for large-scale production environments.",
+		"links": [
+			{ "platform": "github", "link": "https://github.com/zoe606" },
+			{
+				"platform": "linkedin",
+				"link": "https://www.linkedin.com/in/librantara-erlangga/"
+			},
+			{
+				"platform": "email",
+				"link": "librantaraerlangga@gmail.com"
+			}
+		]
+	},
+	"projects": {
+		"title": "Projects",
+		"description": "Selected engineering projects spanning backend platforms, mobile applications, and developer tooling."
+	},
+	"experiences": {
+		"title": "Experiences",
+		"description": "Professional milestones covering backend engineering leadership, product delivery, and platform reliability."
+	},
+	"skills": {
+		"title": "Skills & Tools",
+		"description": "Technologies and tooling used to build resilient services, integrations, and user experiences."
+	},
+	"resume": {
+		"title": "Resume",
+		"description": "Download a current copy of Librantara Erlangga’s CV and professional profile.",
+		"item": "/Librantara_Erlangga_CV_2025.pdf"
+	},
+	"search": {
+		"title": "Search",
+		"description": "Search across projects, skills, and experience highlights."
+	},
+	"education": {
+		"title": "Education",
+		"description": "Academic background and coursework shaping core engineering foundations."
+	}
+}

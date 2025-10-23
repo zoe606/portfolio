@@ -1,0 +1,247 @@
+[
+	{
+		"slug": "go",
+		"color": "Blue",
+		"description": "Go is a statically typed, compiled language designed for simplicity and efficiency. It excels in building scalable and performant applications. With its clean syntax and robust standard library, Go is an excellent choice for various development projects.",
+		"logo": "Go",
+		"name": "Go"
+	},
+	{
+		"slug": "php",
+		"color": "Blue",
+		"description": "PHP is a server-side scripting language widely used for web development. Known for its flexibility and ease of integration, PHP empowers developers to create dynamic and interactive web applications.",
+		"logo": "Php",
+		"name": "PHP"
+	},
+	{
+		"slug": "ruby",
+		"color": "Red",
+		"description": "Ruby is a dynamic, object-oriented programming language that emphasizes simplicity and productivity. It is known for its elegant syntax and developer-friendly features, making it a favorite for building web applications.",
+		"logo": "Ruby",
+		"name": "Ruby"
+	},
+	{
+		"slug": "redis",
+		"color": "Red",
+		"description": "Redis is an in-memory data structure store known for its speed and flexibility. It is often used as a caching mechanism and for real-time analytics, providing high-performance solutions for various applications.",
+		"logo": "Redis",
+		"name": "Redis"
+	},
+	{
+		"slug": "pgsql",
+		"color": "Blue",
+		"description": "PostgreSQL is a powerful, open-source relational database management system. With its advanced features, extensibility, and SQL compliance, PostgreSQL is a reliable choice for handling complex data requirements.",
+		"logo": "PostgreSQL",
+		"name": "PostgreSQL"
+	},
+	{
+		"slug": "mysql",
+		"color": "Orange",
+		"description": "MySQL is a popular open-source relational database management system. It is known for its reliability, ease of use, and scalability, making it a go-to choice for many web applications.",
+		"logo": "Mysql",
+		"name": "MySql"
+	},
+	{
+		"slug": "mongodb",
+		"color": "Green",
+		"description": "MongoDB is a NoSQL database known for its flexibility and scalability. It stores data in a JSON-like format, allowing for dynamic schema design and efficient handling of large volumes of data.",
+		"logo": "MongoDB",
+		"name": "MongoDB"
+	},
+	{
+		"slug": "docker",
+		"color": "Black",
+		"description": "Docker is a platform for automating the deployment and scaling of applications in lightweight, portable containers. It simplifies the process of packaging, distributing, and running applications across diverse environments.",
+		"logo": "Docker",
+		"name": "Docker"
+	},
+	{
+		"slug": "rabbit-mq",
+		"color": "Orange",
+		"description": "RabbitMQ is a message broker that facilitates communication between distributed systems. It provides a reliable and scalable solution for handling message queues in various applications.",
+		"logo": "RabbitMQ",
+		"name": "RabbitMq"
+	},
+	{
+		"slug": "kafka",
+		"color": "Black",
+		"description": "Apache Kafka is a distributed streaming platform known for its high-throughput, fault-tolerance, and real-time data processing capabilities. It is widely used for building scalable and resilient data pipelines.",
+		"logo": "Kafka",
+		"name": "Kafka"
+	},
+	{
+		"slug": "grpc",
+		"color": "Blue",
+		"description": "gRPC is a modern open-source framework for building efficient and scalable APIs. It uses the HTTP/2 protocol for communication and Protocol Buffers for serialization, providing high-performance and language-agnostic RPC.",
+		"logo": "Grpc",
+		"name": "Grpc"
+	},
+	{
+		"slug": "graphql",
+		"color": "Pink",
+		"description": "GraphQL is a query language for APIs and a runtime for executing those queries. It provides a complete and understandable description of the data in your API, giving clients the power to ask for exactly what they need and nothing more.",
+		"logo": "Unknown",
+		"name": "GraphQL"
+	},
+	{
+		"slug": "js",
+		"color": "Yellow",
+		"description": "JavaScript is a versatile and widely used programming language that powers dynamic content on the web. With its extensive ecosystem and support for both client and server-side development, JavaScript is essential for modern web applications.",
+		"logo": "JavaScript",
+		"name": "Javascript"
+	},
+	{
+		"slug": "ts",
+		"color": "Blue",
+		"description": "TypeScript is a superset of JavaScript that adds static typing and other features to enhance developer productivity and code quality. It allows for better collaboration and catches potential errors early in the development process.",
+		"logo": "TypeScript",
+		"name": "Typescript"
+	},
+	{
+		"slug": "css",
+		"color": "Blue",
+		"description": "CSS (Cascading Style Sheets) is a fundamental technology for styling web pages. It enables developers to control the layout and appearance of HTML elements, creating visually appealing and responsive user interfaces.",
+		"logo": "CSS",
+		"name": "CSS"
+	},
+	{
+		"slug": "bootstrap",
+		"color": "Purple",
+		"description": "Bootstrap is a popular front-end framework that simplifies the process of designing responsive and aesthetically pleasing websites. It provides a set of pre-designed components and styles, allowing for rapid development.",
+		"logo": "Bootstrap",
+		"name": "Bootstrap"
+	},
+	{
+		"slug": "html",
+		"color": "Orange",
+		"description": "HTML (Hypertext Markup Language) is the standard markup language for creating web pages and web applications. It structures content on the web and serves as the foundation for building interactive and accessible sites.",
+		"logo": "HTML",
+		"name": "HTML"
+	},
+	{
+		"slug": "git",
+		"color": "Orange",
+		"description": "Git is a distributed version control system widely used for tracking changes in source code during software development. It facilitates collaboration among developers and provides a robust history of project modifications.",
+		"logo": "Git",
+		"name": "Git"
+	},
+	{
+		"slug": "sass",
+		"color": "Pink",
+		"description": "Sass is a CSS preprocessor that adds powerful features like variables, nesting, and mixins, helping developers write maintainable and reusable stylesheets for complex user interfaces.",
+		"logo": "Sass",
+		"name": "Sass"
+	},
+	{
+		"slug": "laravel",
+		"color": "Cyan",
+		"description": "Laravel is a PHP web application framework known for its elegant syntax and developer-friendly features. It simplifies common tasks in web development, allowing developers to focus on building robust and scalable applications.",
+		"logo": "Laravel",
+		"name": "Laravel"
+	},
+	{
+		"slug": "yii2",
+		"color": "Green",
+		"description": "Yii 2 is a high-performance PHP framework designed for developing modern web applications. It follows the MVC pattern and includes features such as code generation and a powerful caching system for efficient development.",
+		"logo": "Yii2",
+		"name": "Yii 2"
+	},
+	{
+		"slug": "ruby-on-rails",
+		"color": "Red",
+		"description": "Ruby on Rails, or Rails, is a web application framework written in Ruby. It follows the convention over configuration and don't repeat yourself principles, streamlining the development of robust and maintainable applications.",
+		"logo": "Rails",
+		"name": "Ruby On Rails"
+	},
+	{
+		"slug": "jquery",
+		"color": "Black",
+		"description": "jQuery is a fast and lightweight JavaScript library designed to simplify HTML document traversal and manipulation, event handling, and animation. It makes front-end development more accessible and efficient.",
+		"logo": "Jquery",
+		"name": "Jquery"
+	},
+	{
+		"slug": "reactjs",
+		"color": "Blue",
+		"description": "React is a JavaScript library for building user interfaces, particularly for single-page applications where data can change over time. It enables developers to create reusable UI components, making the development process modular and efficient.",
+		"logo": "ReactJs",
+		"name": "Reactjs"
+	},
+	{
+		"slug": "react-native",
+		"color": "Blue",
+		"description": "React Native is a framework for building native mobile applications using React. It allows developers to use React along with native platform capabilities, enabling cross-platform mobile development with a single codebase.",
+		"logo": "ReactJs",
+		"name": "React Native"
+	},
+	{
+		"slug": "svelte",
+		"color": "Orange",
+		"description": "Svelte is a front-end framework that compiles components to highly efficient imperative code, delivering snappy user experiences with minimal runtime overhead.",
+		"logo": "Svelte",
+		"name": "Svelte"
+	},
+	{
+		"slug": "vuejs",
+		"color": "Green",
+		"description": "Vue.js is a progressive JavaScript framework for building user interfaces. It is approachable, versatile, and easy to integrate, making it an excellent choice for both small-scale projects and larger applications.",
+		"logo": "VueJs",
+		"name": "Vuejs"
+	},
+	{
+		"slug": "aws-s3",
+		"color": "Orange",
+		"description": "Amazon S3 is a versatile and scalable object storage service that offers durable, highly available storage for a wide range of workloads from static assets to data lake workloads.",
+		"logo": "S3",
+		"name": "Amazon S3"
+	},
+	{
+		"slug": "ci",
+		"color": "Orange",
+		"description": "CodeIgniter is a lightweight PHP framework that helps developers build web applications rapidly with minimal configuration and a small footprint.",
+		"logo": "CI",
+		"name": "Codeigniter"
+	},
+	{
+		"slug": "nextjs",
+		"color": "Black",
+		"description": "Next.js is a React framework that enables hybrid static and server rendering, route prefetching, and a rich developer experience out of the box.",
+		"logo": "NextJs",
+		"name": "NextJs"
+	},
+	{
+		"slug": "sentry",
+		"color": "Purple",
+		"description": "Sentry is an error tracking and performance monitoring platform that helps developers identify, triage, and resolve issues in real-time.",
+		"logo": "Unknown",
+		"name": "Sentry"
+	},
+	{
+		"slug": "new-relic",
+		"color": "Green",
+		"description": "New Relic is an observability platform that provides real-time insights into application performance, infrastructure monitoring, and user experience.",
+		"logo": "Unknown",
+		"name": "New Relic"
+	},
+	{
+		"slug": "linux",
+		"color": "Black",
+		"description": "Linux is an open-source operating system widely used for servers, development environments, and production deployments. Proficiency includes command-line operations, system administration, and shell scripting.",
+		"logo": "Unknown",
+		"name": "Linux"
+	},
+	{
+		"slug": "minio",
+		"color": "Yellow",
+		"description": "MinIO is a high-performance, S3-compatible object storage solution used for building scalable, cloud-native data architectures on-premise or in the cloud.",
+		"logo": "Minio",
+		"name": "MinIO"
+	},
+	{
+		"slug": "pubsub",
+		"color": "Yellow",
+		"description": "Publish/Subscribe messaging patterns enable loosely coupled services to communicate asynchronously, supporting scalable event-driven architectures with brokers like Kafka or RabbitMQ.",
+		"logo": "Unknown",
+		"name": "Pub/Sub"
+	}
+]

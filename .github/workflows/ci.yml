@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Detect content changes
+        id: changes
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            data:
+              - 'src/lib/data/**/*.json'
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Type check
+        run: yarn check
+
+      - name: Lint
+        run: yarn lint:ci
+
+      - name: Summarise data changes
+        if: steps.changes.outputs.data == 'true'
+        shell: bash
+        run: |
+          if [ -n "${{ github.base_ref }}" ]; then
+            git fetch origin "${{ github.base_ref }}" --depth=1
+            git diff --name-only "origin/${{ github.base_ref }}"...HEAD src/lib/data || true
+          else
+            git diff --name-only HEAD^ HEAD src/lib/data || true
+          fi
