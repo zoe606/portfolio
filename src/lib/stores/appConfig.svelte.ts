@@ -25,9 +25,7 @@ interface SiteConfig {
 	};
 }
 
-// Create frozen (immutable) configuration
-// Any attempt to mutate will throw in dev mode
-export const appConfig = $state.frozen<SiteConfig>({
+const config: SiteConfig = {
 	siteName: 'Portfolio',
 	siteUrl: 'https://zoe606.github.io/portfolio',
 	author: {
@@ -47,7 +45,10 @@ export const appConfig = $state.frozen<SiteConfig>({
 		themeToggle: true,
 		webVitals: true
 	}
-});
+};
+
+// Freeze to guard against accidental mutations in dev
+export const appConfig: Readonly<SiteConfig> = Object.freeze(config);
 
 // Type-safe getter functions
 export function getFeatureFlag(feature: keyof SiteConfig['features']): boolean {

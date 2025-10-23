@@ -1,17 +1,27 @@
 <script lang="ts">
-	import { Avatar as AvatarPrimitive } from 'bits-ui';
-	import { cn } from '$lib/utils.js';
+	import { cn } from '$lib/utils/cn';
+	import type { Snippet } from 'svelte';
+	import type { HTMLAttributes } from 'svelte/elements';
+
+	interface Props extends HTMLAttributes<HTMLDivElement> {
+		ref?: HTMLDivElement | null;
+		class?: string;
+		children?: Snippet;
+	}
 
 	let {
-		ref = $bindable(null),
-		class: className,
+		ref = $bindable<HTMLDivElement | null>(null),
+		class: className = '',
+		children,
 		...restProps
-	}: AvatarPrimitive.FallbackProps = $props();
+	}: Props = $props();
 </script>
 
-<AvatarPrimitive.Fallback
-	bind:ref
+<div
+	bind:this={ref}
 	data-slot="avatar-fallback"
 	class={cn('bg-muted flex size-full items-center justify-center rounded-full', className)}
 	{...restProps}
-/>
+>
+	{@render children?.()}
+</div>

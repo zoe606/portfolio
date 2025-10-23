@@ -27,22 +27,44 @@
 			onItemClick(item);
 		}
 	}
+
+	function handleKeyDown(event: KeyboardEvent) {
+		if (event.key !== 'Enter' && event.key !== ' ') {
+			return;
+		}
+
+		const target = (event.target as HTMLElement).closest('[data-item-id]') as HTMLElement | null;
+
+		if (!target) return;
+
+		event.preventDefault();
+		const itemId = target.dataset.itemId;
+		const item = items.find((i) => String(i.id) === itemId);
+
+		if (item && onItemClick) {
+			onItemClick(item);
+		}
+	}
 </script>
 
-<!-- Single click handler on parent instead of N handlers on children -->
-<ul class="optimized-list {className}" onclick={handleClick}>
+<!-- Single event handler on parent instead of individual listeners -->
+<div
+	class={`optimized-list ${className}`}
+	role="listbox"
+	tabindex="0"
+	onclick={handleClick}
+	onkeydown={handleKeyDown}
+>
 	{#each items as item (item.id)}
-		<li data-item-id={item.id} class="list-item">
+		<div data-item-id={item.id} class="list-item" role="option" aria-selected="false" tabindex="-1">
 			{@html renderItem(item)}
-		</li>
+		</div>
 	{/each}
-</ul>
+</div>
 
 <style>
 	.optimized-list {
-		list-style: none;
-		padding: 0;
-		margin: 0;
+		outline: none;
 	}
 
 	.list-item {
