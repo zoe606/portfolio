@@ -1,1 +1,0 @@
-import"./DsnmJJEf.js";import{f as i,t as m,d as p}from"./DHw3sN_x.js";import{d as c}from"./CFrM1-nq.js";import{p as t}from"./DPHbjRWq.js";var f=i("<i></i>");function v(a,o){let r=t(o,"icon",3,""),e=t(o,"classes",3,"");var s=f();m(()=>c(s,1,`${r()} ${e()}`)),p(a,s)}export{v as U};
