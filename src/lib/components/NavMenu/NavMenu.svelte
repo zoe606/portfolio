@@ -1,18 +1,9 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import { HOME, NavBar } from '$lib/params';
 	import { theme, toggleTheme } from '$lib/stores/theme';
 
 	import { base } from '$app/paths';
 	import UIcon from '../Icon/UIcon.svelte';
-
-	let currentRoute = $state('/');
-
-	$effect(() => {
-		if ($page) {
-			currentRoute = $page.url.pathname;
-		}
-	});
 
 	const items = [
 		{ title: NavBar.skills, to: '/skills', icon: 'i-carbon-software-resource-cluster' },
@@ -34,7 +25,7 @@
 			<span class="ml-2 text-md font-bold hidden md:inline">{HOME.name} {HOME.lastName}</span>
 		</a>
 		<div class="flex flex-row flex-1 self-center justify-center">
-			{#each items as item}
+			{#each items as item (item.to)}
 				<a
 					data-sveltekit-replacestate
 					href={`${base}${item.to}`}

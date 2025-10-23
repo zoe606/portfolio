@@ -1,5 +1,5 @@
 <script>
-	import { base } from '$app/paths';
+	// Simple back button using browser history
 </script>
 
 <button class="back-button" on:click={() => history.back()}>Back</button>

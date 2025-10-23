@@ -1,5 +1,4 @@
 <script lang="ts">
-	/* eslint-disable svelte/no-navigation-without-resolve */
 	import Carrousel from '$lib/components/Carrousel/Carrousel.svelte';
 	import Icon from '$lib/components/Icon/Icon.svelte';
 	import MainTitle from '$lib/components/MainTitle/MainTitle.svelte';

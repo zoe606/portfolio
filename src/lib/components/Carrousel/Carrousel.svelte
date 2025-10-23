@@ -83,7 +83,7 @@
 	</button>
 
 	<div bind:this={element} class="row overflow-hidden box-content w-150px">
-		{#each items as item}
+		{#each items as item (item.slug || item.name)}
 			<div class="box-content w-150px p-15px col-center">
 				<img
 					class="w-120px h-120px aspect-square"
