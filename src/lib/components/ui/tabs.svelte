@@ -35,7 +35,7 @@
 		class="tabs-list inline-flex h-10 items-center justify-center rounded-md bg-[var(--secondary)] p-1 text-[var(--tertiary-text)]"
 		role="tablist"
 	>
-		{#each tabs as tab}
+		{#each tabs as tab (tab.value)}
 			<button
 				type="button"
 				role="tab"

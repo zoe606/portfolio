@@ -27,7 +27,6 @@
 </script>
 
 {#if open}
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
 		class="dialog-overlay fixed inset-0 z-50 bg-black/50 flex items-center justify-center"
 		on:click={handleBackdropClick}

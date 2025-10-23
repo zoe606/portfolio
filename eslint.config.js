@@ -25,6 +25,17 @@ export default [
 			parserOptions: {
 				parser: tseslint.parser
 			}
+		},
+		rules: {
+			'svelte/no-navigation-without-resolve': 'off',
+			'svelte/no-dom-manipulating': 'off',
+			'svelte/no-at-html-tags': 'off'
+		}
+	},
+	{
+		files: ['**/*.svelte.ts'],
+		languageOptions: {
+			parser: tseslint.parser
 		}
 	},
 	{

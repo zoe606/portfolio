@@ -23,7 +23,7 @@
 	// Only render as link if href is provided AND not disabled
 	$: shouldBeLink = href && !disableLink;
 
-	$: baseClasses =
+	const baseClasses =
 		'inline-flex items-center row-center relative rounded-10px border-1px border-solid p-10px m-r-5px m-b-5px decoration-none duration-150ms hover:border-[var(--border-hover)]';
 	$: cursorClass = shouldBeLink ? 'cursor-pointer' : 'cursor-help';
 	$: grayscaleClass = grayscale ? 'grayscale-65 hover:grayscale-0' : '';

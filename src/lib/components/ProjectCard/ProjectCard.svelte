@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { countMonths, getMonthName, getTimeDiff } from '$lib/utils/helpers';
+	import { getMonthName, getTimeDiff } from '$lib/utils/helpers';
 	import { Badge, BadgeWithIcon, CardEnhanced, Separator } from '$lib/components/ui';
 	import CardTitle from '../Card/CardTitle.svelte';
 	import CardLink from '../Card/CardLink.svelte';
@@ -11,13 +11,11 @@
 	export let project: Project;
 
 	// Calculate the display period
-	let months: number;
 	let period: string;
 	let from: string;
 	let to: string;
 
 	$: {
-		months = countMonths(project.period.from, project.period.to);
 		period = `${getTimeDiff(project.period.from, project.period.to ?? new Date(Date.now() + 1000 * 60 * 60 * 24))}`;
 		from = `${getMonthName(project.period.from.getMonth())} ${project.period.from.getFullYear()}`;
 		to = project.period.to
@@ -28,7 +26,7 @@
 
 <CardEnhanced color={project.color} href={`${base}/projects/${project.slug}`}>
 	<!-- Lazy-loaded image -->
-	<CardLogo alt={project.name} src={getAssetURL(project.logo)} size={40} radius={'0'} />
+	<CardLogo alt={project.name} src={getAssetURL(project.logo)} size={40} radius="0" />
 
 	<div class="m-t-20px row justify-between items-center">
 		<CardTitle title={project.name} />
@@ -36,7 +34,7 @@
 		<!-- Conditional rendering of links -->
 		{#if project.links.length > 0}
 			<div class="row">
-				{#each project.links as link}
+				{#each project.links as link (link.to)}
 					<CardLink label={link.label ?? ''} to={link.to} />
 				{/each}
 			</div>
@@ -68,7 +66,7 @@
 
 	<div class="row">
 		<!-- Lazy-loaded BadgeWithIcon -->
-		{#each project.skills as tech}
+		{#each project.skills as tech (tech.slug)}
 			<BadgeWithIcon
 				logo={getAssetURL(tech.logo)}
 				name={tech.name}
