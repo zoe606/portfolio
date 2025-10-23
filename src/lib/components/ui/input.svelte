@@ -29,12 +29,4 @@
 	);
 </script>
 
-<input
-	bind:value
-	class={inputClasses}
-	{oninput}
-	{onchange}
-	{onfocus}
-	{onblur}
-	{...restProps}
-/>
+<input bind:value class={inputClasses} {oninput} {onchange} {onfocus} {onblur} {...restProps} />

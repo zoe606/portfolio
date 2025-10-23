@@ -10,20 +10,46 @@ import {
 	type SkillsPageParams,
 	type ResumePageParams,
 	type SearchPageParams,
-	type EducationPageParams
+	type EducationPageParams,
+	type SiteConfig,
+	type SiteMetadata
 } from './types';
 import { Icons } from './utils';
+import rawSiteConfig from './data/site.json';
 
-export const TITLE_SUFFIX = 'Librantara Erlangga Portfolio';
-
-export const NavBar = {
-	home: 'Home',
-	personal: 'Projects',
-	career: 'Experiences',
-	resume: 'Resume',
-	skills: 'Skills',
-	Education: 'Education'
+type RawHomeLink = {
+	platform: string;
+	link: string;
 };
+
+const siteConfig = rawSiteConfig as SiteConfig;
+
+const toPlatform = (platform: string): Platform => {
+	switch (platform.toLowerCase()) {
+		case Platform.GitHub:
+			return Platform.GitHub;
+		case Platform.Linkedin:
+			return Platform.Linkedin;
+		case Platform.StackOverflow:
+			return Platform.StackOverflow;
+		case Platform.Facebook:
+			return Platform.Facebook;
+		case Platform.Email:
+			return Platform.Email;
+		case Platform.Twitter:
+			return Platform.Twitter;
+		case Platform.Youtube:
+			return Platform.Youtube;
+		default:
+			return Platform.Email;
+	}
+};
+
+export const SITE_METADATA: SiteMetadata = siteConfig.metadata ?? {};
+
+export const TITLE_SUFFIX = siteConfig.titleSuffix;
+
+export const NavBar = siteConfig.navBar;
 
 export const getPlatfromIcon = (platform: Platform): Icons => {
 	switch (platform) {
@@ -45,59 +71,47 @@ export const getPlatfromIcon = (platform: Platform): Icons => {
 };
 
 export const HOME: HomePageParams = {
-	title: 'Home',
-	name: 'Librantara',
-	lastName: 'Erlangga',
-	description:
-		'Versatile Backend Software Engineer with 5+ years of experience building scalable and reliable systems across startup, fintech, and healthcare environments. Proven ability to design, refactor, and modernize Ruby on Rails and GraphQL architectures, integrate complex APIs, and lead initiatives that improve performance, reliability, and developer productivity. Experienced in driving codebase modernization, dependency management, and system optimization for large-scale production environments.',
-	links: [
-		{ platform: Platform.GitHub, link: 'https://github.com/zoe606' },
-		{
-			platform: Platform.Linkedin,
-			link: 'https://www.linkedin.com/in/librantara-erlangga/'
-		},
-		{
-			platform: Platform.Email,
-			link: 'librantaraerlangga@gmail.com'
-		}
-	]
+	title: siteConfig.home.title,
+	name: siteConfig.home.name,
+	lastName: siteConfig.home.lastName,
+	description: siteConfig.home.description,
+	links: (siteConfig.home.links as Array<RawHomeLink>).map((link) => ({
+		platform: toPlatform(link.platform),
+		link: link.link
+	}))
 };
 
-function getDescription(startYear: number): string {
-	const currentYear = new Date().getFullYear();
-	const yearsOfExperience = currentYear - startYear;
-
-	// Adjust the text based on the number of years
-	const yearsText = yearsOfExperience === 1 ? '1 year' : `${yearsOfExperience} years`;
-
-	return `Innovative full-stack developer with ${yearsText} of experience, excelling in PHP, Golang, Ruby, and seamless third-party integrations. Proven track record with 10+ healthcare institutions adopting my solutions. Current role involves crafting and maintaining high-quality services, while my expertise continues to grow.`;
-}
-
 export const PROJECTS: ProjectPageParams = {
-	title: 'Projects',
+	title: siteConfig.projects.title,
+	description: siteConfig.projects.description,
 	items: MY_PROJECTS
 };
 
 export const EXPERIENCES: ExperiencePageParams = {
-	title: 'Experiences',
+	title: siteConfig.experiences.title,
+	description: siteConfig.experiences.description,
 	items: MY_EXPERIENCES
 };
 
 export const SKILLS: SkillsPageParams = {
-	title: 'Skills & Tools',
+	title: siteConfig.skills.title,
+	description: siteConfig.skills.description,
 	items: MY_SKILLS
 };
 
 export const RESUME: ResumePageParams = {
-	title: 'Resume',
-	item: '/portfolio/Librantara_Erlangga_CV_2025.pdf'
+	title: siteConfig.resume.title,
+	description: siteConfig.resume.description,
+	item: siteConfig.resume.item
 };
 
 export const SEARCH: SearchPageParams = {
-	title: 'Search'
+	title: siteConfig.search.title,
+	description: siteConfig.search.description
 };
 
 export const EDUCATION: EducationPageParams = {
 	items: MY_EDUCATIONS,
-	title: 'Education'
+	title: siteConfig.education.title,
+	description: siteConfig.education.description
 };

@@ -25,7 +25,7 @@
 
 	export let data: { skill?: Skill };
 
-	const { title } = SKILLS;
+	const { title, description: skillsPageDescription } = SKILLS;
 
 	const getRelatedProjects = (): Array<Related> => {
 		const out: Array<Related> = [];
@@ -63,11 +63,12 @@
 	};
 
 	$: computedTitle = data.skill ? `${data.skill.name} - ${title}` : title;
-
+	$: skillPath = data.skill ? `/skills/${data.skill.slug}` : '/skills';
+	$: skillDescription = data.skill?.description ?? skillsPageDescription;
 	$: related = data.skill ? getRelatedProjects() : [];
 </script>
 
-<TabTitle title={computedTitle} />
+<TabTitle title={computedTitle} description={skillDescription} path={skillPath} type="article" />
 
 <div class="pb-10 overflow-x-hidden col flex-1">
 	{#if data.skill === undefined}
@@ -97,12 +98,9 @@
 			</div>
 			<div class="flex flex-row gap-1 self-stretch flex-wrap">
 				<div class="px-10px">
-					{#each related as item}
-						<Badge
-							class="inline-flex flex-row items-center justify-center"
-							href={`${base}${item.url}`}
-						>
-							<CardLogo src={item.img} alt={item.name} radius={'0px'} size={15} classes="mr-2" />
+					{#each related as item (item.url)}
+						<Badge class="inline-flex flex-row items-center justify-center" href={base + item.url}>
+							<CardLogo src={item.img} alt={item.name} radius="0px" size={15} classes="mr-2" />
 							<span class="text-[0.9em]">{item.display}</span>
 						</Badge>
 					{/each}

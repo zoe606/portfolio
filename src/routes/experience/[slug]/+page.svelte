@@ -19,9 +19,17 @@
 	const { title } = EXPERIENCES;
 
 	$: computedTitle = data.experience ? `${data.experience.name} - ${title}` : title;
+	$: experiencePath = data.experience ? `/experience/${data.experience.slug}` : '/experience';
+	$: experienceDescription =
+		data.experience?.shortDescription ?? data.experience?.description ?? EXPERIENCES.description;
 </script>
 
-<TabTitle title={computedTitle} />
+<TabTitle
+	title={computedTitle}
+	description={experienceDescription}
+	path={experiencePath}
+	type="article"
+/>
 
 <div class="pb-10 overflow-x-hidden col flex-1">
 	{#if data.experience === undefined}
@@ -46,7 +54,8 @@
 						<Separator />
 					</div>
 					<div class="row-center flex-wrap text-[0.9em] text-[var(--tertiary-text)] m-b-2">
-						{#each data.experience.links as item}
+						{#each data.experience.links as item (item.to ?? item.label)}
+							<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 							<Badge href={item.to}>
 								<div class="row-center gap-2">
 									<UIcon icon="i-carbon-link" />
@@ -56,7 +65,7 @@
 						{/each}
 					</div>
 					<div class="row-center flex-wrap m-b-2">
-						{#each data.experience.skills as item}
+						{#each data.experience.skills as item (item.slug)}
 							<Badge
 								classes="inline-flex flex-row items-center justify-center"
 								href={`${base}/skills/${item.slug}`}
@@ -64,7 +73,7 @@
 								<CardLogo
 									src={getAssetURL(item.logo)}
 									alt={item.name}
-									radius={'0px'}
+									radius="0px"
 									size={15}
 									classes="mr-2"
 								/>

@@ -8,8 +8,9 @@
 	import MY_SKILLS from '$lib/skills.params';
 	import { Badge } from '$lib/components/ui';
 	import UIcon from '$lib/components/Icon/UIcon.svelte';
+	import TabTitle from '$lib/components/TabTitle.svelte';
 
-	const { title } = SEARCH;
+	const { title, description } = SEARCH;
 
 	type Item<T = unknown> = {
 		icon: string;
@@ -19,14 +20,11 @@
 	};
 
 	let query = '';
-	let mounted = false;
 	let result: Array<Item> = [];
 
 	onMount(() => {
-		let searchParams = new URLSearchParams(window.location.search);
-
+		const searchParams = new URLSearchParams(window.location.search);
 		query = searchParams.get('q') ?? '';
-		mounted = true;
 	});
 
 	$: {
@@ -70,6 +68,7 @@
 	}
 </script>
 
+<TabTitle {title} {description} path="/search" />
 <SearchPage {title} onsearch={(e) => (query = e.detail.search)}>
 	<div class="flex flex-col items-stretch gap-10 p-2"></div>
 	{#if !query}
@@ -86,7 +85,7 @@
 				</div>
 			{:else}
 				<div class="flex flex-row flex-wrap gap-1">
-					{#each result as item}
+					{#each result as item (item.to)}
 						<Badge href={`${base}/${item.to}`} class="flex flex-row items-center gap-2">
 							<UIcon icon={item.icon} />
 							<span>{item.name}</span>

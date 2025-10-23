@@ -19,9 +19,16 @@
 	const { title } = PROJECTS;
 
 	const screenshots = data.project?.screenshots ?? [];
+	$: projectPath = data.project ? `/projects/${data.project.slug}` : '/projects';
+	$: projectDescription =
+		data.project?.shortDescription ?? data.project?.description ?? PROJECTS.description;
+
+	const resolveAssetUrl = (asset: Asset): string => {
+		return typeof asset === 'string' ? asset : asset.light;
+	};
 
 	// Function to open the image in a new tab
-	function openInNewTab(url: any) {
+	function openInNewTab(url: string) {
 		const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
 		if (newWindow) newWindow.opener = null;
 	}
@@ -29,7 +36,12 @@
 	$: computedTitle = data.project ? `${data.project.name} - ${title}` : title;
 </script>
 
-<TabTitle title={computedTitle} />
+<TabTitle
+	title={computedTitle}
+	description={projectDescription}
+	path={projectPath}
+	type="article"
+/>
 
 <div class="pb-10 overflow-x-hidden col flex-1">
 	{#if data.project === undefined}
@@ -49,7 +61,8 @@
 						<Separator />
 					</div>
 					<div class="row-center flex-wrap text-[0.9em] text-[var(--tertiary-text)] m-b-2">
-						{#each data.project.links as item}
+						{#each data.project.links as item (item.to ?? item.label)}
+							<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 							<Badge href={item.to}>
 								<div class="row-center gap-2">
 									<UIcon icon="i-carbon-link" />
@@ -59,7 +72,7 @@
 						{/each}
 					</div>
 					<div class="row-center flex-wrap m-b-2">
-						{#each data.project.skills as item}
+						{#each data.project.skills as item (item.slug)}
 							<Badge
 								classes="inline-flex flex-row items-center justify-center"
 								href={`${base}/skills/${item.slug}`}
@@ -67,7 +80,7 @@
 								<CardLogo
 									src={getAssetURL(item.logo)}
 									alt={item.name}
-									radius={'0px'}
+									radius="0px"
 									size={15}
 									classes="mr-2"
 								/>
@@ -96,14 +109,19 @@
 					<div
 						class="px-10px grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 m-t-10"
 					>
-						{#each screenshots as item}
+						{#each screenshots as item (resolveAssetUrl(item.src))}
 							<!-- svelte-ignore a11y-click-events-have-key-events -->
 							<!-- svelte-ignore a11y-no-static-element-interactions -->
 							<div
 								class="col-center gap-3 overflow-hidden w-100% h-100% rounded-10px"
-								on:click={() => openInNewTab(item.src)}
+								on:click={() => openInNewTab(resolveAssetUrl(item.src))}
 							>
-								<img class="aspect-video w-100%" src={item.src} alt={item.label} loading="lazy" />
+								<img
+									class="aspect-video w-100%"
+									src={resolveAssetUrl(item.src)}
+									alt={item.label}
+									loading="lazy"
+								/>
 								<p class="text-[var(--tertiary-text)] font-300">{item.label}</p>
 							</div>
 						{/each}

@@ -1,321 +1,89 @@
+import type { Project, Skill, Asset } from './types';
+import Colors from './data/colors';
 import Assets from './data/assets';
 import Screenshoot from './data/screenshoot';
 import { getSkills } from './skills.params';
-import type { Project } from './types';
-import Colors from './data/colors';
-import { addDaysToDate } from './utils';
+import projectsData from './data/projects.json';
 
-const MY_PROJECTS: Array<Project> = [
-	{
-		no: 1,
-		slug: 'luce-backend-internal-apps',
-		color: Colors.Blue,
-		description:
-			"Led the development and maintenance of Luce's comprehensive backend internal system serving multiple platforms. Architected and implemented a robust GraphQL API that powers internal administrative applications, client-facing websites, and mobile applications. The system handles critical business operations including user management, property maintenance workflows, service requests, and real-time data synchronization across all platforms. Implemented advanced caching strategies, optimized database queries, and established monitoring systems using Sentry and New Relic to ensure 99.9% uptime. Successfully scaled the system to handle increasing load while maintaining sub-500ms response times for 95% of API calls.",
-		shortDescription:
-			'GraphQL API backend serving internal apps, client websites, and mobile applications for property maintenance operations.',
-		links: [],
-		logo: Assets.Ruby,
-		name: 'Luce Backend Internal Apps',
-		period: {
-			from: new Date(2025, 0, 1)
-		},
-		skills: getSkills('ruby', 'ruby-on-rails', 'graphql', 'pgsql', 'redis', 'docker', 'git'),
-		type: 'Internal API Platform',
-		screenshots: []
+type ColorKey = keyof typeof Colors;
+type AssetKey = keyof typeof Assets;
+type ScreenshotKey = keyof typeof Screenshoot;
+
+type RawProject = {
+	no: number;
+	slug: string;
+	color: ColorKey | string;
+	description: string;
+	shortDescription: string;
+	links: Array<{
+		label: string;
+		to: string;
+		newTab?: boolean;
+	}>;
+	logo: AssetKey | string;
+	name: string;
+	period: {
+		from: string;
+		to?: string;
+	};
+	skills: Array<string>;
+	type: string;
+	screenshots?: Array<{
+		label?: string;
+		src: ScreenshotKey | string;
+	}>;
+};
+
+const toDate = (value: string | undefined): Date | undefined => {
+	if (!value) return undefined;
+	const date = new Date(value);
+	return Number.isNaN(date.valueOf()) ? undefined : date;
+};
+
+const toAsset = (key: AssetKey | string): Asset => {
+	return (Assets as Record<string, Asset>)[key] ?? Assets.Unknown;
+};
+
+const toColor = (key: ColorKey | string): string => {
+	return (Colors as Record<string, string>)[key] ?? (typeof key === 'string' ? key : Colors.Blue);
+};
+
+const toSkills = (skillSlugs: Array<string>): Array<Skill> => {
+	if (!skillSlugs.length) return [];
+	const resolved = getSkills(...skillSlugs);
+	// Preserve ordering provided in JSON and fall back to placeholder skills when missing.
+	return skillSlugs
+		.map((slug) => resolved.find((skill) => skill.slug === slug))
+		.filter((skill): skill is Skill => Boolean(skill));
+};
+
+const toScreenshots = (items: RawProject['screenshots']): Project['screenshots'] => {
+	if (!items?.length) return [];
+	return items.map((item) => {
+		const src = (Screenshoot as Record<string, Asset>)[item.src] ?? (item.src as unknown as Asset);
+		return {
+			label: item.label ?? '',
+			src
+		};
+	});
+};
+
+const MY_PROJECTS: Array<Project> = (projectsData as Array<RawProject>).map((project) => ({
+	no: project.no,
+	slug: project.slug,
+	color: toColor(project.color),
+	description: project.description,
+	shortDescription: project.shortDescription,
+	links: project.links ?? [],
+	logo: toAsset(project.logo),
+	name: project.name,
+	period: {
+		from: toDate(project.period.from) ?? new Date(),
+		...(project.period.to ? { to: toDate(project.period.to) } : {})
 	},
-	{
-		no: 2,
-		slug: 'luce-workers-mobile-app',
-		color: Colors.Green,
-		description:
-			"Developed and maintained Luce's mobile application for field workers using React Native, enabling technicians and maintenance staff to manage their daily tasks efficiently on-the-go. The app provides real-time access to work orders, property information, service requests, and client details. Implemented offline-first architecture to ensure workers can access critical information even without internet connectivity, with automatic data synchronization when connection is restored. Features include push notifications for urgent tasks, photo capture and upload for work documentation, digital signatures for job completion, and real-time status updates. Integrated seamlessly with the GraphQL backend API to provide instant access to the latest property maintenance data and schedules.",
-		shortDescription:
-			'React Native mobile app for field workers to manage maintenance tasks, work orders, and service requests on-the-go.',
-		links: [],
-		logo: Assets.ReactJs,
-		name: 'Luce Workers Mobile App',
-		period: {
-			from: new Date(2025, 0, 1)
-		},
-		skills: getSkills('react-native', 'reactjs', 'js', 'graphql'),
-		type: 'Mobile Application',
-		screenshots: []
-	},
-	{
-		no: 3,
-		slug: 'privy-ocsaver',
-		color: Colors.Orange,
-		description:
-			"As a new member of the Privy team, I played a pivotal role in CIMB Octo Saver's backend development, marking my first project with Privy. Assigned to design and implement the website's API using Ruby and Ruby on Rails, I successfully navigated the challenge within a tight 14-day timeframe. Despite being my debut at Privy, I leveraged my skills and collaborative spirit to contribute significantly to the project's success. The backend solution seamlessly integrates with CIMB Octo Saver, showcasing the effectiveness of our rapid and cohesive development approach.",
-		shortDescription:
-			'Embarked on my inaugural project at Privy as a backend engineer for CIMB Octo Saver. Designed and implemented the API within a challenging 14-day timeframe, showcasing my adaptability and collaborative skills as a new member of the team.',
-		links: [],
-		logo: Assets.Ocsaver,
-		name: 'CIMB Octo Saver',
-		period: {
-			from: new Date(2023, 1, 1), // February 1, 2023
-			to: addDaysToDate(new Date(2023, 1, 1), 14) // February 15, 2023 (14 days later)
-		},
-		skills: getSkills('ruby', 'ruby-on-rails', 'pgsql'),
-		type: 'Landing and Integration'
-	},
-	{
-		no: 2,
-		slug: 'monoproperty',
-		color: Colors.Grey,
-		description:
-			'MonoProperty is a modern and dynamic property listing platform built with Next.js. As a front-end developer, I focused on creating a seamless user experience for both property seekers and real estate agents. The platform features a responsive design, advanced search functionalities, and easy property management. My contributions included implementing key user interface components using JavaScript, React, and CSS, ensuring the site is both visually appealing and highly functional.',
-		shortDescription:
-			'A dynamic property listing platform with advanced search and management features, built with Next.js.',
-		links: [],
-		logo: Assets.NextJs,
-		name: 'MonoProperty',
-		period: {
-			from: new Date(2024, 6, 0),
-			to: new Date(2024, 8, 0) // February 1, 2023
-		},
-		skills: getSkills('js', 'reactjs', 'css', 'html', 'nextjs'),
-		type: 'Landing Property',
-		screenshots: [
-			{ label: '', src: Screenshoot.mp1 },
-			{ label: '', src: Screenshoot.mp2 },
-			{ label: '', src: Screenshoot.mp3 },
-			{ label: '', src: Screenshoot.mp4 },
-			{ label: '', src: Screenshoot.mp5 }
-		]
-	},
-	{
-		no: 2,
-		slug: 'privy-core-middleware',
-		color: Colors.Red,
-		description:
-			'As a Backend Engineer in the Privy Core Middleware team, I actively contributed to the development of new features, bug fixing, and enhancement of existing modules. Working on this core project presented unique challenges with its extensive set of modules and features, requiring a meticulous approach to ensure the integrity of the entire system. My role demanded a balance of innovation and precision to navigate the complexities and deliver high-quality solutions.',
-		shortDescription:
-			'Crafting innovative solutions for Privy Core Middleware, balancing precision in a complex landscape.',
-		links: [],
-		logo: Assets.Ruby,
-		name: 'Glacier Middleware',
-		period: {
-			from: new Date(2023, 2, 1), // February 1, 2023
-			to: new Date(2023, 8, 1) // February 15, 2023 (14 days later)
-		},
-		skills: getSkills(
-			'ruby',
-			'ruby-on-rails',
-			'pgsql',
-			'mongodb',
-			'kafka',
-			'redis',
-			'docker',
-			'minio'
-		),
-		type: 'Middleware (Internal Tools)',
-		screenshots: []
-	},
-	{
-		no: 1,
-		slug: 'privy-pgp-x-pgpf',
-		color: Colors.Blue,
-		description:
-			'Leading the evolution of the Golf Scoring System, "PGPxPGPF," across four vital domains: CMS, Mobile Player, Mobile Caddy, and Livescore. Navigating complexities arising from non-standard code origins, a challenge gracefully embraced for seamless advancements.',
-		shortDescription:
-			'Guiding the Golf Scoring System "PGPxPGPF" through progressive enhancements, overcoming intricacies in non-standard code origins.',
-		links: [],
-		logo: Assets.Go,
-		name: 'PGPxPGPF',
-		period: {
-			from: new Date(2023, 9, 1)
-			// to:
-		},
-		skills: getSkills('go', 'mysql', 'docker', 'mongodb', 'kafka'),
-		type: 'Golf Scoring System',
-		screenshots: [
-			{ label: '', src: Screenshoot.pgp1 },
-			{ label: '', src: Screenshoot.pgp2 },
-			{ label: '', src: Screenshoot.pgp3 },
-			{ label: '', src: Screenshoot.pgp4 },
-			{ label: '', src: Screenshoot.pgp5 }
-		]
-	},
-	{
-		no: 4,
-		slug: 'privy-acceleration',
-		color: Colors.Black,
-		description:
-			'Thrived in a transformative 3-month bootcamp at Privy—an intensive internal initiative. Delved deep into Golang, honed skills in microservices using the SAGA pattern, embraced technologies like gRPC, message brokers, and championed SOLID design principles. This journey, conducted bi-weekly after work hours, was a rich blend of insights and hands-on practices.',
-		shortDescription:
-			'Excelled in a 3-month intense bootcamp at Privy, where I mastered advanced Golang, microservices, and cutting-edge backend technologies, ensuring a solid foundation for professional growth.',
-		links: [],
-		logo: Assets.Go,
-		name: 'Privy Acceleration',
-		period: {
-			from: new Date(2023, 3, 0), // February 1, 2023
-			to: new Date(2023, 6, 1) // February 15, 2023 (14 days later)
-		},
-		skills: getSkills('go', 'docker', 'redis', 'kafka', 'grpc', 'pub/sub', 'rabbit-mq'),
-		type: 'Skill Acceleration',
-		screenshots: []
-	},
-	{
-		no: 5,
-		slug: 'privy-hirio-ats',
-		color: Colors.Purple,
-		description:
-			"Championed the swift development of Hirio, an innovative Applicant Tracking System (ATS) uniquely designed for Privy. Within an ambitious one-month timeline, successfully integrated features such as digital signatures, email invitations, and real-time synchronization with Privy apps. Hirio not only serves Privy's internal needs but stands out with its multi-merchant functionality. This feature allows seamless onboarding of new companies, creating distinct user dashboards and landing pages automatically upon sale to another organization.",
-		shortDescription:
-			'Pioneered the creation of Hirio, a robust Applicant Tracking System (ATS), seamlessly integrated with Privy. Developed within a one-month timeframe, Hirio facilitates job posting, analytics, applicant tracking, and more. Its standout feature includes automatic dashboard and landing page creation for multiple merchants.',
-		links: [],
-		logo: Assets.Go,
-		name: 'Hirio',
-		period: {
-			from: new Date(2023, 6, 1), // February 1, 2023
-			to: new Date(2023, 7, 1) // February 15, 2023 (14 days later)
-		},
-		skills: getSkills('go', 'docker', 'redis', 'aws-s3', 'pub/sub', 'pgsql'),
-		type: 'ATS (Internal Tools)',
-		screenshots: [
-			{ label: '', src: Screenshoot.ats1 },
-			{ label: '', src: Screenshoot.ats2 },
-			{ label: '', src: Screenshoot.ats3 },
-			{ label: '', src: Screenshoot.ats4 },
-			{ label: '', src: Screenshoot.ats5 }
-		]
-	},
-	{
-		no: 6,
-		slug: 'dhealth-hospital-information-system',
-		color: Colors.Green,
-		description:
-			"Embarking on a fulfilling journey as a full-stack web developer for nearly four years, I've been an integral part of the hospital information system, particularly contributing to the Dhealth HIS project. My responsibilities spanned the entire spectrum, from crafting seamless patient registration experiences and efficient queuing systems to managing medical records, insurance claims, BPJS integration, and orchestrating smooth 3rd-party service collaborations. Starting as a junior developer and evolving into a team lead, I not only refined my programming skills but also cultivated leadership abilities, steering the development team towards excellence.",
-		shortDescription:
-			'Transforming healthcare experiences through Dhealth HIS as a full-stack developer and team lead.',
-		links: [],
-		logo: Assets.Yii2,
-		name: 'Dhealth',
-		period: {
-			from: new Date(2019, 2, 1), // March 2019
-			to: new Date(2023, 0, 1) // January 2023
-		},
-		skills: getSkills('php', 'docker', 'redis', 'yii2', 'jquery', 'pgsql'),
-		type: 'Hospital Information System Product',
-		screenshots: []
-	},
-	{
-		no: 8,
-		slug: 'stickermotorindo',
-		color: Colors.Orange,
-		description:
-			'A Laravel 7 and jQuery-Powered Platform With a user-friendly landing page for sticker orders, Stickermotorindo is a website powered by Laravel 7 and jQuery. The platform is designed to simplify sticker management, order approval, and invoice generation for administrators through an easy-to-use dashboard. Additionally, the platform offers insightful sales graphs and comprehensive balance sheet reports for superadmin users, showcasing its versatility and efficiency.',
-		shortDescription: 'Empowering sticker management with Laravel 7 and jQuery.',
-		links: [],
-		logo: Assets.Stdkreatif,
-		name: 'Stickermotorindo',
-		period: {
-			from: new Date(2020, 6, 1), // March 2019
-			to: new Date(2020, 7, 1) // January 2023
-		},
-		skills: getSkills('php', 'laravel', 'jquery', 'mysql'),
-		type: 'E-commerce Platform',
-		screenshots: [{ label: '', src: Screenshoot.std1 }]
-	},
-	{
-		no: 7,
-		slug: 'ulasid',
-		color: Colors.Yellow,
-		description:
-			'As a pivotal contributor to the development of Ulas.id, a cutting-edge platform dedicated to the assessment and discussion of Indonesian films, I played a significant role as a back-end engineer. Leveraging the power of React and Ruby on Rails, Ulas.id stands as a testament to our commitment to fostering cultural appreciation and building a vibrant community centered around Indonesian cinema. My efforts in crafting the platform aimed at providing users with a seamless and insightful experience, reinforcing Ulas.id as a go-to destination for movie enthusiasts.',
-		shortDescription: 'Empowering Indonesian movie enthusiasts with React and Ruby on Rails.',
-		links: [],
-		logo: Assets.UlasId,
-		name: 'UlasId',
-		period: {
-			from: new Date(2020, 10, 0), // March 2019
-			to: new Date(2021, 12, 0) // January 2023
-		},
-		skills: getSkills('ruby', 'ruby-on-rails', 'pgsql', 'react'),
-		type: 'Movie Rating and Review Platform',
-		screenshots: [{ label: '', src: Screenshoot.uls1 }]
-	},
-	{
-		no: 9,
-		slug: 'boboho',
-		color: Colors.Purple,
-		description:
-			'Boboho, a dynamic Point of Sale (POS) platform, is built on the robust foundations of Laravel 8 and jQuery. Offering an intuitive inventory management, invoicing, and financial recording system, this platform is a testament to my expertise in crafting secure and responsive solutions. The user-friendly dashboard not only enhances business efficiency but also showcases my commitment to delivering high-quality POS experiences.',
-		shortDescription: 'Crafting efficient and secure POS solutions with Laravel 8 and jQuery.',
-		links: [],
-		logo: Assets.Laravel,
-		name: 'Boboho',
-		period: {
-			from: new Date(2022, 0, 1), // March 2019
-			to: new Date(2022, 4, 0) // January 2023
-		},
-		skills: getSkills('php', 'laravel', 'jquery', 'mysql'),
-		type: 'Point Of Sale Platform',
-		screenshots: [{ label: '', src: Screenshoot.bbh1 }]
-	},
-	{
-		no: 10,
-		slug: 'antawijaya',
-		color: Colors.Purple,
-		description:
-			'Antawijaya, my debut portfolio project, is a robust content management system built on Laravel and jQuery. Developed single-handedly, this CMS is tailored for creating impactful landing pages. Empowering administrators with easy content management across sections, Antawijaya showcases my proficiency in both front-end and back-end development. This project serves as a testament to my ability to create comprehensive web solutions independently.',
-		shortDescription: 'Crafting impactful landing pages with a Laravel and jQuery-based CMS.',
-		links: [],
-		logo: Assets.Laravel,
-		name: 'Antawijaya',
-		period: {
-			from: new Date(2019, 0, 1), // March 2019
-			to: new Date(2019, 4, 0) // January 2023
-		},
-		skills: getSkills('php', 'laravel', 'jquery', 'mysql'),
-		type: 'CMS & Landing Page',
-		screenshots: []
-	},
-	{
-		no: 3,
-		slug: 'iate-polban',
-		color: Colors.Yellow,
-		description:
-			'Iate Polban is a comprehensive dashboard and mobile app solution developed for the Polban community to locate alumni. My responsibilities included creating APIs and designing the dashboard pages. Utilizing technologies such as PHP, Laravel, Vue.js, PostgreSQL, and Redis, this project enhances user experience by providing efficient tools for tracking alumni locations.',
-		shortDescription:
-			'Developed APIs and dashboard for IATE Polban’s alumni location app using PHP, Laravel, Vue.js, PostgreSQL, and Redis.',
-		links: [],
-		logo: Assets.Iate,
-		name: 'Iate Polban',
-		period: {
-			from: new Date(2024, 2, 4), // March 2024
-			to: new Date(2024, 3, 4) // April 2024
-		},
-		skills: getSkills('php', 'laravel', 'vuejs', 'pgsql', 'redis'),
-		type: 'Dashboard & Mobile Apps',
-		screenshots: [
-			{ label: '', src: Screenshoot.iate1 },
-			{ label: '', src: Screenshoot.iate2 },
-			{ label: '', src: Screenshoot.iate3 },
-			{ label: '', src: Screenshoot.iate4 },
-			{ label: '', src: Screenshoot.iate5 }
-		]
-	},
-	{
-		no: 1,
-		slug: 'privy-mkk',
-		color: Colors.Purple,
-		description:
-			'Mandiri Credit Card (MKK) is an existing service with a substantial codebase. My role involves maintaining the system, resolving bugs, and implementing custom client requests. The project utilizes Ruby, Ruby on Rails, and PostgreSQL.',
-		shortDescription:
-			'Maintained and enhanced Mandiri Credit Card service using Ruby, Rails, and PostgreSQL.',
-		links: [],
-		logo: Assets.Ruby,
-		name: 'Mandiri Credit Card (MKK)',
-		period: {
-			from: new Date(2024, 1, 1) // February 1, 2024
-			// to: addDaysToDate(new Date(2024, 1, 1), 14) // February 15, 2024 (14 days later)
-		},
-		skills: getSkills('ruby', 'ruby-on-rails', 'pgsql'),
-		type: 'Landing and Integration'
-	}
-];
+	skills: toSkills(project.skills),
+	type: project.type,
+	screenshots: toScreenshots(project.screenshots)
+}));
 
 export default MY_PROJECTS;

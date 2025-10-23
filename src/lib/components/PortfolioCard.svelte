@@ -54,6 +54,26 @@
 	</div>
 </div>
 
+<!--
+Usage as Web Component:
+
+1. Register the component:
+   import './PortfolioCard.svelte';
+
+2. Use in HTML:
+   <portfolio-card
+     title="My Project"
+     description="A cool project"
+     image-url="/image.jpg"
+   ></portfolio-card>
+
+3. Listen to events:
+   document.querySelector('portfolio-card')
+     .addEventListener('card-click', (e) => {
+       console.log(e.detail);
+     });
+-->
+
 <style>
 	.portfolio-card {
 		border: 1px solid var(--border, #e0e0e0);
@@ -89,23 +109,3 @@
 		line-height: 1.5;
 	}
 </style>
-
-<!--
-Usage as Web Component:
-
-1. Register the component:
-   import './PortfolioCard.svelte';
-
-2. Use in HTML:
-   <portfolio-card
-     title="My Project"
-     description="A cool project"
-     image-url="/image.jpg"
-   ></portfolio-card>
-
-3. Listen to events:
-   document.querySelector('portfolio-card')
-     .addEventListener('card-click', (e) => {
-       console.log(e.detail);
-     });
--->

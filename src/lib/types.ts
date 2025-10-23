@@ -77,6 +77,7 @@ export interface Education extends Item {
 
 export interface PageParams {
 	title: string;
+	description?: string;
 }
 
 export interface PageWithSearchParams<T> extends PageParams {
@@ -108,4 +109,42 @@ export type SkillsPageParams = PageWithSearchParams<Skill>;
 
 export interface ResumePageParams extends PageParams {
 	item: string;
+}
+
+export interface SiteMetadata {
+	baseUrl?: string;
+	siteName?: string;
+	defaultDescription?: string;
+	defaultImage?: string;
+	twitterHandle?: string;
+}
+
+export interface SiteSectionConfig {
+	title: string;
+	description?: string;
+}
+
+export interface ResumeSectionConfig extends SiteSectionConfig {
+	item: string;
+}
+
+export interface HomeConfig {
+	title: string;
+	name: string;
+	lastName: string;
+	description: string;
+	links: Array<{ platform: string; link: string }>;
+}
+
+export interface SiteConfig {
+	titleSuffix: string;
+	metadata?: SiteMetadata;
+	navBar: Record<string, string>;
+	home: HomeConfig;
+	projects: SiteSectionConfig;
+	experiences: SiteSectionConfig;
+	skills: SiteSectionConfig;
+	resume: ResumeSectionConfig;
+	search: SiteSectionConfig;
+	education: SiteSectionConfig;
 }

@@ -1,11 +1,12 @@
 <script lang="ts">
+	/* eslint-disable svelte/no-navigation-without-resolve */
 	import Carrousel from '$lib/components/Carrousel/Carrousel.svelte';
 	import Icon from '$lib/components/Icon/Icon.svelte';
 	import MainTitle from '$lib/components/MainTitle/MainTitle.svelte';
-	import { TITLE_SUFFIX } from '$lib/params';
 	import { HOME, getPlatfromIcon } from '$lib/params';
 	import MY_SKILLS from '$lib/skills.params';
-	import { useTitle, capitalize, isBlank } from '$lib/utils/helpers';
+	import { capitalize, isBlank } from '$lib/utils/helpers';
+	import TabTitle from '$lib/components/TabTitle.svelte';
 
 	const { description, lastName, links, name, title, skills } = HOME;
 
@@ -17,9 +18,7 @@
 	};
 </script>
 
-<svelte:head>
-	<title>{useTitle(title, TITLE_SUFFIX)}</title>
-</svelte:head>
+<TabTitle {title} {description} path="/" />
 <div
 	class="col self-center flex-1 md:flex-row md:slef-stretch justify-center lg:justify-between items-center p-y-0px p-x-10px"
 >
@@ -29,14 +28,15 @@
 			{description}
 		</p>
 		<div class="row justify-center md:justify-start p-y-15px p-x-0px gap-2">
-			{#each links as link}
+			{#each links as link (link.platform)}
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
 				<a
 					class="decoration-none"
 					href={`${isEmail(link.link) ? 'mailto:' : ''}${link.link}`}
 					target="_blank"
 					rel="noreferrer"
 				>
-					<Icon icon={getPlatfromIcon(link.platform)} color={'var(--accent-text)'} size={'20px'} />
+					<Icon icon={getPlatfromIcon(link.platform)} color="var(--accent-text)" size="20px" />
 					<p class="text-xs">{capitalize(link.platform)}</p>
 				</a>
 			{/each}

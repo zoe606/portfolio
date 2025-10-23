@@ -1,41 +1,49 @@
+import type { Education, Asset } from './types';
 import Assets from './data/assets';
-import type { Education } from './types';
+import educationsData from './data/educations.json';
 
-export const MY_EDUCATIONS: Array<Education> = [
-	{
-		degree: 'Bachelor of Applied Science in Computer Science/Informatics',
-		description:
-			'Comprehensive computer science education covering software engineering, algorithms, data structures, and modern programming paradigms. Developed strong foundation in web and mobile application development, database management, and system architecture.',
-		location: 'Bandung, Indonesia',
-		logo: Assets.Unknown,
-		name: '',
-		organization: 'Indonesia POS Polytechnic',
-		period: { from: new Date(2015, 0, 1), to: new Date(2019, 5, 1) },
-		shortDescription: 'Bachelor of Applied Science in Computer Science/Informatics',
-		slug: 'bachelor-degree',
-		subjects: [
-			'Algorithms and Data Structures',
-			'Computer Architecture',
-			'Web & Mobile Programming',
-			'Database Management',
-			'Machine Learning',
-			'Python',
-			'Java',
-			'C#',
-			'Assembly',
-			'Software Engineering'
-		]
-	}
-	// {
-	// 	degree: 'PhD of Computer Science',
-	// 	description: '',
-	// 	location: 'USA',
-	// 	logo: Assets.Unknown,
-	// 	name: '',
-	// 	organization: 'MIT',
-	// 	period: { from: new Date(2023, 0, 1) },
-	// 	shortDescription: '',
-	// 	slug: 'dummy-education-item-2',
-	// 	subjects: ['Assembly', 'Rust', 'Computer Architecture', 'Algorithms and Data structures']
-	// }
-];
+type AssetKey = keyof typeof Assets;
+
+type RawEducation = {
+	degree: string;
+	description: string;
+	location: string;
+	logo: AssetKey | string;
+	name: string;
+	organization: string;
+	period: {
+		from: string;
+		to?: string;
+	};
+	shortDescription: string;
+	slug: string;
+	subjects: Array<string>;
+};
+
+const toDate = (value: string | undefined): Date | undefined => {
+	if (!value) return undefined;
+	const date = new Date(value);
+	return Number.isNaN(date.valueOf()) ? undefined : date;
+};
+
+const toAsset = (value: RawEducation['logo']): Asset => {
+	return (Assets as Record<string, Asset>)[value] ?? Assets.Unknown;
+};
+
+export const MY_EDUCATIONS: Array<Education> = (educationsData as Array<RawEducation>).map(
+	(education) => ({
+		degree: education.degree,
+		description: education.description,
+		location: education.location,
+		logo: toAsset(education.logo),
+		name: education.name,
+		organization: education.organization,
+		period: {
+			from: toDate(education.period.from) ?? new Date(),
+			...(education.period.to ? { to: toDate(education.period.to) } : {})
+		},
+		shortDescription: education.shortDescription,
+		slug: education.slug,
+		subjects: education.subjects
+	})
+);

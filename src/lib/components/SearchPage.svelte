@@ -13,12 +13,7 @@
 		children?: Snippet;
 	}
 
-	let {
-		title = 'Title',
-		search = $bindable(''),
-		onsearch,
-		children
-	}: Props = $props();
+	let { title = 'Title', search = $bindable(''), onsearch, children }: Props = $props();
 
 	let mounted = $state(false);
 

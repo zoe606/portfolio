@@ -1,4 +1,5 @@
 <script lang="ts">
+	/* eslint-disable svelte/prefer-writable-derived */
 	import { Badge } from '$lib/components/ui';
 	import ProjectCard from '$lib/components/ProjectCard/ProjectCard.svelte';
 	import SearchPage from '$lib/components/SearchPage.svelte';
@@ -7,12 +8,13 @@
 	import { onMount } from 'svelte';
 	import MY_SKILLS from '$lib/skills.params';
 	import UIcon from '$lib/components/Icon/UIcon.svelte';
+	import TabTitle from '$lib/components/TabTitle.svelte';
 
 	interface SkillFilter extends Skill {
 		isSelected?: boolean;
 	}
 
-	const { items, title } = PROJECTS;
+	const { items, title, description } = PROJECTS;
 
 	// Use $state for reactive filters
 	let filters = $state<Array<SkillFilter>>(
@@ -73,12 +75,13 @@
 	});
 </script>
 
+<TabTitle {title} {description} path="/projects" />
 <SearchPage {title} onsearch={onSearch}>
 	<div class="projects-filters">
-		{#each filters as tech}
+		{#each filters as tech (tech.slug)}
 			<Badge
 				variant={tech.isSelected ? 'default' : 'outline'}
-				class={'text-0.8em'}
+				class="text-0.8em"
 				onclick={() => onSelected(tech.slug)}
 			>
 				{tech.name}
@@ -92,7 +95,7 @@
 		</div>
 	{:else}
 		<div class="projects-list mt-5">
-			{#each displayed as project}
+			{#each displayed as project (project.slug)}
 				<ProjectCard {project} />
 			{/each}
 		</div>
