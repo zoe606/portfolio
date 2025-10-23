@@ -1,5 +1,3 @@
-<svelte:options customElement="portfolio-card" />
-
 <script lang="ts">
 	/**
 	 * Web Component Example using $host()
@@ -39,9 +37,23 @@
 		// host.dispatchEvent(event);
 		dispatchEvent(event);
 	}
+
+	function handleKeyDown(event: KeyboardEvent) {
+		if (event.key === 'Enter' || event.key === ' ') {
+			event.preventDefault();
+			handleCardClick();
+		}
+	}
 </script>
 
-<div class="portfolio-card" onclick={handleCardClick}>
+<div
+	class="portfolio-card"
+	role="button"
+	tabindex="0"
+	aria-label={`View ${title}`}
+	onclick={handleCardClick}
+	onkeydown={handleKeyDown}
+>
 	{#if imageUrl}
 		<img src={imageUrl} alt={title} class="card-image" />
 	{/if}

@@ -1,16 +1,21 @@
 <script lang="ts">
-	import { Avatar as AvatarPrimitive } from 'bits-ui';
-	import { cn } from '$lib/utils.js';
+	import { cn } from '$lib/utils/cn';
+	import type { HTMLAttributes } from 'svelte/elements';
+
+	interface Props extends HTMLAttributes<HTMLImageElement> {
+		ref?: HTMLImageElement | null;
+		class?: string;
+	}
 
 	let {
-		ref = $bindable(null),
-		class: className,
+		ref = $bindable<HTMLImageElement | null>(null),
+		class: className = '',
 		...restProps
-	}: AvatarPrimitive.ImageProps = $props();
+	}: Props = $props();
 </script>
 
-<AvatarPrimitive.Image
-	bind:ref
+<img
+	bind:this={ref}
 	data-slot="avatar-image"
 	class={cn('aspect-square size-full', className)}
 	{...restProps}

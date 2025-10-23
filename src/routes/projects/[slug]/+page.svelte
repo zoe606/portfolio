@@ -74,7 +74,7 @@
 					<div class="row-center flex-wrap m-b-2">
 						{#each data.project.skills as item (item.slug)}
 							<Badge
-								classes="inline-flex flex-row items-center justify-center"
+								class="inline-flex flex-row items-center justify-center"
 								href={`${base}/skills/${item.slug}`}
 							>
 								<CardLogo
@@ -82,7 +82,7 @@
 									alt={item.name}
 									radius="0px"
 									size={15}
-									classes="mr-2"
+									class="mr-2"
 								/>
 								<span class="text-[0.9em]">{item.name}</span>
 							</Badge>

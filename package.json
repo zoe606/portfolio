@@ -52,7 +52,6 @@
 	"type": "module",
 	"dependencies": {
 		"dayjs": "^1.11.18",
-		"pdfjs-dist": "^4.6.82",
 		"web-vitals": "^5.1.0"
 	}
 }

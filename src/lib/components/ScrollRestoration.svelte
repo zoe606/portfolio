@@ -4,12 +4,15 @@
 	 * Preserves scroll position when content updates
 	 */
 
+	import type { Snippet } from 'svelte';
+
 	interface Props {
 		key?: string; // Unique key to identify scroll position
 		enabled?: boolean;
+		children?: Snippet;
 	}
 
-	let { key = 'default', enabled = true }: Props = $props();
+	let { key = 'default', enabled = true, children }: Props = $props();
 
 	let container: HTMLDivElement;
 	let savedScrollTop = 0;
@@ -54,7 +57,7 @@
 </script>
 
 <div bind:this={container} class="scroll-container">
-	<slot />
+	{@render children?.()}
 </div>
 
 <style>
