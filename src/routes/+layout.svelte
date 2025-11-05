@@ -1,13 +1,37 @@
 <script lang="ts">
 	import 'uno.css';
 	import NavMenu from '$lib/components/NavMenu/NavMenu.svelte';
+	import SearchModal from '$lib/components/SearchModal.svelte';
 	import '$lib/index.scss';
 	import { onHydrated, theme } from '$lib/stores/theme';
 	import { onMount } from 'svelte';
 	import { onCLS, onINP, onLCP, onFCP, onTTFB, type Metric } from 'web-vitals';
+	import type { Snippet } from 'svelte';
+
+	interface Props {
+		children: Snippet;
+	}
+
+	let { children }: Props = $props();
+
+	let searchModalOpen = $state(false);
+
+	function handleSearchOpen() {
+		searchModalOpen = true;
+	}
 
 	onMount(() => {
 		onHydrated();
+
+		// Global keyboard shortcut for search (Cmd+K / Ctrl+K)
+		const handleGlobalKeydown = (e: KeyboardEvent) => {
+			if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+				e.preventDefault();
+				searchModalOpen = true;
+			}
+		};
+
+		document.addEventListener('keydown', handleGlobalKeydown);
 
 		// Performance monitoring with Web Vitals
 		const logVital = (metric: Metric) => {
@@ -25,12 +49,19 @@
 		onLCP(logVital); // Largest Contentful Paint
 		onFCP(logVital); // First Contentful Paint
 		onTTFB(logVital); // Time to First Byte
+
+		return () => {
+			document.removeEventListener('keydown', handleGlobalKeydown);
+		};
 	});
 </script>
 
 <div class={`body contents ${$theme ? 'theme-dark' : 'theme-light'}`}>
-	<NavMenu />
-	<div class="content container"><slot /></div>
+	<NavMenu onsearchclick={handleSearchOpen} />
+	<div class="content container">
+		{@render children()}
+	</div>
+	<SearchModal bind:open={searchModalOpen} />
 </div>
 
 <style lang="scss">
