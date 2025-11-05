@@ -1,1 +1,0 @@
-import{j as S,k as b,u as h,q,S as T}from"./-dx-P5S4.js";function u(r,i){return r===i||r?.[T]===i}function d(r={},i,a,k){return S(()=>{var f,s;return b(()=>{f=s,s=k?.()||[],h(()=>{r!==a(...s)&&(i(r,...s),f&&u(a(...f),r)&&i(null,...f))})}),()=>{q(()=>{s&&u(a(...s),r)&&i(null,...s)})}}),r}export{d as b};
