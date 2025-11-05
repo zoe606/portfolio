@@ -5,6 +5,12 @@
 	import { base } from '$app/paths';
 	import UIcon from '../Icon/UIcon.svelte';
 
+	interface Props {
+		onsearchclick?: () => void;
+	}
+
+	let { onsearchclick }: Props = $props();
+
 	const items = [
 		{ title: NavBar.skills, to: '/skills', icon: 'i-carbon-software-resource-cluster' },
 		{ title: NavBar.personal, to: '/projects', icon: 'i-carbon-cube' },
@@ -12,6 +18,11 @@
 		{ title: NavBar.Education, to: '/education', icon: 'i-carbon-education' },
 		{ title: NavBar.resume, to: '/resume', icon: 'i-carbon-result' }
 	];
+
+	function handleSearchClick(e: MouseEvent) {
+		e.preventDefault();
+		onsearchclick?.();
+	}
 </script>
 
 <div class="nav-menu">
@@ -37,14 +48,18 @@
 			{/each}
 		</div>
 		<div class="flex flex-row self-stretch items-stretch gap-1 text-1.15em">
-			<a
-				data-sveltekit-replacestate
-				href={`${base}/search`}
-				class="text-inherit col-center self-stretch px-2 hover:bg-[color:var(--main-hover)]"
+			<button
+				type="button"
+				aria-label="search"
+				class="nav-search-button bg-transparent text-inherit col-center self-stretch px-2 border-none cursor-pointer hover:bg-[color:var(--main-hover)] text-[var(--secondary-text)] relative"
+				onclick={handleSearchClick}
+				data-tooltip={typeof navigator !== 'undefined' && navigator.platform.includes('Mac')
+					? '⌘K'
+					: 'Ctrl+K'}
 			>
 				<UIcon icon="i-carbon-search" />
 				<p class="nav-menu-item-label sm:text-0.9em">search</p>
-			</a>
+			</button>
 			<button
 				type="button"
 				aria-label="toggle-theme"
@@ -94,6 +109,31 @@
 			&:hover {
 				background-color: var(--main-hover);
 			}
+		}
+	}
+
+	.nav-search-button {
+		&::after {
+			content: attr(data-tooltip);
+			position: absolute;
+			bottom: -35px;
+			left: 50%;
+			transform: translateX(-50%);
+			background-color: var(--main-text);
+			color: var(--main);
+			padding: 4px 8px;
+			border-radius: 4px;
+			font-size: 12px;
+			font-weight: 500;
+			white-space: nowrap;
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 0.2s ease;
+			z-index: 1000;
+		}
+
+		&:hover::after {
+			opacity: 1;
 		}
 	}
 </style>
