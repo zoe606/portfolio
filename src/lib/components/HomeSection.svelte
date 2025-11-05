@@ -1,10 +1,11 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import type { Snippet } from 'svelte';
 
 	interface Props {
 		title: string;
 		href?: string;
-		children?: any;
+		children?: Snippet;
 		class?: string;
 	}
 

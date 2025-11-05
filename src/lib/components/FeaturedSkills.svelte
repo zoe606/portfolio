@@ -15,7 +15,9 @@
 	// Filter to show only featured skills (exactly 6)
 	const featuredSlugs = ['go', 'php', 'ruby', 'reactjs', 'pgsql', 'ruby on rails'];
 	const featuredSkills = featuredSlugs
-		.map((slug) => skills.find((skill) => skill.slug === slug || skill.name.toLowerCase().includes(slug)))
+		.map((slug) =>
+			skills.find((skill) => skill.slug === slug || skill.name.toLowerCase().includes(slug))
+		)
 		.filter((skill): skill is Skill => skill !== undefined)
 		.slice(0, 6);
 
@@ -65,7 +67,6 @@
 
 	<div class="grid grid-cols-3 md:grid-cols-6 gap-20px">
 		{#each featuredSkills as skill, index (skill.slug)}
-			<!-- svelte-ignore a11y_no_static_element_interactions -->
 			<a
 				href={`${base}/skills/${skill.slug}`}
 				bind:this={skillElements[index]}

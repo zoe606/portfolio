@@ -14,9 +14,9 @@
 	const categorizeSkills = (skills: Skill[]) => {
 		const categories: Record<string, Skill[]> = {
 			'Programming Languages': [],
-			'Frontend': [],
+			Frontend: [],
 			'Backend & Frameworks': [],
-			'Databases': [],
+			Databases: [],
 			'DevOps & Tools': [],
 			'API & Communication': [],
 			'Monitoring & Analytics': []
@@ -37,7 +37,6 @@
 		];
 		const backendNames = ['laravel', 'ruby on rails', 'yii 2', 'codeigniter'];
 		const dbNames = ['postgresql', 'mysql', 'mongodb', 'redis'];
-		const devopsNames = ['docker', 'git', 'rabbitmq', 'kafka', 'linux', 'minio', 'amazon s3'];
 		const apiNames = ['graphql', 'grpc', 'pub/sub'];
 		const monitoringNames = ['sentry', 'new relic'];
 
@@ -62,7 +61,7 @@
 		});
 
 		// Filter out empty categories
-		return Object.entries(categories).filter(([_, skills]) => skills.length > 0);
+		return Object.entries(categories).filter(([, categorySkills]) => categorySkills.length > 0);
 	};
 
 	const categorizedSkills = categorizeSkills(skills);
@@ -76,7 +75,9 @@
 	<div class="col gap-25px">
 		{#each categorizedSkills as [category, categorySkills] (category)}
 			<div class="category-section">
-				<h3 class="text-sm font-semibold text-[var(--accent-text)] m-b-12px uppercase tracking-wide">
+				<h3
+					class="text-sm font-semibold text-[var(--accent-text)] m-b-12px uppercase tracking-wide"
+				>
 					{category}
 				</h3>
 				<div class="flex flex-wrap gap-10px">

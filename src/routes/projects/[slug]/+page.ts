@@ -13,4 +13,4 @@ export const load: PageLoad = ({ params }) => {
 	}
 
 	return { project: undefined };
-}
+};

@@ -54,5 +54,8 @@
 		"dayjs": "^1.11.18",
 		"fuse.js": "^7.1.0",
 		"web-vitals": "^5.1.0"
+	},
+	"resolutions": {
+		"yaml": "^2.6.1"
 	}
 }

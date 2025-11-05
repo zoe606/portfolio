@@ -11,7 +11,7 @@
 	import { capitalize, isBlank } from '$lib/utils/helpers';
 	import TabTitle from '$lib/components/TabTitle.svelte';
 
-	const { description, lastName, links, name, title, skills } = HOME;
+	const { description, lastName, links, name, title } = HOME;
 
 	// Get featured projects (top 3 most recent)
 	const featuredProjects = PROJECTS.items
@@ -71,7 +71,9 @@
 					rel="noreferrer"
 				>
 					<Icon icon={getPlatfromIcon(link.platform)} color="var(--secondary-text)" size="18px" />
-					<p class="text-sm text-[var(--secondary-text)] font-medium">{capitalize(link.platform)}</p>
+					<p class="text-sm text-[var(--secondary-text)] font-medium">
+						{capitalize(link.platform)}
+					</p>
 				</a>
 			{/each}
 		</div>
@@ -79,38 +81,36 @@
 
 	<!-- Stats Section -->
 	<HomeSection title="At a Glance">
-		{#snippet children()}
-			<div class="grid grid-cols-2 md:grid-cols-4 gap-20px">
-				<EnhancedStatsCard
-					value="{yearsOfExperience}+"
-					label="Years"
-					subtitle="Experience"
-					href="/experience"
-					color="#3b82f6"
-				/>
-				<EnhancedStatsCard
-					value={totalProjects}
-					label="Projects"
-					subtitle="Built"
-					href="/projects"
-					color="#8b5cf6"
-				/>
-				<EnhancedStatsCard
-					value={totalExperiences}
-					label="Companies"
-					subtitle="Worked With"
-					href="/experience"
-					color="#10b981"
-				/>
-				<EnhancedStatsCard
-					value="{totalSkills}+"
-					label="Technologies"
-					subtitle="Used"
-					href="/skills"
-					color="#f59e0b"
-				/>
-			</div>
-		{/snippet}
+		<div class="grid grid-cols-2 md:grid-cols-4 gap-20px">
+			<EnhancedStatsCard
+				value="{yearsOfExperience}+"
+				label="Years"
+				subtitle="Experience"
+				href="/experience"
+				color="#3b82f6"
+			/>
+			<EnhancedStatsCard
+				value={totalProjects}
+				label="Projects"
+				subtitle="Built"
+				href="/projects"
+				color="#8b5cf6"
+			/>
+			<EnhancedStatsCard
+				value={totalExperiences}
+				label="Companies"
+				subtitle="Worked With"
+				href="/experience"
+				color="#10b981"
+			/>
+			<EnhancedStatsCard
+				value="{totalSkills}+"
+				label="Technologies"
+				subtitle="Used"
+				href="/skills"
+				color="#f59e0b"
+			/>
+		</div>
 	</HomeSection>
 
 	<!-- Featured Skills -->
@@ -118,23 +118,19 @@
 
 	<!-- Featured Projects Section -->
 	<HomeSection title="Featured Projects" href="/projects">
-		{#snippet children()}
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20px">
-				{#each featuredProjects as project (project.slug)}
-					<ProjectCard {project} />
-				{/each}
-			</div>
-		{/snippet}
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20px">
+			{#each featuredProjects as project (project.slug)}
+				<ProjectCard {project} />
+			{/each}
+		</div>
 	</HomeSection>
 
 	<!-- Latest Experience Section -->
 	<HomeSection title="Recent Experience" href="/experience">
-		{#snippet children()}
-			<div class="col gap-20px">
-				{#each latestExperiences as experience (experience.slug)}
-					<ExperienceCard {experience} />
-				{/each}
-			</div>
-		{/snippet}
+		<div class="col gap-20px">
+			{#each latestExperiences as experience (experience.slug)}
+				<ExperienceCard {experience} />
+			{/each}
+		</div>
 	</HomeSection>
 </div>
