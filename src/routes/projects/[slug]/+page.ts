@@ -1,6 +1,9 @@
 import MY_PROJECTS from '$lib/projects.params';
+import type { PageLoad } from './$types';
 
-export function load({ params }: { params: Record<string, string> }) {
+export const prerender = true;
+
+export const load: PageLoad = ({ params }) => {
 	if (params.slug) {
 		const project = MY_PROJECTS.find((item) => {
 			return item.slug === params.slug;
@@ -8,4 +11,6 @@ export function load({ params }: { params: Record<string, string> }) {
 
 		return { project };
 	}
+
+	return { project: undefined };
 }

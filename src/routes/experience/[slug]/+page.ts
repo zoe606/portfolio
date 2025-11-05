@@ -1,6 +1,9 @@
 import MY_EXPERIENCES from '$lib/experiences.params';
+import type { PageLoad } from './$types';
 
-export function load({ params }: { params: Record<string, string> }) {
+export const prerender = true;
+
+export const load: PageLoad = ({ params }) => {
 	if (params.slug) {
 		const experience = MY_EXPERIENCES.find((item) => {
 			return item.slug === params.slug;
@@ -8,4 +11,6 @@ export function load({ params }: { params: Record<string, string> }) {
 
 		return { experience };
 	}
+
+	return { experience: undefined };
 }

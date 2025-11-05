@@ -9,18 +9,16 @@
 	import { Badge } from '$lib/components/ui';
 	import UIcon from '$lib/components/Icon/UIcon.svelte';
 	import TabTitle from '$lib/components/TabTitle.svelte';
+	import { PortfolioSearch, type SearchResultItem } from '$lib/utils/search';
 
 	const { title, description } = SEARCH;
 
-	type Item<T = unknown> = {
-		icon: string;
-		name: string;
-		data: T;
-		to: string;
-	};
+	// Initialize the search engine with all data
+	const searchEngine = new PortfolioSearch(MY_PROJECTS, MY_EXPERIENCES, MY_SKILLS);
 
 	let query = '';
-	let result: Array<Item> = [];
+	let result: Array<SearchResultItem> = [];
+	let resultCount = { projects: 0, experiences: 0, skills: 0 };
 
 	onMount(() => {
 		const searchParams = new URLSearchParams(window.location.search);
@@ -28,43 +26,15 @@
 	});
 
 	$: {
-		result = [];
+		// Use fuzzy search with Fuse.js
+		result = searchEngine.search(query, 50);
 
-		// filter
-		result.push(
-			...MY_PROJECTS.filter((item) => query && item.name.toLowerCase().includes(query)).map<Item>(
-				(data) => ({
-					data,
-					icon: 'i-carbon-cube',
-					name: data.name,
-					to: `projects/${data.slug}`
-				})
-			)
-		);
-
-		result.push(
-			...MY_SKILLS.filter((item) => query && item.name.toLowerCase().includes(query)).map<Item>(
-				(data) => ({
-					data,
-					icon: 'i-carbon-software-resource-cluster',
-					name: data.name,
-					to: `skills/${data.slug}`
-				})
-			)
-		);
-
-		result.push(
-			...MY_EXPERIENCES.filter(
-				(item) =>
-					query &&
-					(item.name.toLowerCase().includes(query) || item.company.toLowerCase().includes(query))
-			).map<Item>((data) => ({
-				data,
-				icon: 'i-carbon-development',
-				name: `${data.name} @ ${data.company}`,
-				to: `experience/${data.slug}`
-			}))
-		);
+		// Count results by type for display
+		resultCount = {
+			projects: result.filter((r) => r.type === 'project').length,
+			experiences: result.filter((r) => r.type === 'experience').length,
+			skills: result.filter((r) => r.type === 'skill').length
+		};
 	}
 </script>
 
@@ -77,13 +47,34 @@
 			<span> Try typing something... </span>
 		</div>
 	{:else}
-		<div>
+		<div class="flex flex-col gap-4">
 			{#if result.length === 0}
 				<div class="flex-1 self-center col-center m-t-10 gap-5 font-300 text-[var(--accent-text)]">
 					<UIcon icon="i-carbon-cube" classes="text-2em" />
-					<span> Oops ! nothing to show ! </span>
+					<span> Oops! Nothing found for "{query}" </span>
 				</div>
 			{:else}
+				<!-- Result count summary -->
+				<div class="flex flex-row flex-wrap gap-2 text-sm text-[var(--accent-text)]">
+					<span class="font-semibold"
+						>{result.length} result{result.length !== 1 ? 's' : ''} found:</span
+					>
+					{#if resultCount.projects > 0}
+						<span>{resultCount.projects} project{resultCount.projects !== 1 ? 's' : ''}</span>
+					{/if}
+					{#if resultCount.experiences > 0}
+						<span
+							>• {resultCount.experiences} experience{resultCount.experiences !== 1
+								? 's'
+								: ''}</span
+						>
+					{/if}
+					{#if resultCount.skills > 0}
+						<span>• {resultCount.skills} skill{resultCount.skills !== 1 ? 's' : ''}</span>
+					{/if}
+				</div>
+
+				<!-- Results -->
 				<div class="flex flex-row flex-wrap gap-1">
 					{#each result as item (item.to)}
 						<Badge href={`${base}/${item.to}`} class="flex flex-row items-center gap-2">

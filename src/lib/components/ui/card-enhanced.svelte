@@ -64,12 +64,13 @@
 	);
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
+<!-- svelte-ignore a11y_no_static_element_interactions -->
 <svelte:element
 	this={href ? 'a' : 'div'}
 	{href}
 	bind:this={el}
-	on:mousemove={onHover}
+	onmousemove={onHover}
+	role={href ? undefined : 'group'}
 	class={cardClasses}
 >
 	<div class="card-enhanced-bg flex-1 flex flex-col p-25px rounded-15px">
