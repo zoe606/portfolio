@@ -19,7 +19,7 @@
 	>
 		{#if icon}
 			<div class="m-b-10px">
-				<UIcon {icon} classes="text-[var(--accent-text)]" size="28px" />
+				<UIcon {icon} classes="text-[var(--accent-text)] text-28px" />
 			</div>
 		{/if}
 		<div class="text-4xl font-bold text-[var(--primary-text)] m-b-5px">
@@ -35,7 +35,7 @@
 	>
 		{#if icon}
 			<div class="m-b-10px">
-				<UIcon {icon} classes="text-[var(--accent-text)]" size="28px" />
+				<UIcon {icon} classes="text-[var(--accent-text)] text-28px" />
 			</div>
 		{/if}
 		<div class="text-4xl font-bold text-[var(--primary-text)] m-b-5px">
