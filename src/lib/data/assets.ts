@@ -1,5 +1,5 @@
 import type { Asset } from '$lib/types';
-import { theme } from '$lib/stores/theme';
+import { currentTheme } from '$lib/stores/theme';
 import { base } from '$app/paths';
 
 const gh = (file: string) => `${base}/logos/${file}`;
@@ -93,10 +93,11 @@ const Assets = {
 
 export default Assets;
 
-let currentTheme: boolean;
+let theme: string = 'light';
 
-theme.subscribe((v) => (currentTheme = v));
+currentTheme.subscribe((v) => (theme = v));
 
 export const getAssetURL = (asset: Asset): string => {
-	return typeof asset === 'string' ? asset : currentTheme ? asset.dark : asset.light;
+	const isDark = theme === 'dark' || theme === 'synthwave' || theme === 'terminal';
+	return typeof asset === 'string' ? asset : isDark ? asset.dark : asset.light;
 };

@@ -65,7 +65,7 @@
 		</a>
 	</div>
 
-	<div class="grid grid-cols-3 md:grid-cols-6 gap-20px">
+	<div class="featured-skills-grid">
 		{#each featuredSkills as skill, index (skill.slug)}
 			<a
 				href={`${base}/skills/${skill.slug}`}
@@ -73,18 +73,18 @@
 				onmousemove={(ev) => onHover(ev, index)}
 				class="featured-skill-card decoration-none border-1px border-solid border-[var(--border)] rounded-15px relative duration transition-all hover:border-[var(--border-hover)]"
 			>
-				<div class="card-bg col-center gap-15px p-25px rounded-15px">
+				<div class="card-bg col-center rounded-15px">
 					<div
-						class="skill-icon-wrapper flex items-center justify-center w-70px h-70px rounded-full bg-[var(--main)] border-1px border-[var(--border)] transition-all"
+						class="skill-icon-wrapper flex items-center justify-center rounded-full bg-[var(--main)] border-1px border-[var(--border)] transition-all"
 					>
 						<img
 							src={getAssetURL(skill.logo)}
 							alt={skill.name}
-							class="w-45px h-45px object-contain"
+							class="skill-icon object-contain"
 							loading="eager"
 						/>
 					</div>
-					<span class="text-sm text-[var(--main-text)] font-semibold text-center">
+					<span class="skill-name text-[var(--main-text)] font-semibold text-center">
 						{skill.name}
 					</span>
 				</div>
@@ -94,6 +94,27 @@
 </div>
 
 <style lang="scss">
+	.featured-skills-grid {
+		display: grid;
+		grid-template-columns: repeat(6, 1fr);
+		gap: 20px;
+
+		@media (max-width: 1024px) {
+			grid-template-columns: repeat(4, 1fr);
+			gap: 16px;
+		}
+
+		@media (max-width: 768px) {
+			grid-template-columns: repeat(3, 1fr);
+			gap: 14px;
+		}
+
+		@media (max-width: 480px) {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 12px;
+		}
+	}
+
 	.featured-skill-card {
 		--border-color: transparent;
 		--bg-color: transparent;
@@ -106,6 +127,27 @@
 	}
 
 	.card-bg {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 15px;
+		padding: 25px;
+
+		@media (max-width: 768px) {
+			padding: 20px;
+			gap: 12px;
+		}
+
+		@media (max-width: 480px) {
+			padding: 16px;
+			gap: 10px;
+		}
+
+		@media (max-width: 360px) {
+			padding: 12px;
+			gap: 8px;
+		}
+
 		&:hover {
 			background-color: var(--bg-color);
 			background-image: radial-gradient(
@@ -117,6 +159,59 @@
 	}
 
 	.skill-icon-wrapper {
+		width: 70px;
+		height: 70px;
 		transition: all 0.3s ease;
+
+		@media (max-width: 768px) {
+			width: 60px;
+			height: 60px;
+		}
+
+		@media (max-width: 480px) {
+			width: 50px;
+			height: 50px;
+		}
+
+		@media (max-width: 360px) {
+			width: 45px;
+			height: 45px;
+		}
+	}
+
+	.skill-icon {
+		width: 45px;
+		height: 45px;
+
+		@media (max-width: 768px) {
+			width: 38px;
+			height: 38px;
+		}
+
+		@media (max-width: 480px) {
+			width: 32px;
+			height: 32px;
+		}
+
+		@media (max-width: 360px) {
+			width: 28px;
+			height: 28px;
+		}
+	}
+
+	.skill-name {
+		font-size: 0.875rem;
+
+		@media (max-width: 768px) {
+			font-size: 0.8rem;
+		}
+
+		@media (max-width: 480px) {
+			font-size: 0.75rem;
+		}
+
+		@media (max-width: 360px) {
+			font-size: 0.7rem;
+		}
 	}
 </style>

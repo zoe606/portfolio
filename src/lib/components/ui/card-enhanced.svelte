@@ -72,7 +72,7 @@
 	role={href ? undefined : 'group'}
 	class={cardClasses}
 >
-	<div class="card-enhanced-bg flex-1 flex flex-col p-25px rounded-15px">
+	<div class="card-enhanced-bg flex-1 flex flex-col rounded-15px">
 		<slot />
 	</div>
 </svelte:element>
@@ -96,6 +96,16 @@
 			no-repeat right 40% / 40% var(--bg-img);
 
 		&-bg {
+			padding: 25px;
+
+			@media (max-width: 768px) {
+				padding: 20px;
+			}
+
+			@media (max-width: 480px) {
+				padding: 16px;
+			}
+
 			&:hover {
 				background-color: var(--bg-color);
 				background-image: radial-gradient(
@@ -109,6 +119,12 @@
 		&:hover {
 			transform: perspective(1000px) rotateX(var(--rot-x)) rotateY(var(--rot-y)) scale(1.01);
 			border-color: var(--border-hover);
+		}
+
+		@media (max-width: 768px) {
+			&:hover {
+				transform: scale(1.01);
+			}
 		}
 	}
 </style>

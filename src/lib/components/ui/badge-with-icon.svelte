@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { cn } from '$lib/utils/cn';
-	import { theme } from '$lib/stores/theme';
+	import { currentTheme } from '$lib/stores/theme';
 
 	export let name = '';
 	export let logo = '';
@@ -40,9 +40,11 @@
 	{#if $$slots.default}
 		<slot />
 	{:else}
+		{@const isDark =
+			$currentTheme === 'dark' || $currentTheme === 'synthwave' || $currentTheme === 'terminal'}
 		<img
 			class={cn('w-15px h-15px', inverted && 'invert-100')}
-			class:badge-icon-logo-inverted={$theme && inverted}
+			class:badge-icon-logo-inverted={isDark && inverted}
 			src={logo}
 			alt={name}
 		/>

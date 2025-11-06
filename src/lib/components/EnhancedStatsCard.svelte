@@ -45,17 +45,17 @@
 	role={href ? undefined : 'group'}
 	class="enhanced-stats-card decoration-none border-1px border-solid border-[var(--border)] rounded-15px relative duration transition-all hover:border-[var(--border-hover)]"
 >
-	<div class="card-bg flex-1 flex flex-col p-25px rounded-15px">
-		<div class="col-center gap-20px">
-			<div class="text-5xl font-bold text-[var(--main-text)] leading-none">
+	<div class="card-bg flex-1 flex flex-col rounded-15px">
+		<div class="col-center card-content">
+			<div class="stat-value text-[var(--main-text)] leading-none">
 				{value}
 			</div>
 			<div class="col-center gap-5px">
-				<div class="text-base text-[var(--main-text)] font-medium text-center">
+				<div class="stat-label text-[var(--main-text)] font-medium text-center">
 					{label}
 				</div>
 				{#if subtitle}
-					<div class="text-xs text-[var(--secondary-text)] text-center font-light">
+					<div class="stat-subtitle text-[var(--secondary-text)] text-center font-light">
 						{subtitle}
 					</div>
 				{/if}
@@ -75,9 +75,23 @@
 
 		background: linear-gradient(90deg, var(--main) 0%, var(--main) 60%, var(--main-60) 100%);
 		cursor: pointer;
+
+		@media (max-width: 480px) {
+			min-width: 100%;
+		}
 	}
 
 	.card-bg {
+		padding: 25px;
+
+		@media (max-width: 768px) {
+			padding: 20px;
+		}
+
+		@media (max-width: 480px) {
+			padding: 16px;
+		}
+
 		&:hover {
 			background-color: var(--bg-color);
 			background-image: radial-gradient(
@@ -85,6 +99,55 @@
 				var(--drop-color),
 				transparent
 			);
+		}
+	}
+
+	.card-content {
+		gap: 20px;
+
+		@media (max-width: 768px) {
+			gap: 16px;
+		}
+
+		@media (max-width: 480px) {
+			gap: 12px;
+		}
+	}
+
+	.stat-value {
+		font-size: 3rem;
+		font-weight: bold;
+
+		@media (max-width: 768px) {
+			font-size: 2.5rem;
+		}
+
+		@media (max-width: 480px) {
+			font-size: 2rem;
+		}
+	}
+
+	.stat-label {
+		font-size: 1rem;
+
+		@media (max-width: 768px) {
+			font-size: 0.95rem;
+		}
+
+		@media (max-width: 480px) {
+			font-size: 0.875rem;
+		}
+	}
+
+	.stat-subtitle {
+		font-size: 0.75rem;
+
+		@media (max-width: 768px) {
+			font-size: 0.7rem;
+		}
+
+		@media (max-width: 480px) {
+			font-size: 0.65rem;
 		}
 	}
 </style>
