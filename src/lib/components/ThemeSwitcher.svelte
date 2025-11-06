@@ -115,62 +115,62 @@
 			></div>
 
 			<div class="theme-dropdown">
-			<!-- Auto-theme toggle -->
-			<div class="theme-auto-section">
-				<button
-					type="button"
-					class="theme-auto-toggle"
-					onclick={handleAutoThemeToggle}
-					class:active={$autoThemeEnabled}
-				>
-					<div class="theme-auto-content">
-						<UIcon
-							icon="i-carbon-time"
-							classes={$autoThemeEnabled ? 'text-[var(--accent-text)]' : ''}
-						/>
-						<div class="theme-auto-text">
-							<span class="theme-auto-label">Auto Theme</span>
-							<span class="theme-auto-desc">Changes with time of day</span>
-						</div>
-					</div>
-					<div class="theme-auto-indicator" class:active={$autoThemeEnabled}>
-						{#if $autoThemeEnabled}
-							<UIcon icon="i-carbon-checkmark" classes="text-xs" />
-						{/if}
-					</div>
-				</button>
-			</div>
-
-			<div class="theme-divider"></div>
-
-			<!-- Theme list -->
-			<div class="theme-list">
-				{#each themeList as theme (theme.id)}
+				<!-- Auto-theme toggle -->
+				<div class="theme-auto-section">
 					<button
 						type="button"
-						class="theme-item"
-						class:active={$currentTheme === theme.id}
-						onclick={() => selectTheme(theme.id)}
-						disabled={$autoThemeEnabled}
+						class="theme-auto-toggle"
+						onclick={handleAutoThemeToggle}
+						class:active={$autoThemeEnabled}
 					>
-						<div
-							class="theme-preview"
-							style="background: {theme.gradient}"
-							class:active={$currentTheme === theme.id}
-						>
-							<UIcon icon={theme.icon} classes="text-white" />
+						<div class="theme-auto-content">
+							<UIcon
+								icon="i-carbon-time"
+								classes={$autoThemeEnabled ? 'text-[var(--accent-text)]' : ''}
+							/>
+							<div class="theme-auto-text">
+								<span class="theme-auto-label">Auto Theme</span>
+								<span class="theme-auto-desc">Changes with time of day</span>
+							</div>
 						</div>
-						<div class="theme-info">
-							<span class="theme-item-name">{theme.name}</span>
-							<span class="theme-item-desc">{theme.description}</span>
+						<div class="theme-auto-indicator" class:active={$autoThemeEnabled}>
+							{#if $autoThemeEnabled}
+								<UIcon icon="i-carbon-checkmark" classes="text-xs" />
+							{/if}
 						</div>
-						{#if $currentTheme === theme.id}
-							<UIcon icon="i-carbon-checkmark" classes="text-[var(--accent-text)] text-lg" />
-						{/if}
 					</button>
-				{/each}
+				</div>
+
+				<div class="theme-divider"></div>
+
+				<!-- Theme list -->
+				<div class="theme-list">
+					{#each themeList as theme (theme.id)}
+						<button
+							type="button"
+							class="theme-item"
+							class:active={$currentTheme === theme.id}
+							onclick={() => selectTheme(theme.id)}
+							disabled={$autoThemeEnabled}
+						>
+							<div
+								class="theme-preview"
+								style="background: {theme.gradient}"
+								class:active={$currentTheme === theme.id}
+							>
+								<UIcon icon={theme.icon} classes="text-white" />
+							</div>
+							<div class="theme-info">
+								<span class="theme-item-name">{theme.name}</span>
+								<span class="theme-item-desc">{theme.description}</span>
+							</div>
+							{#if $currentTheme === theme.id}
+								<UIcon icon="i-carbon-checkmark" classes="text-[var(--accent-text)] text-lg" />
+							{/if}
+						</button>
+					{/each}
+				</div>
 			</div>
-		</div>
 		</div>
 	{/if}
 </div>
@@ -183,6 +183,7 @@
 
 	.theme-dropdown-wrapper {
 		// Wrapper has no styling, just groups backdrop and dropdown
+		display: contents; // Use display: contents to make it invisible in the DOM tree
 	}
 
 	:global(.theme-switcher-portal) {
