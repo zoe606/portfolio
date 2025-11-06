@@ -53,9 +53,7 @@
 
 <TabTitle {title} {description} path="/" />
 
-<div
-	class="col self-center flex-1 w-full max-w-screen-xl m-x-auto p-x-20px p-y-40px gap-60px homepage-container"
->
+<div class="col self-center flex-1 w-full max-w-screen-xl m-x-auto gap-60px homepage-container">
 	<!-- Hero Section -->
 	<div class="col gap-25px items-center text-center max-w-4xl m-x-auto hero-section">
 		<MainTitle classes="text-center hero-title">{name} {lastName}</MainTitle>

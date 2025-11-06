@@ -13,6 +13,9 @@
 
 	let isOpen = $state(false);
 	let dropdownElement = $state<HTMLDivElement | undefined>(undefined);
+	let dropdownContentElement = $state<HTMLDivElement | undefined>(undefined);
+	let isMobile = $state(false);
+	let portalContainer = $state<HTMLDivElement | undefined>(undefined);
 
 	function toggleDropdown() {
 		isOpen = !isOpen;
@@ -29,7 +32,12 @@
 
 	function handleClickOutside(event: MouseEvent) {
 		if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
-			isOpen = false;
+			// Also check if click is outside portal on mobile
+			if (isMobile && portalContainer && !portalContainer.contains(event.target as Node)) {
+				isOpen = false;
+			} else if (!isMobile) {
+				isOpen = false;
+			}
 		}
 	}
 
@@ -39,14 +47,42 @@
 		}
 	}
 
+	function checkMobile() {
+		isMobile = window.innerWidth <= 1024;
+	}
+
 	onMount(() => {
+		checkMobile();
+		window.addEventListener('resize', checkMobile);
 		document.addEventListener('click', handleClickOutside);
 		document.addEventListener('keydown', handleKeydown);
 
+		// Create portal container for mobile
+		if (typeof document !== 'undefined') {
+			portalContainer = document.createElement('div');
+			portalContainer.className = 'theme-switcher-portal';
+			document.body.appendChild(portalContainer);
+		}
+
 		return () => {
+			window.removeEventListener('resize', checkMobile);
 			document.removeEventListener('click', handleClickOutside);
 			document.removeEventListener('keydown', handleKeydown);
+			if (portalContainer && document.body.contains(portalContainer)) {
+				document.body.removeChild(portalContainer);
+			}
 		};
+	});
+
+	// Move dropdown to portal when mobile and open
+	$effect(() => {
+		if (dropdownContentElement && portalContainer) {
+			if (isMobile && isOpen) {
+				portalContainer.appendChild(dropdownContentElement);
+			} else if (dropdownElement && dropdownContentElement.parentElement === portalContainer) {
+				dropdownElement.appendChild(dropdownContentElement);
+			}
+		}
 	});
 
 	const themeList = Object.values(THEMES);
@@ -67,71 +103,73 @@
 	</button>
 
 	{#if isOpen}
-		<!-- Mobile backdrop -->
-		<div
-			class="theme-backdrop"
-			onclick={toggleDropdown}
-			onkeydown={(e) => e.key === 'Escape' && toggleDropdown()}
-			role="button"
-			tabindex="-1"
-			aria-label="Close theme selector"
-		></div>
+		<div class="theme-dropdown-wrapper" bind:this={dropdownContentElement}>
+			<!-- Mobile backdrop -->
+			<div
+				class="theme-backdrop"
+				onclick={toggleDropdown}
+				onkeydown={(e) => e.key === 'Escape' && toggleDropdown()}
+				role="button"
+				tabindex="-1"
+				aria-label="Close theme selector"
+			></div>
 
-		<div class="theme-dropdown">
-			<!-- Auto-theme toggle -->
-			<div class="theme-auto-section">
-				<button
-					type="button"
-					class="theme-auto-toggle"
-					onclick={handleAutoThemeToggle}
-					class:active={$autoThemeEnabled}
-				>
-					<div class="theme-auto-content">
-						<UIcon
-							icon="i-carbon-time"
-							classes={$autoThemeEnabled ? 'text-[var(--accent-text)]' : ''}
-						/>
-						<div class="theme-auto-text">
-							<span class="theme-auto-label">Auto Theme</span>
-							<span class="theme-auto-desc">Changes with time of day</span>
-						</div>
-					</div>
-					<div class="theme-auto-indicator" class:active={$autoThemeEnabled}>
-						{#if $autoThemeEnabled}
-							<UIcon icon="i-carbon-checkmark" classes="text-xs" />
-						{/if}
-					</div>
-				</button>
-			</div>
-
-			<div class="theme-divider"></div>
-
-			<!-- Theme list -->
-			<div class="theme-list">
-				{#each themeList as theme (theme.id)}
+			<div class="theme-dropdown">
+				<!-- Auto-theme toggle -->
+				<div class="theme-auto-section">
 					<button
 						type="button"
-						class="theme-item"
-						class:active={$currentTheme === theme.id}
-						onclick={() => selectTheme(theme.id)}
-						disabled={$autoThemeEnabled}
+						class="theme-auto-toggle"
+						onclick={handleAutoThemeToggle}
+						class:active={$autoThemeEnabled}
 					>
-						<div
-							class="theme-preview"
-							style="background: {theme.gradient}"
-							class:active={$currentTheme === theme.id}
-						>
-							<UIcon icon={theme.icon} classes="text-white" />
+						<div class="theme-auto-content">
+							<UIcon
+								icon="i-carbon-time"
+								classes={$autoThemeEnabled ? 'text-[var(--accent-text)]' : ''}
+							/>
+							<div class="theme-auto-text">
+								<span class="theme-auto-label">Auto Theme</span>
+								<span class="theme-auto-desc">Changes with time of day</span>
+							</div>
 						</div>
-						<div class="theme-info">
-							<span class="theme-item-name">{theme.name}</span>
-							<span class="theme-item-desc">{theme.description}</span>
+						<div class="theme-auto-indicator" class:active={$autoThemeEnabled}>
+							{#if $autoThemeEnabled}
+								<UIcon icon="i-carbon-checkmark" classes="text-xs" />
+							{/if}
 						</div>
-						{#if $currentTheme === theme.id}
-							<UIcon icon="i-carbon-checkmark" classes="text-[var(--accent-text)] text-lg" />
-						{/if}
 					</button>
-				{/each}
+				</div>
+
+				<div class="theme-divider"></div>
+
+				<!-- Theme list -->
+				<div class="theme-list">
+					{#each themeList as theme (theme.id)}
+						<button
+							type="button"
+							class="theme-item"
+							class:active={$currentTheme === theme.id}
+							onclick={() => selectTheme(theme.id)}
+							disabled={$autoThemeEnabled}
+						>
+							<div
+								class="theme-preview"
+								style="background: {theme.gradient}"
+								class:active={$currentTheme === theme.id}
+							>
+								<UIcon icon={theme.icon} classes="text-white" />
+							</div>
+							<div class="theme-info">
+								<span class="theme-item-name">{theme.name}</span>
+								<span class="theme-item-desc">{theme.description}</span>
+							</div>
+							{#if $currentTheme === theme.id}
+								<UIcon icon="i-carbon-checkmark" classes="text-[var(--accent-text)] text-lg" />
+							{/if}
+						</button>
+					{/each}
+				</div>
 			</div>
 		</div>
 	{/if}
@@ -141,6 +179,23 @@
 	.theme-switcher {
 		position: relative;
 		display: inline-block;
+	}
+
+	.theme-dropdown-wrapper {
+		// Wrapper has no styling, just groups backdrop and dropdown
+		display: contents; // Use display: contents to make it invisible in the DOM tree
+	}
+
+	:global(.theme-switcher-portal) {
+		// Portal container at body level
+		position: fixed;
+		inset: 0;
+		z-index: 1000;
+		pointer-events: none; // Allow clicks through to backdrop/dropdown
+
+		& > * {
+			pointer-events: auto; // Re-enable pointer events for children
+		}
 	}
 
 	.theme-backdrop {
@@ -234,37 +289,37 @@
 	}
 
 	.theme-dropdown {
-		position: absolute;
-		top: calc(100% + 8px);
-		right: 0;
-		min-width: 280px;
-		max-width: 320px;
 		background-color: var(--main);
 		border: 1px solid var(--border);
 		border-radius: 12px;
 		box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
 		padding: 8px;
 		z-index: 1000;
+
+		// Desktop: position relative to parent
+		position: absolute;
+		top: calc(100% + 8px);
+		right: 0;
+		min-width: 280px;
+		max-width: 320px;
 		animation: slideDown 0.2s ease;
 
-		@media (max-width: 768px) {
-			// Full width with margins on mobile
+		// Mobile: when in portal, positioned at bottom
+		@media (max-width: 1024px) {
 			position: fixed;
+			top: auto;
+			bottom: 10px;
 			right: 10px;
 			left: 10px;
 			min-width: auto;
 			max-width: none;
 			width: calc(100vw - 20px);
-			max-height: 80vh;
+			max-height: 75vh;
 			overflow-y: auto;
+			animation: slideUp 0.3s ease;
 		}
 
 		@media (max-width: 480px) {
-			// Even more compact on very small screens
-			top: auto;
-			bottom: 10px;
-			right: 10px;
-			left: 10px;
 			max-height: 70vh;
 		}
 	}
@@ -280,20 +335,14 @@
 		}
 	}
 
-	@media (max-width: 480px) {
-		.theme-dropdown {
-			animation: slideUp 0.3s ease;
+	@keyframes slideUp {
+		from {
+			opacity: 0;
+			transform: translateY(100px);
 		}
-
-		@keyframes slideUp {
-			from {
-				opacity: 0;
-				transform: translateY(100px);
-			}
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
+		to {
+			opacity: 1;
+			transform: translateY(0);
 		}
 	}
 

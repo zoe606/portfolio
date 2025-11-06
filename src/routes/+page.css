@@ -1,13 +1,15 @@
 /* Mobile-responsive styles for homepage */
 
 .homepage-container {
+	padding: 40px 0;
+
 	@media (max-width: 768px) {
-		padding: 20px 16px;
+		padding: 30px 0;
 		gap: 40px;
 	}
 
 	@media (max-width: 480px) {
-		padding: 16px 12px;
+		padding: 20px 0;
 		gap: 32px;
 	}
 }

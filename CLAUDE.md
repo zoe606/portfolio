@@ -251,3 +251,4 @@ Stores still use Svelte's writable/readable for cross-component state (e.g., the
 - **TypeScript:** Strict mode enabled, all new code should be typed
 - **Markdown security:** All markdown is sanitized with DOMPurify before rendering
 - **Performance:** Web Vitals monitoring is built-in and active
+- remember to check all code quality when me triggering to commit/push/create pr to github
