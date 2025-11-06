@@ -3,7 +3,7 @@
 	import NavMenu from '$lib/components/NavMenu/NavMenu.svelte';
 	import SearchModal from '$lib/components/SearchModal.svelte';
 	import '$lib/index.scss';
-	import { onHydrated, theme } from '$lib/stores/theme';
+	import { onHydrated, currentTheme } from '$lib/stores/theme';
 	import { onMount } from 'svelte';
 	import { onCLS, onINP, onLCP, onFCP, onTTFB, type Metric } from 'web-vitals';
 	import type { Snippet } from 'svelte';
@@ -56,7 +56,7 @@
 	});
 </script>
 
-<div class={`body contents ${$theme ? 'theme-dark' : 'theme-light'}`}>
+<div class={`body contents theme-${$currentTheme}`}>
 	<NavMenu onsearchclick={handleSearchOpen} />
 	<div class="content container">
 		{@render children()}
