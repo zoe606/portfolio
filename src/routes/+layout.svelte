@@ -62,7 +62,7 @@
 	<NavMenu onsearchclick={handleSearchOpen} />
 	<div class="content container">
 		{#key $page.url.pathname}
-			<div in:pageIn out:pageOut>
+			<div in:pageIn out:pageOut style="min-height: 100vh;">
 				{@render children()}
 			</div>
 		{/key}

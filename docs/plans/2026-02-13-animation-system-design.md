@@ -24,10 +24,10 @@ All animations integrate via Svelte actions (`use:` directive) — SSR-safe, com
 
 ```typescript
 export const PRESETS = {
-  fade: { duration: 0.4, easing: 'ease-out' },
-  slideUp: { duration: 0.5, easing: [0.25, 0.1, 0.25, 1] },
-  spring: { stiffness: 300, damping: 20 },
-  stagger: 0.08 // delay between sibling elements
+	fade: { duration: 0.4, easing: 'ease-out' },
+	slideUp: { duration: 0.5, easing: [0.25, 0.1, 0.25, 1] },
+	spring: { stiffness: 300, damping: 20 },
+	stagger: 0.08 // delay between sibling elements
 };
 ```
 
@@ -52,14 +52,14 @@ Elements animate in when entering the viewport.
 
 ### Per-Element Reveals
 
-| Element | Animation |
-|---------|-----------|
-| Section headings | Fade in + slide up |
-| Project cards | Fade in + slide up, staggered |
-| Experience cards | Fade in + slide from left |
+| Element            | Animation                              |
+| ------------------ | -------------------------------------- |
+| Section headings   | Fade in + slide up                     |
+| Project cards      | Fade in + slide up, staggered          |
+| Experience cards   | Fade in + slide from left              |
 | Skill badges/cards | Fade in + scale up slightly, staggered |
-| Education entries | Fade in + slide up |
-| Stats cards (home) | Fade in + slide up, staggered |
+| Education entries  | Fade in + slide up                     |
+| Stats cards (home) | Fade in + slide up, staggered          |
 
 Implementation: `use:scrollReveal` Svelte action combining svelte-inview detection with Motion One `animate()`. Initial hidden state applied via the action on mount (not CSS), preventing flash-of-hidden-content during SSR.
 
@@ -74,12 +74,12 @@ Spring-based hover and press effects.
 
 ### Per-Card Effects
 
-| Card type | Hover effect |
-|-----------|-------------|
-| Project cards | Lift + color glow + press feedback |
-| Experience cards | Lift + subtle shadow + press feedback |
-| Skill cards/badges | Lift + color glow |
-| Stats cards | Lift + shadow |
+| Card type          | Hover effect                          |
+| ------------------ | ------------------------------------- |
+| Project cards      | Lift + color glow + press feedback    |
+| Experience cards   | Lift + subtle shadow + press feedback |
+| Skill cards/badges | Lift + color glow                     |
+| Stats cards        | Lift + shadow                         |
 
 Implementation: `use:cardHover` Svelte action with options `{ color?: string, lift?: number }`. Hover effects disabled on touch devices via `@media (hover: hover)`. Press feedback works on tap.
 
@@ -104,9 +104,9 @@ Implementation: `use:cardHover` Svelte action with options `{ color?: string, li
 
 ## Dependencies
 
-| Package | Size (gzip) | Purpose |
-|---------|-------------|---------|
-| `motion` | ~2.5KB | Spring animations, timeline sequences |
-| `svelte-inview` | ~1KB | Viewport intersection detection |
+| Package         | Size (gzip) | Purpose                               |
+| --------------- | ----------- | ------------------------------------- |
+| `motion`        | ~2.5KB      | Spring animations, timeline sequences |
+| `svelte-inview` | ~1KB        | Viewport intersection detection       |
 
 Total bundle increase: ~3.5KB gzipped.

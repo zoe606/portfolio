@@ -43,7 +43,7 @@
 	bind:this={el}
 	onmousemove={onHover}
 	role={href ? undefined : 'group'}
-	class="enhanced-stats-card decoration-none border-1px border-solid border-[var(--border)] rounded-15px relative duration transition-all hover:border-[var(--border-hover)]"
+	class="enhanced-stats-card decoration-none flex flex-col flex-1 border-1px border-solid border-[var(--border)] rounded-15px relative duration transition-all hover:border-[var(--border-hover)]"
 >
 	<div class="card-bg flex-1 flex flex-col rounded-15px">
 		<div class="col-center card-content">

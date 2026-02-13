@@ -98,7 +98,7 @@
 	{:else}
 		<div class="projects-list mt-5">
 			{#each displayed as project, i (project.slug)}
-				<div use:scrollReveal={{ delay: i * REVEAL.stagger }}>
+				<div class="col" use:scrollReveal={{ delay: i * REVEAL.stagger }}>
 					<ProjectCard {project} />
 				</div>
 			{/each}

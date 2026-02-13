@@ -59,7 +59,7 @@
 	});
 
 	$: cardClasses = cn(
-		'card-enhanced text-inherit decoration-none inline-flex flex-col border-1px border-solid border-[var(--border)] rounded-15px duration relative',
+		'card-enhanced text-inherit decoration-none flex flex-col border-1px border-solid border-[var(--border)] rounded-15px duration relative',
 		className
 	);
 </script>

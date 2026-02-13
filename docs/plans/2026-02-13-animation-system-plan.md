@@ -9,6 +9,7 @@
 **Tech Stack:** Motion One (`motion`), `svelte-inview`, Svelte 5 built-in transitions (`svelte/transition`)
 
 **Important context:**
+
 - No test framework is configured. Verification uses `yarn check` (type-check) + `yarn lint` + dev server visual testing.
 - `CardEnhanced` already has tilt/perspective hover effects via CSS — the `cardHover` action adds spring lift on top of existing behavior, it does NOT replace the tilt system.
 - Components use a mix of Svelte 4 (`export let`) and Svelte 5 (`$props()`) syntax. Match each component's existing style when modifying.
@@ -18,11 +19,13 @@
 ### Task 1: Install Dependencies
 
 **Files:**
+
 - Modify: `package.json`
 
 **Step 1: Install motion and svelte-inview**
 
 Run:
+
 ```bash
 yarn add motion svelte-inview
 ```
@@ -44,6 +47,7 @@ git commit -m "chore: add motion and svelte-inview dependencies"
 ### Task 2: Create Animation Presets
 
 **Files:**
+
 - Create: `src/lib/animations/presets.ts`
 
 **Step 1: Create the presets file**
@@ -128,6 +132,7 @@ git commit -m "feat: add animation preset configuration"
 ### Task 3: Create Scroll Reveal Action
 
 **Files:**
+
 - Create: `src/lib/animations/actions.ts`
 
 **Step 1: Create the actions file with scrollReveal**
@@ -223,6 +228,7 @@ git commit -m "feat: add scrollReveal Svelte action"
 ### Task 4: Create Card Hover Action
 
 **Files:**
+
 - Modify: `src/lib/animations/actions.ts`
 
 **Step 1: Add cardHover action to the existing actions file**
@@ -355,6 +361,7 @@ git commit -m "feat: add cardHover Svelte action with spring lift and press feed
 ### Task 5: Create Page Transition
 
 **Files:**
+
 - Create: `src/lib/animations/transitions.ts`
 
 **Step 1: Create the transitions file**
@@ -421,6 +428,7 @@ git commit -m "feat: add page transition functions"
 ### Task 6: Add Page Transitions to Layout
 
 **Files:**
+
 - Modify: `src/routes/+layout.svelte`
 
 **Step 1: Add page transitions**
@@ -428,12 +436,14 @@ git commit -m "feat: add page transition functions"
 Modify `+layout.svelte` to wrap `{@render children()}` in a `{#key}` block with in/out transitions:
 
 1. Add import at top of `<script>`:
+
 ```typescript
 import { page } from '$app/stores';
 import { pageIn, pageOut } from '$lib/animations/transitions';
 ```
 
 2. Replace `{@render children()}` with:
+
 ```svelte
 {#key $page.url.pathname}
 	<div in:pageIn out:pageOut>
@@ -464,27 +474,29 @@ git commit -m "feat: add page transitions to layout"
 ### Task 7: Add Scroll Reveals to Home Page
 
 **Files:**
+
 - Modify: `src/routes/+page.svelte`
 
 **Step 1: Add scroll reveals to the home page sections**
 
 1. Add import at top of `<script>`:
+
 ```typescript
 import { scrollReveal } from '$lib/animations/actions';
 import { REVEAL } from '$lib/animations/presets';
 ```
 
 2. Add `use:scrollReveal` to the hero section:
+
 ```svelte
 <div use:scrollReveal class="col gap-25px items-center text-center max-w-4xl m-x-auto hero-section">
 ```
 
 3. Add `use:scrollReveal` to each `EnhancedStatsCard` with stagger:
+
 ```svelte
-{#each [
-	{ value: `${yearsOfExperience}+`, label: 'Years', subtitle: 'Experience', href: '/experience', color: '#3b82f6' },
+{#each [{ value: `${yearsOfExperience}+`, label: 'Years', subtitle: 'Experience', href: '/experience', color: '#3b82f6' }] as stat, i}
 	// ... etc
-] as stat, i}
 	<div use:scrollReveal={{ delay: i * REVEAL.stagger }}>
 		<EnhancedStatsCard {...stat} />
 	</div>
@@ -492,6 +504,7 @@ import { REVEAL } from '$lib/animations/presets';
 ```
 
 Or simpler — wrap each `EnhancedStatsCard` individually:
+
 ```svelte
 <div use:scrollReveal={{ delay: 0 }}>
 	<EnhancedStatsCard ... />
@@ -500,9 +513,11 @@ Or simpler — wrap each `EnhancedStatsCard` individually:
 	<EnhancedStatsCard ... />
 </div>
 ```
+
 (Use whichever approach keeps the existing structure cleaner. The key is adding stagger delays.)
 
 4. Add `use:scrollReveal` to the FeaturedSkills wrapper:
+
 ```svelte
 <div use:scrollReveal>
 	<FeaturedSkills skills={MY_SKILLS} />
@@ -510,6 +525,7 @@ Or simpler — wrap each `EnhancedStatsCard` individually:
 ```
 
 5. Add `use:scrollReveal` to each `ProjectCard` in the featured projects grid with stagger:
+
 ```svelte
 {#each featuredProjects as project, i (project.slug)}
 	<div use:scrollReveal={{ delay: i * REVEAL.stagger }}>
@@ -519,6 +535,7 @@ Or simpler — wrap each `EnhancedStatsCard` individually:
 ```
 
 6. Add `use:scrollReveal={{ direction: 'left' }}` to each `ExperienceCard`:
+
 ```svelte
 {#each latestExperiences as experience, i (experience.slug)}
 	<div use:scrollReveal={{ direction: 'left', delay: i * REVEAL.stagger }}>
@@ -549,17 +566,20 @@ git commit -m "feat: add scroll reveal animations to home page"
 ### Task 8: Add Scroll Reveals to Projects Page
 
 **Files:**
+
 - Modify: `src/routes/projects/+page.svelte`
 
 **Step 1: Add scroll reveals to project cards**
 
 1. Add import:
+
 ```typescript
 import { scrollReveal } from '$lib/animations/actions';
 import { REVEAL } from '$lib/animations/presets';
 ```
 
 2. Wrap each `ProjectCard` in the grid with stagger:
+
 ```svelte
 {#each displayed as project, i (project.slug)}
 	<div use:scrollReveal={{ delay: i * REVEAL.stagger }}>
@@ -585,17 +605,20 @@ git commit -m "feat: add scroll reveals to projects page"
 ### Task 9: Add Scroll Reveals to Experience Page
 
 **Files:**
+
 - Modify: `src/routes/experience/+page.svelte`
 
 **Step 1: Add scroll reveals to experience cards**
 
 1. Add import:
+
 ```typescript
 import { scrollReveal } from '$lib/animations/actions';
 import { REVEAL } from '$lib/animations/presets';
 ```
 
 2. Wrap each `ExperienceCard` in the timeline:
+
 ```svelte
 {#each result as experience, index (experience.slug)}
 	<div
@@ -626,17 +649,20 @@ git commit -m "feat: add scroll reveals to experience page"
 ### Task 10: Add Scroll Reveals to Skills Page
 
 **Files:**
+
 - Modify: `src/routes/skills/+page.svelte`
 
 **Step 1: Add scroll reveals to skill cards**
 
 1. Add import:
+
 ```typescript
 import { scrollReveal } from '$lib/animations/actions';
 import { REVEAL } from '$lib/animations/presets';
 ```
 
 2. Wrap each `CardEnhanced` in the grid:
+
 ```svelte
 {#each result as skill, i (skill.slug)}
 	<div use:scrollReveal={{ direction: 'scale', delay: i * REVEAL.stagger }}>
@@ -664,6 +690,7 @@ git commit -m "feat: add scroll reveals to skills page"
 ### Task 11: Add Scroll Reveals to Education Page
 
 **Files:**
+
 - Modify: `src/routes/education/+page.svelte`
 
 **Step 1: Read the education page first to understand its structure**
@@ -687,6 +714,7 @@ git commit -m "feat: add scroll reveals to education page"
 ### Task 12: Add Card Hover Action to CardEnhanced
 
 **Files:**
+
 - Modify: `src/lib/components/ui/card-enhanced.svelte`
 
 **Step 1: Layer cardHover action onto existing CardEnhanced**
@@ -694,11 +722,13 @@ git commit -m "feat: add scroll reveals to education page"
 The existing `CardEnhanced` already has CSS tilt/perspective hover effects. The `cardHover` action adds spring-based lift and shadow on top.
 
 1. Add import:
+
 ```typescript
 import { cardHover } from '$lib/animations/actions';
 ```
 
 2. Add the action to the root `<svelte:element>`:
+
 ```svelte
 <svelte:element
 	this={href ? 'a' : 'div'}
@@ -719,6 +749,7 @@ Run: `yarn dev`, hover over project/skill cards
 Expected: Cards lift up slightly with shadow. Existing tilt effect should still work.
 
 If transforms conflict:
+
 - Option A: Remove CSS `&:hover { transform: ... }` from `.card-enhanced` and let the action handle the lift.
 - Option B: Change the cardHover action to use `margin-top` instead of `translateY` for the lift.
 
@@ -741,16 +772,19 @@ git commit -m "feat: add spring hover action to CardEnhanced"
 ### Task 13: Add Card Hover to EnhancedStatsCard
 
 **Files:**
+
 - Modify: `src/lib/components/EnhancedStatsCard.svelte`
 
 **Step 1: Add cardHover action**
 
 1. Add import:
+
 ```typescript
 import { cardHover } from '$lib/animations/actions';
 ```
 
 2. Add action to root element:
+
 ```svelte
 <svelte:element
 	this={href ? 'a' : 'div'}
@@ -779,16 +813,19 @@ git commit -m "feat: add spring hover to stats cards"
 ### Task 14: Add Card Hover to FeaturedSkills
 
 **Files:**
+
 - Modify: `src/lib/components/FeaturedSkills.svelte`
 
 **Step 1: Add cardHover action to skill cards**
 
 1. Add import:
+
 ```typescript
 import { cardHover } from '$lib/animations/actions';
 ```
 
 2. Add action to each `.featured-skill-card` anchor:
+
 ```svelte
 <a
 	href={`${base}/skills/${skill.slug}`}
@@ -816,6 +853,7 @@ git commit -m "feat: add spring hover to featured skill cards"
 ### Task 15: Create Index Export and Final Verification
 
 **Files:**
+
 - Create: `src/lib/animations/index.ts`
 
 **Step 1: Create barrel export**
@@ -834,23 +872,28 @@ Replace `from '$lib/animations/actions'` and `from '$lib/animations/presets'` wi
 **Step 3: Full verification**
 
 Run:
+
 ```bash
 yarn check && yarn lint
 ```
+
 Expected: No errors
 
 **Step 4: Build verification**
 
 Run:
+
 ```bash
 yarn build
 ```
+
 Expected: Build succeeds with no errors. All pages statically prerendered.
 
 **Step 5: Visual smoke test**
 
 Run: `yarn preview`
 Expected:
+
 - Navigate between pages: smooth crossfade transitions
 - Scroll down home page: sections cascade in
 - Hover project cards: spring lift with shadow

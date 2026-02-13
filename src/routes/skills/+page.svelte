@@ -36,7 +36,7 @@
 	{:else}
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-5 mt-10">
 			{#each result as skill, i (skill.slug)}
-				<div use:scrollReveal={{ direction: 'scale', delay: i * REVEAL.stagger }}>
+				<div class="col" use:scrollReveal={{ direction: 'scale', delay: i * REVEAL.stagger }}>
 					<CardEnhanced
 						color={skill.color}
 						class="cursor-pointer decoration-none"

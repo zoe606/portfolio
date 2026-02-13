@@ -88,7 +88,7 @@
 	<!-- Stats Section -->
 	<HomeSection title="At a Glance">
 		<div class="grid grid-cols-2 md:grid-cols-4 gap-20px stats-grid">
-			<div use:scrollReveal={{ delay: 0 * REVEAL.stagger }}>
+			<div class="col" use:scrollReveal={{ delay: 0 * REVEAL.stagger }}>
 				<EnhancedStatsCard
 					value="{yearsOfExperience}+"
 					label="Years"
@@ -97,7 +97,7 @@
 					color="#3b82f6"
 				/>
 			</div>
-			<div use:scrollReveal={{ delay: 1 * REVEAL.stagger }}>
+			<div class="col" use:scrollReveal={{ delay: 1 * REVEAL.stagger }}>
 				<EnhancedStatsCard
 					value={totalProjects}
 					label="Projects"
@@ -106,7 +106,7 @@
 					color="#8b5cf6"
 				/>
 			</div>
-			<div use:scrollReveal={{ delay: 2 * REVEAL.stagger }}>
+			<div class="col" use:scrollReveal={{ delay: 2 * REVEAL.stagger }}>
 				<EnhancedStatsCard
 					value={totalExperiences}
 					label="Companies"
@@ -115,7 +115,7 @@
 					color="#10b981"
 				/>
 			</div>
-			<div use:scrollReveal={{ delay: 3 * REVEAL.stagger }}>
+			<div class="col" use:scrollReveal={{ delay: 3 * REVEAL.stagger }}>
 				<EnhancedStatsCard
 					value="{totalSkills}+"
 					label="Technologies"
@@ -136,7 +136,7 @@
 	<HomeSection title="Featured Projects" href="/projects">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20px projects-grid">
 			{#each featuredProjects as project, i (project.slug)}
-				<div use:scrollReveal={{ delay: i * REVEAL.stagger }}>
+				<div class="col" use:scrollReveal={{ delay: i * REVEAL.stagger }}>
 					<ProjectCard {project} />
 				</div>
 			{/each}
