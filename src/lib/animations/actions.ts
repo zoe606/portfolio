@@ -69,3 +69,108 @@ export const scrollReveal: Action<HTMLElement, ScrollRevealOptions | undefined> 
 		}
 	};
 };
+
+export interface CardHoverOptions {
+	/** Accent color for border glow (hex string) */
+	color?: string;
+	/** Custom lift distance in px */
+	lift?: number;
+}
+
+export const cardHover: Action<HTMLElement, CardHoverOptions | undefined> = (
+	node,
+	options = {}
+) => {
+	if (typeof window === 'undefined') return;
+
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	if (prefersReducedMotion) return;
+
+	// Only apply on devices with hover capability
+	const hasHover = window.matchMedia('(hover: hover)').matches;
+	if (!hasHover) return;
+
+	const { color, lift = CARD.lift } = options;
+
+	const onPointerEnter = () => {
+		animate(
+			node,
+			{
+				transform: `translateY(-${lift}px)`,
+				boxShadow: CARD.shadowHover
+			},
+			{ duration: 0.3, easing: EASING.easeOut }
+		);
+
+		if (color) {
+			animate(node, { borderColor: color }, { duration: 0.3, easing: EASING.easeOut });
+		}
+	};
+
+	const onPointerLeave = () => {
+		animate(
+			node,
+			{
+				transform: 'translateY(0px)',
+				boxShadow: CARD.shadowRest
+			},
+			{ duration: 0.3, easing: EASING.easeOut }
+		);
+
+		if (color) {
+			animate(node, { borderColor: '' }, { duration: 0.3, easing: EASING.easeOut });
+		}
+	};
+
+	const onPointerDown = () => {
+		animate(node, { transform: `scale(${CARD.pressScale})` }, { duration: 0.1 });
+	};
+
+	const onPointerUp = () => {
+		animate(
+			node,
+			{ transform: `translateY(-${lift}px)` },
+			{ duration: 0.2, easing: EASING.easeOut }
+		);
+	};
+
+	const onFocus = () => {
+		animate(
+			node,
+			{
+				transform: `translateY(-${lift}px)`,
+				boxShadow: CARD.shadowHover
+			},
+			{ duration: 0.3, easing: EASING.easeOut }
+		);
+	};
+
+	const onBlur = () => {
+		animate(
+			node,
+			{
+				transform: 'translateY(0px)',
+				boxShadow: CARD.shadowRest
+			},
+			{ duration: 0.3, easing: EASING.easeOut }
+		);
+	};
+
+	node.addEventListener('pointerenter', onPointerEnter);
+	node.addEventListener('pointerleave', onPointerLeave);
+	node.addEventListener('pointerdown', onPointerDown);
+	node.addEventListener('pointerup', onPointerUp);
+	node.addEventListener('focus', onFocus);
+	node.addEventListener('blur', onBlur);
+
+	return {
+		destroy() {
+			node.removeEventListener('pointerenter', onPointerEnter);
+			node.removeEventListener('pointerleave', onPointerLeave);
+			node.removeEventListener('pointerdown', onPointerDown);
+			node.removeEventListener('pointerup', onPointerUp);
+			node.removeEventListener('focus', onFocus);
+			node.removeEventListener('blur', onBlur);
+		}
+	};
+};
