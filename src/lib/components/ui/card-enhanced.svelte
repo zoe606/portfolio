@@ -4,6 +4,10 @@
 	import { onMount } from 'svelte';
 	import type { MouseEventHandler } from 'svelte/elements';
 
+	// NOTE: This component has built-in CSS hover transforms (tilt + lift + shadow).
+	// Do NOT use the `use:cardHover` action on this component — it would overwrite
+	// the CSS tilt effect. The hover behavior is handled entirely via CSS below.
+
 	let el: HTMLElement;
 
 	export let color = '#ffffff00';
@@ -121,6 +125,11 @@
 				translateY(-5px);
 			border-color: var(--border-hover);
 			box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+		}
+
+		&:focus-visible {
+			outline: 2px solid var(--border-hover);
+			outline-offset: 2px;
 		}
 
 		@media (max-width: 768px) {
