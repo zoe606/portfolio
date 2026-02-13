@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { changeColorOpacity } from '$lib/utils/color';
+	import { cardHover } from '$lib/animations/actions';
 	import type { MouseEventHandler } from 'svelte/elements';
 
 	interface Props {
@@ -42,6 +43,7 @@
 	href={href ? `${base}${href}` : undefined}
 	bind:this={el}
 	onmousemove={onHover}
+	use:cardHover={{ lift: 4 }}
 	role={href ? undefined : 'group'}
 	class="enhanced-stats-card decoration-none flex flex-col flex-1 border-1px border-solid border-[var(--border)] rounded-15px relative duration transition-all hover:border-[var(--border-hover)]"
 >
