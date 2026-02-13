@@ -7,6 +7,8 @@
 	import type { Education } from '$lib/types';
 	import { getTimeDiff } from '$lib/utils';
 	import TabTitle from '$lib/components/TabTitle.svelte';
+	import { scrollReveal } from '$lib/animations/actions';
+	import { REVEAL } from '$lib/animations/presets';
 
 	const { items, title, description } = EDUCATION;
 
@@ -45,7 +47,10 @@
 		{:else}
 			<div class="timeline-track hidden lg:flex"></div>
 			{#each result as education, index (education.slug)}
-				<div class={`timeline-entry ${index % 2 ? 'flex-row' : 'flex-row-reverse'}`}>
+				<div
+					use:scrollReveal={{ delay: index * REVEAL.stagger }}
+					class={`timeline-entry ${index % 2 ? 'flex-row' : 'flex-row-reverse'}`}
+				>
 					<div class="flex-1 hidden lg:flex"></div>
 					<div class="hidden lg:inline timeline-dot">
 						<UIcon icon="i-carbon-condition-point" />

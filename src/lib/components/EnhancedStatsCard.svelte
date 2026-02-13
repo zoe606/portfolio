@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { base } from '$app/paths';
 	import { changeColorOpacity } from '$lib/utils/color';
+	import { cardHover } from '$lib/animations/actions';
 	import type { MouseEventHandler } from 'svelte/elements';
 
 	interface Props {
@@ -42,8 +43,9 @@
 	href={href ? `${base}${href}` : undefined}
 	bind:this={el}
 	onmousemove={onHover}
+	use:cardHover={{ lift: 5 }}
 	role={href ? undefined : 'group'}
-	class="enhanced-stats-card decoration-none border-1px border-solid border-[var(--border)] rounded-15px relative duration transition-all hover:border-[var(--border-hover)]"
+	class="enhanced-stats-card decoration-none flex flex-col flex-1 border-1px border-solid border-[var(--border)] rounded-15px relative duration transition-all hover:border-[var(--border-hover)]"
 >
 	<div class="card-bg flex-1 flex flex-col rounded-15px">
 		<div class="col-center card-content">
@@ -75,6 +77,11 @@
 
 		background: linear-gradient(90deg, var(--main) 0%, var(--main) 60%, var(--main-60) 100%);
 		cursor: pointer;
+
+		&:focus-visible {
+			outline: 2px solid var(--border-hover);
+			outline-offset: 2px;
+		}
 
 		@media (max-width: 480px) {
 			min-width: 100%;

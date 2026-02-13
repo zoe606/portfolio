@@ -10,6 +10,8 @@
 	import MY_SKILLS from '$lib/skills.params';
 	import { capitalize, isBlank } from '$lib/utils/helpers';
 	import TabTitle from '$lib/components/TabTitle.svelte';
+	import { scrollReveal } from '$lib/animations/actions';
+	import { REVEAL } from '$lib/animations/presets';
 	import './+page.css';
 
 	const { description, lastName, links, name, title } = HOME;
@@ -55,7 +57,10 @@
 
 <div class="col self-center flex-1 w-full max-w-screen-xl m-x-auto gap-60px homepage-container">
 	<!-- Hero Section -->
-	<div class="col gap-25px items-center text-center max-w-4xl m-x-auto hero-section">
+	<div
+		use:scrollReveal
+		class="col gap-25px items-center text-center max-w-4xl m-x-auto hero-section"
+	>
 		<MainTitle classes="text-center hero-title">{name} {lastName}</MainTitle>
 		<p
 			class="text-[var(--secondary-text)] text-center text-[1.15em] font-light leading-relaxed max-w-3xl hero-description"
@@ -83,45 +88,57 @@
 	<!-- Stats Section -->
 	<HomeSection title="At a Glance">
 		<div class="grid grid-cols-2 md:grid-cols-4 gap-20px stats-grid">
-			<EnhancedStatsCard
-				value="{yearsOfExperience}+"
-				label="Years"
-				subtitle="Experience"
-				href="/experience"
-				color="#3b82f6"
-			/>
-			<EnhancedStatsCard
-				value={totalProjects}
-				label="Projects"
-				subtitle="Built"
-				href="/projects"
-				color="#8b5cf6"
-			/>
-			<EnhancedStatsCard
-				value={totalExperiences}
-				label="Companies"
-				subtitle="Worked With"
-				href="/experience"
-				color="#10b981"
-			/>
-			<EnhancedStatsCard
-				value="{totalSkills}+"
-				label="Technologies"
-				subtitle="Used"
-				href="/skills"
-				color="#f59e0b"
-			/>
+			<div class="col" use:scrollReveal={{ delay: 0 * REVEAL.stagger }}>
+				<EnhancedStatsCard
+					value="{yearsOfExperience}+"
+					label="Years"
+					subtitle="Experience"
+					href="/experience"
+					color="#3b82f6"
+				/>
+			</div>
+			<div class="col" use:scrollReveal={{ delay: 1 * REVEAL.stagger }}>
+				<EnhancedStatsCard
+					value={totalProjects}
+					label="Projects"
+					subtitle="Built"
+					href="/projects"
+					color="#8b5cf6"
+				/>
+			</div>
+			<div class="col" use:scrollReveal={{ delay: 2 * REVEAL.stagger }}>
+				<EnhancedStatsCard
+					value={totalExperiences}
+					label="Companies"
+					subtitle="Worked With"
+					href="/experience"
+					color="#10b981"
+				/>
+			</div>
+			<div class="col" use:scrollReveal={{ delay: 3 * REVEAL.stagger }}>
+				<EnhancedStatsCard
+					value="{totalSkills}+"
+					label="Technologies"
+					subtitle="Used"
+					href="/skills"
+					color="#f59e0b"
+				/>
+			</div>
 		</div>
 	</HomeSection>
 
 	<!-- Featured Skills -->
-	<FeaturedSkills skills={MY_SKILLS} />
+	<div use:scrollReveal>
+		<FeaturedSkills skills={MY_SKILLS} />
+	</div>
 
 	<!-- Featured Projects Section -->
 	<HomeSection title="Featured Projects" href="/projects">
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-20px projects-grid">
-			{#each featuredProjects as project (project.slug)}
-				<ProjectCard {project} />
+			{#each featuredProjects as project, i (project.slug)}
+				<div class="col" use:scrollReveal={{ delay: i * REVEAL.stagger }}>
+					<ProjectCard {project} />
+				</div>
 			{/each}
 		</div>
 	</HomeSection>
@@ -129,8 +146,10 @@
 	<!-- Latest Experience Section -->
 	<HomeSection title="Recent Experience" href="/experience">
 		<div class="col gap-20px">
-			{#each latestExperiences as experience (experience.slug)}
-				<ExperienceCard {experience} />
+			{#each latestExperiences as experience, i (experience.slug)}
+				<div use:scrollReveal={{ direction: 'left', delay: i * REVEAL.stagger }}>
+					<ExperienceCard {experience} />
+				</div>
 			{/each}
 		</div>
 	</HomeSection>

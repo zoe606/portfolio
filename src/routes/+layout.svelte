@@ -7,6 +7,8 @@
 	import { onMount } from 'svelte';
 	import { onCLS, onINP, onLCP, onFCP, onTTFB, type Metric } from 'web-vitals';
 	import type { Snippet } from 'svelte';
+	import { page } from '$app/stores';
+	import { pageIn, pageOut } from '$lib/animations/transitions';
 
 	interface Props {
 		children: Snippet;
@@ -59,7 +61,11 @@
 <div class={`body contents theme-${$currentTheme}`}>
 	<NavMenu onsearchclick={handleSearchOpen} />
 	<div class="content container">
-		{@render children()}
+		{#key $page.url.pathname}
+			<div in:pageIn out:pageOut style="min-height: 100vh;">
+				{@render children()}
+			</div>
+		{/key}
 	</div>
 	<SearchModal bind:open={searchModalOpen} />
 </div>

@@ -8,6 +8,8 @@
 	import { getAssetURL } from '$lib/data/assets';
 	import UIcon from '$lib/components/Icon/UIcon.svelte';
 	import TabTitle from '$lib/components/TabTitle.svelte';
+	import { scrollReveal } from '$lib/animations/actions';
+	import { REVEAL } from '$lib/animations/presets';
 
 	const { items, title, description } = SKILLS;
 
@@ -33,16 +35,18 @@
 		</div>
 	{:else}
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3 lg:gap-5 mt-10">
-			{#each result as skill (skill.slug)}
-				<CardEnhanced
-					color={skill.color}
-					class="cursor-pointer decoration-none"
-					tiltDegree={1}
-					href={`${base}/skills/${skill.slug}`}
-					bgImg={getAssetURL(skill.logo)}
-				>
-					<p class="text-[var(--tertiary-text)]">{skill.name}</p>
-				</CardEnhanced>
+			{#each result as skill, i (skill.slug)}
+				<div class="col" use:scrollReveal={{ direction: 'scale', delay: i * REVEAL.stagger }}>
+					<CardEnhanced
+						color={skill.color}
+						class="cursor-pointer decoration-none"
+						tiltDegree={1}
+						href={`${base}/skills/${skill.slug}`}
+						bgImg={getAssetURL(skill.logo)}
+					>
+						<p class="text-[var(--tertiary-text)]">{skill.name}</p>
+					</CardEnhanced>
+				</div>
 			{/each}
 		</div>
 	{/if}
