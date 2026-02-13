@@ -3,15 +3,10 @@
  * All durations in seconds, all distances in pixels.
  */
 
-const prefersReducedMotion =
-	typeof window !== 'undefined'
-		? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-		: false;
-
 export const DURATION = {
-	fast: prefersReducedMotion ? 0 : 0.3,
-	normal: prefersReducedMotion ? 0 : 0.4,
-	slow: prefersReducedMotion ? 0 : 0.5
+	fast: 0.3,
+	normal: 0.4,
+	slow: 0.5
 } as const;
 
 export const EASING = {

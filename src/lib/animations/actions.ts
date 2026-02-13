@@ -18,20 +18,27 @@ export const scrollReveal: Action<HTMLElement, ScrollRevealOptions | undefined> 
 	const { direction = 'up', delay = 0, duration = DURATION.slow } = options;
 
 	// If reduced motion or SSR, do nothing -- content stays visible
-	if (typeof window === 'undefined') return;
+	if (typeof window === 'undefined') return { destroy() {} };
 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-	if (prefersReducedMotion || duration === 0) return;
+	if (prefersReducedMotion || duration === 0) return { destroy() {} };
 
 	// Set initial hidden state via JS (not CSS -- so content is visible if JS fails)
-	node.style.opacity = '0';
+	let transformStart = '';
+	let transformEnd = '';
 
 	if (direction === 'up') {
-		node.style.transform = `translateY(${REVEAL.slideDistance}px)`;
+		transformStart = `translateY(${REVEAL.slideDistance}px)`;
+		transformEnd = 'translateY(0)';
 	} else if (direction === 'left') {
-		node.style.transform = `translateX(-${REVEAL.slideLeftDistance}px)`;
+		transformStart = `translateX(-${REVEAL.slideLeftDistance}px)`;
+		transformEnd = 'translateX(0)';
 	} else if (direction === 'scale') {
-		node.style.transform = `scale(${REVEAL.scaleFrom})`;
+		transformStart = `scale(${REVEAL.scaleFrom})`;
+		transformEnd = 'scale(1)';
 	}
+
+	node.style.opacity = '0';
+	node.style.transform = transformStart;
 
 	let hasAnimated = false;
 
@@ -42,21 +49,11 @@ export const scrollReveal: Action<HTMLElement, ScrollRevealOptions | undefined> 
 					hasAnimated = true;
 					observer.unobserve(node);
 
-					// Direction-specific transform end states
-					let transformEnd = '';
-					if (direction === 'up') {
-						transformEnd = 'translateY(0)';
-					} else if (direction === 'left') {
-						transformEnd = 'translateX(0)';
-					} else if (direction === 'scale') {
-						transformEnd = 'scale(1)';
-					}
-
 					animate(
 						node,
 						{
 							opacity: [0, 1],
-							transform: ['', transformEnd]
+							transform: [transformStart, transformEnd]
 						},
 						{
 							duration,
@@ -91,16 +88,17 @@ export const cardHover: Action<HTMLElement, CardHoverOptions | undefined> = (
 	node,
 	options = {}
 ) => {
-	if (typeof window === 'undefined') return;
+	if (typeof window === 'undefined') return { destroy() {} };
 
 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-	if (prefersReducedMotion) return;
+	if (prefersReducedMotion) return { destroy() {} };
 
 	// Only apply on devices with hover capability
 	const hasHover = window.matchMedia('(hover: hover)').matches;
-	if (!hasHover) return;
+	if (!hasHover) return { destroy() {} };
 
 	const { color, lift = CARD.lift } = options;
+	const originalBorderColor = getComputedStyle(node).borderColor;
 
 	const onPointerEnter = () => {
 		animate(
@@ -128,16 +126,24 @@ export const cardHover: Action<HTMLElement, CardHoverOptions | undefined> = (
 		);
 
 		if (color) {
-			animate(node, { borderColor: '' }, { duration: 0.3, ease: EASING.easeOut });
+			animate(node, { borderColor: originalBorderColor }, { duration: 0.3, ease: EASING.easeOut });
 		}
 	};
 
 	const onPointerDown = () => {
-		animate(node, { transform: `scale(${CARD.pressScale})` }, { duration: 0.1 });
+		animate(
+			node,
+			{ transform: `translateY(-${lift}px) scale(${CARD.pressScale})` },
+			{ duration: 0.1 }
+		);
 	};
 
 	const onPointerUp = () => {
-		animate(node, { transform: `translateY(-${lift}px)` }, { duration: 0.2, ease: EASING.easeOut });
+		animate(
+			node,
+			{ transform: `translateY(-${lift}px) scale(1)` },
+			{ duration: 0.2, ease: EASING.easeOut }
+		);
 	};
 
 	const onFocus = () => {
