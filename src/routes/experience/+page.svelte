@@ -6,6 +6,8 @@
 	import type { Experience } from '$lib/types';
 	import { isBlank } from '$lib/utils/helpers';
 	import TabTitle from '$lib/components/TabTitle.svelte';
+	import { scrollReveal } from '$lib/animations/actions';
+	import { REVEAL } from '$lib/animations/presets';
 
 	const { items, title, description } = EXPERIENCES;
 
@@ -40,7 +42,10 @@
 		{:else}
 			<div class="timeline-track hidden lg:flex"></div>
 			{#each result as experience, index (experience.slug)}
-				<div class={`timeline-entry ${index % 2 ? 'flex-row' : 'flex-row-reverse'}`}>
+				<div
+					use:scrollReveal={{ direction: 'left', delay: index * REVEAL.stagger }}
+					class={`timeline-entry ${index % 2 ? 'flex-row' : 'flex-row-reverse'}`}
+				>
 					<div class="flex-1 hidden lg:flex"></div>
 					<div class="hidden lg:inline timeline-dot">
 						<UIcon icon="i-carbon-condition-point" />
