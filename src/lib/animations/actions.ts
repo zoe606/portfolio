@@ -1,5 +1,5 @@
 import type { Action } from 'svelte/action';
-import { animate } from 'motion';
+import { animateMini as animate } from 'motion';
 import { DURATION, EASING, REVEAL, CARD } from './presets';
 
 export interface ScrollRevealOptions {
@@ -51,7 +51,7 @@ export const scrollReveal: Action<HTMLElement, ScrollRevealOptions | undefined> 
 						{
 							duration,
 							delay,
-							easing: EASING.easeOut
+							ease: EASING.easeOut
 						}
 					);
 				}
@@ -99,11 +99,11 @@ export const cardHover: Action<HTMLElement, CardHoverOptions | undefined> = (
 				transform: `translateY(-${lift}px)`,
 				boxShadow: CARD.shadowHover
 			},
-			{ duration: 0.3, easing: EASING.easeOut }
+			{ duration: 0.3, ease: EASING.easeOut }
 		);
 
 		if (color) {
-			animate(node, { borderColor: color }, { duration: 0.3, easing: EASING.easeOut });
+			animate(node, { borderColor: color }, { duration: 0.3, ease: EASING.easeOut });
 		}
 	};
 
@@ -114,11 +114,11 @@ export const cardHover: Action<HTMLElement, CardHoverOptions | undefined> = (
 				transform: 'translateY(0px)',
 				boxShadow: CARD.shadowRest
 			},
-			{ duration: 0.3, easing: EASING.easeOut }
+			{ duration: 0.3, ease: EASING.easeOut }
 		);
 
 		if (color) {
-			animate(node, { borderColor: '' }, { duration: 0.3, easing: EASING.easeOut });
+			animate(node, { borderColor: '' }, { duration: 0.3, ease: EASING.easeOut });
 		}
 	};
 
@@ -127,11 +127,7 @@ export const cardHover: Action<HTMLElement, CardHoverOptions | undefined> = (
 	};
 
 	const onPointerUp = () => {
-		animate(
-			node,
-			{ transform: `translateY(-${lift}px)` },
-			{ duration: 0.2, easing: EASING.easeOut }
-		);
+		animate(node, { transform: `translateY(-${lift}px)` }, { duration: 0.2, ease: EASING.easeOut });
 	};
 
 	const onFocus = () => {
@@ -141,7 +137,7 @@ export const cardHover: Action<HTMLElement, CardHoverOptions | undefined> = (
 				transform: `translateY(-${lift}px)`,
 				boxShadow: CARD.shadowHover
 			},
-			{ duration: 0.3, easing: EASING.easeOut }
+			{ duration: 0.3, ease: EASING.easeOut }
 		);
 	};
 
@@ -152,7 +148,7 @@ export const cardHover: Action<HTMLElement, CardHoverOptions | undefined> = (
 				transform: 'translateY(0px)',
 				boxShadow: CARD.shadowRest
 			},
-			{ duration: 0.3, easing: EASING.easeOut }
+			{ duration: 0.3, ease: EASING.easeOut }
 		);
 	};
 
