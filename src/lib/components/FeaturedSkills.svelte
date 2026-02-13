@@ -3,6 +3,7 @@
 	import { getAssetURL } from '$lib/data/assets';
 	import { base } from '$app/paths';
 	import { changeColorOpacity } from '$lib/utils/color';
+	import { cardHover } from '$lib/animations/actions';
 	import { onMount } from 'svelte';
 
 	interface Props {
@@ -71,6 +72,7 @@
 				href={`${base}/skills/${skill.slug}`}
 				bind:this={skillElements[index]}
 				onmousemove={(ev) => onHover(ev, index)}
+				use:cardHover={{ color: skill.color, lift: 4 }}
 				class="featured-skill-card decoration-none border-1px border-solid border-[var(--border)] rounded-15px relative duration transition-all hover:border-[var(--border-hover)]"
 			>
 				<div class="card-bg col-center rounded-15px">
