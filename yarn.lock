@@ -2392,11 +2392,6 @@ svelte-eslint-parser@^1.4.0:
     postcss-scss "^4.0.9"
     postcss-selector-parser "^7.0.0"
 
-svelte-inview@^4.0.4:
-  version "4.0.4"
-  resolved "https://registry.yarnpkg.com/svelte-inview/-/svelte-inview-4.0.4.tgz#3d12dc00073376a36a6635d143a314cd0db66ab0"
-  integrity sha512-PlXNSHHijvQ6MhmSYUj6cMyS+39NttoTffk7W5WYF8T2tsyLgJnKhyuAF+/hSujbY0vpsmqXaMd2nolEKvR8Kw==
-
 svelte@^5.41.3:
   version "5.43.3"
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-5.43.3.tgz#9f962a28049a752f6eba631635a5f899d0647386"

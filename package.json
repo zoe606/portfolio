@@ -54,7 +54,6 @@
 		"dayjs": "^1.11.18",
 		"fuse.js": "^7.1.0",
 		"motion": "^12.34.0",
-		"svelte-inview": "^4.0.4",
 		"web-vitals": "^5.1.0"
 	},
 	"resolutions": {

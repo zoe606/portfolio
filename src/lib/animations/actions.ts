@@ -42,11 +42,21 @@ export const scrollReveal: Action<HTMLElement, ScrollRevealOptions | undefined> 
 					hasAnimated = true;
 					observer.unobserve(node);
 
+					// Direction-specific transform end states
+					let transformEnd = '';
+					if (direction === 'up') {
+						transformEnd = 'translateY(0)';
+					} else if (direction === 'left') {
+						transformEnd = 'translateX(0)';
+					} else if (direction === 'scale') {
+						transformEnd = 'scale(1)';
+					}
+
 					animate(
 						node,
 						{
 							opacity: [0, 1],
-							transform: ['', 'translateY(0) translateX(0) scale(1)']
+							transform: ['', transformEnd]
 						},
 						{
 							duration,
