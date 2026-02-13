@@ -117,13 +117,16 @@
 		}
 
 		&:hover {
-			transform: perspective(1000px) rotateX(var(--rot-x)) rotateY(var(--rot-y)) scale(1.01);
+			transform: perspective(1000px) rotateX(var(--rot-x)) rotateY(var(--rot-y)) scale(1.01)
+				translateY(-5px);
 			border-color: var(--border-hover);
+			box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 		}
 
 		@media (max-width: 768px) {
 			&:hover {
-				transform: scale(1.01);
+				transform: scale(1.01) translateY(-3px);
+				box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
 			}
 		}
 	}
