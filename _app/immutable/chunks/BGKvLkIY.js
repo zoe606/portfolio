@@ -1,0 +1,1 @@
+const s={slow:.5},a={easeOut:[.25,.1,.25,1]},e={slideDistance:20,slideLeftDistance:30,scaleFrom:.95,stagger:.08,threshold:.2},t={lift:5,pressScale:.98,shadowHover:"0 8px 25px rgba(0, 0, 0, 0.15)",shadowRest:"0 0px 0px rgba(0, 0, 0, 0)"},o={duration:300,y:10};export{t as C,s as D,a as E,o as P,e as R};
