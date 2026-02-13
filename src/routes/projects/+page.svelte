@@ -9,6 +9,8 @@
 	import MY_SKILLS from '$lib/skills.params';
 	import UIcon from '$lib/components/Icon/UIcon.svelte';
 	import TabTitle from '$lib/components/TabTitle.svelte';
+	import { scrollReveal } from '$lib/animations/actions';
+	import { REVEAL } from '$lib/animations/presets';
 
 	interface SkillFilter extends Skill {
 		isSelected?: boolean;
@@ -95,8 +97,10 @@
 		</div>
 	{:else}
 		<div class="projects-list mt-5">
-			{#each displayed as project (project.slug)}
-				<ProjectCard {project} />
+			{#each displayed as project, i (project.slug)}
+				<div use:scrollReveal={{ delay: i * REVEAL.stagger }}>
+					<ProjectCard {project} />
+				</div>
 			{/each}
 		</div>
 	{/if}
