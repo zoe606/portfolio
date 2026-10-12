@@ -1,6 +1,7 @@
 """Build the resume PDF served at /resume.
 
-The CheckProof entry and the summary are read from src/lib/data; the rest of the CV is written below.
+The summary and the full-time jobs are read from src/lib/data, so the CV matches the site.
+The header, Key Achievements, Skills, Education, and Languages are written below.
 
     python3 -m venv .venv && .venv/bin/pip install reportlab
     .venv/bin/python scripts/make_cv.py [output.pdf]
@@ -8,6 +9,7 @@ The CheckProof entry and the summary are read from src/lib/data; the rest of the
 import json
 import re
 import sys
+from datetime import date
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -49,8 +51,18 @@ def sentences(text):
     return [s.strip() for s in re.split(r'(?<=\.)\s+(?=[A-Z])', text) if s.strip()]
 
 
+def month(iso):
+    return date.fromisoformat(iso).strftime('%b %Y')
+
+
+def period(span):
+    end = month(span['to']) if 'to' in span else 'Present'
+    return f"{month(span['from'])} – {end}"
+
+
 DATA = REPO / 'src/lib/data'
-cp = next(e for e in json.loads((DATA / 'experiences.json').read_text()) if e['slug'] == 'checkproof-backend')
+jobs = sorted((e for e in json.loads((DATA / 'experiences.json').read_text()) if e['contract'] == 'FullTime'),
+              key=lambda e: e['no'])
 summary = json.loads((DATA / 'site.json').read_text())['home']['description']
 
 p('Librantara Erlangga', name)
@@ -65,36 +77,8 @@ p(escape(summary))
 story.append(Spacer(0, 4))
 
 p('Professional Experience', heading)
-job(cp['company'], cp['name'], cp['location'], 'Feb 2026 – Present', sentences(cp['description']))
-job('Luce Maintenance Group Pte Ltd', 'Full-stack Engineer', 'Hybrid, Singapore-based', 'Jan 2025 – Jan 2026', [
-    'Led backend scalability, security, and refactoring initiatives across a large monolithic system composed of multiple components.',
-    'Authored and standardized technical documentation for all core components, improving developer onboarding and maintainability.',
-    'Boosted test coverage from 26% (Jan) to 77% (Jul) through systematic testing with RSpec & VCR.',
-    'Upgraded Rails 7.0 → 7.2 safely by addressing transaction rollback, encryption, and dependency issues.',
-    'Improved dependency freshness: Backend 26% → 83%, Frontend 25% → 78%.',
-    'Reduced operational errors and improved performance metrics across key systems.',
-    'Proactively monitored application health using Sentry and New Relic.',
-    'Contributed frontend and mobile features using React and React Native.',
-])
-job('PrivyID', 'Backend Engineer', 'Onsite, Indonesia-based', 'Jan 2023 – Nov 2024', [
-    'Designed and deployed a high-throughput wallet ID generator in Go, cutting generation time from 2 hours to 5 minutes using goroutines and distributed workers.',
-    'Maintained wallet service handling heavy production load, ensuring reliability and fault tolerance.',
-    'Improved legacy Ruby codebases for performance and maintainability.',
-    'Monitored Datadog dashboards and alerts for real-time observability.',
-    'Collaborated with cross-functional teams to align engineering deliverables with product goals.',
-])
-job('Citraraya Nusatama (D’Health)', 'Development Team Lead', 'Hybrid, Indonesia', 'Jan 2021 – Dec 2022', [
-    'Led a team of 5 engineers to build and maintain a hospital information system used by 10+ hospitals.',
-    'Conducted regular code reviews, mentorship, and technical planning sessions.',
-    'Standardized engineering practices, reducing delivery delays and improving code quality.',
-    'Collaborated with QA and product teams to meet feature delivery targets.',
-])
-job('Docotel Teknologi', 'Web Developer', 'Onsite, Indonesia', 'Apr 2019 – Jan 2021', [
-    'Developed HIS modules using GatsbyJS (React) and Vue.',
-    'Integrated national healthcare systems — BPJS, eKlaim, SatuSehat — into hospital platforms.',
-    'Built internal mobile apps and accounting modules.',
-    'Contributed to SATPAS (SIM Administration System) under agile workflows.',
-])
+for e in jobs:
+    job(e['company'], e['name'], e['location'], period(e['period']), sentences(e['description']))
 
 p('Key Achievements', heading)
 achievements = [
