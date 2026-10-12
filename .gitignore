@@ -33,3 +33,6 @@ node_modules/
 # Task files
 # tasks.json
 # tasks/ 
+
+# Python venv for scripts/make_cv.py
+.venv

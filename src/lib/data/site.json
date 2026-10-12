@@ -3,7 +3,7 @@
 	"metadata": {
 		"baseUrl": "https://zoe606.github.io/portfolio",
 		"siteName": "Librantara Erlangga Portfolio",
-		"defaultDescription": "Versatile Backend Software Engineer with 5+ years of experience across startup, fintech, and healthcare environments, specialising in Ruby on Rails, GraphQL, and performance-focused backend architecture.",
+		"defaultDescription": "Versatile Backend Software Engineer with 5+ years of experience across startup, fintech, healthcare, and AI environments, specialising in Ruby on Rails, GraphQL, and performance-focused backend architecture.",
 		"twitterHandle": "@librantara"
 	},
 	"navBar": {
@@ -18,7 +18,7 @@
 		"title": "Home",
 		"name": "Librantara",
 		"lastName": "Erlangga",
-		"description": "Versatile Backend Software Engineer with 5+ years of experience building scalable and reliable systems across startup, fintech, and healthcare environments. Proven ability to design, refactor, and modernize Ruby on Rails and GraphQL architectures, integrate complex APIs, and lead initiatives that improve performance, reliability, and developer productivity. Experienced in driving codebase modernization, dependency management, and system optimization for large-scale production environments.",
+		"description": "Versatile Backend Software Engineer with 5+ years of experience building scalable and reliable systems across startup, fintech, healthcare, and AI environments. Proven ability to design, refactor, and modernize Ruby on Rails and GraphQL architectures, integrate complex APIs, and lead initiatives that improve performance, reliability, and developer productivity. Experienced in backend services, workflow systems, dependency management, and system optimization for production environments.",
 		"links": [
 			{ "platform": "github", "link": "https://github.com/zoe606" },
 			{
@@ -46,7 +46,7 @@
 	"resume": {
 		"title": "Resume",
 		"description": "Download a current copy of Librantara Erlangga’s CV and professional profile.",
-		"item": "/Librantara_Erlangga_CV_2025.pdf"
+		"item": "/Librantara_Erlangga_CV_2026.pdf"
 	},
 	"search": {
 		"title": "Search",
