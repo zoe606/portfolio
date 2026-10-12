@@ -104,7 +104,6 @@ Key interfaces that define the data structure:
 
 - `Banner/` - Hero banner component
 - `Card/` - Card components with logo, link, title variants
-- `Carrousel/` - Image carousel for screenshots
 - `ExperienceCard/` - Experience entries display
 - `ProjectCard/` - Project entries display
 - `Markdown.svelte` - Markdown renderer using marked + Prism.js + DOMPurify
