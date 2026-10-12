@@ -9,7 +9,8 @@
 		"logo": "Ruby",
 		"name": "Luce Backend Internal Apps",
 		"period": {
-			"from": "2025-01-01"
+			"from": "2025-01-01",
+			"to": "2026-01-01"
 		},
 		"skills": ["ruby", "ruby-on-rails", "graphql", "pgsql", "redis", "docker", "git"],
 		"type": "Internal API Platform",
@@ -25,7 +26,8 @@
 		"logo": "ReactJs",
 		"name": "Luce Workers Mobile App",
 		"period": {
-			"from": "2025-01-01"
+			"from": "2025-01-01",
+			"to": "2026-01-01"
 		},
 		"skills": ["react-native", "reactjs", "js", "graphql"],
 		"type": "Mobile Application",
@@ -98,7 +100,8 @@
 		"logo": "Go",
 		"name": "PGPxPGPF",
 		"period": {
-			"from": "2023-10-01"
+			"from": "2023-10-01",
+			"to": "2024-11-01"
 		},
 		"skills": ["go", "mysql", "docker", "mongodb", "kafka"],
 		"type": "Golf Scoring System",
@@ -197,7 +200,7 @@
 			"from": "2020-11-01",
 			"to": "2022-01-01"
 		},
-		"skills": ["ruby", "ruby-on-rails", "pgsql", "react"],
+		"skills": ["ruby", "ruby-on-rails", "pgsql", "reactjs"],
 		"type": "Movie Rating and Review Platform",
 		"screenshots": [{ "label": "", "src": "uls1" }]
 	},
@@ -268,7 +271,8 @@
 		"logo": "Ruby",
 		"name": "Mandiri Credit Card (MKK)",
 		"period": {
-			"from": "2024-02-01"
+			"from": "2024-02-01",
+			"to": "2024-11-01"
 		},
 		"skills": ["ruby", "ruby-on-rails", "pgsql"],
 		"type": "Landing and Integration",

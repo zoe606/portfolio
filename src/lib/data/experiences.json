@@ -1,19 +1,35 @@
 [
 	{
+		"slug": "checkproof-backend",
+		"company": "CheckProof AB",
+		"description": "Built the Laravel backend of CheckProof's new Scheduling Tool, automating maintenance task scheduling, expiry deviations, and push alerts on a SaaS platform used in 35+ countries. Engineered a task lifecycle monitor that handled a 1M-task backlog in load tests with zero failures or deadlocks, using 75% fewer database calls per status change. Built the cutover from the legacy scheduler, moving customers' live maintenance schedules to the new system with one-switch rollback at any point. Captured legacy scheduling behavior in characterization tests before the rewrite, giving the team a safety net to replace business-critical code. Delivered AI-powered checklist generation (NestJS, AWS Bedrock) that turns complex PDF and Excel documents into ready-to-use inspection checklists. Improved production reliability by introducing structured logging and Sentry monitoring for the AI service and resolving critical data-integrity and performance issues in the core platform.",
+		"contract": "FullTime",
+		"type": "Software Development",
+		"location": "Remote, Sweden-based",
+		"period": { "from": "2026-02-02" },
+		"skills": ["php", "laravel", "ts", "graphql", "pgsql", "redis", "aws-s3", "docker", "git"],
+		"name": "Backend Engineer",
+		"color": "Yellow",
+		"links": [],
+		"logo": "Unknown",
+		"shortDescription": "Scheduling Tool backend and AI checklist generation for a SaaS used in 35+ countries",
+		"no": 1
+	},
+	{
 		"slug": "luce-fullstack",
 		"company": "Luce Maintenance Group Pte Ltd",
 		"description": "Led backend scalability, security, and refactoring initiatives across a large monolithic system composed of multiple components. Authored and standardized technical documentation for all core components, improving developer onboarding and maintainability. Boosted test coverage from 26% (Jan) to 77% (Jul) through systematic testing with RSpec & VCR. Upgraded Rails 7.0 → 7.2 safely by addressing transaction rollback, encryption, and dependency issues. Improved dependency freshness: Backend 26% → 83%, Frontend 25% → 78%. Reduced operational errors and improved performance metrics across key systems. Proactively monitored application health using Sentry and New Relic. Contributed frontend and mobile features using React and React Native.",
 		"contract": "FullTime",
 		"type": "Software Development",
 		"location": "Hybrid, Singapore-based",
-		"period": { "from": "2025-01-01" },
+		"period": { "from": "2025-01-01", "to": "2026-01-01" },
 		"skills": ["ruby", "ruby-on-rails", "reactjs", "pgsql", "redis", "docker", "git"],
 		"name": "Full-stack Engineer",
 		"color": "Blue",
 		"links": [],
 		"logo": "Unknown",
 		"shortDescription": "Leading backend scalability and security initiatives",
-		"no": 1
+		"no": 2
 	},
 	{
 		"slug": "privy-backend",
@@ -39,7 +55,7 @@
 		"links": [],
 		"logo": "Privy",
 		"shortDescription": "High-throughput wallet ID generator and service maintenance",
-		"no": 2
+		"no": 3
 	},
 	{
 		"slug": "dev-team-lead",
@@ -55,7 +71,7 @@
 		"links": [],
 		"logo": "Dhealth",
 		"shortDescription": "Led team of 5 engineers building hospital information system",
-		"no": 3
+		"no": 4
 	},
 	{
 		"slug": "web-developer",
@@ -84,7 +100,7 @@
 		"links": [],
 		"logo": "Docotel",
 		"shortDescription": "Developed HIS modules and integrated national healthcare systems",
-		"no": 4
+		"no": 5
 	},
 	{
 		"slug": "internship",
@@ -100,7 +116,7 @@
 		"links": [{ "to": "https://www.dhealth.co.id/", "label": "Dhealth", "newTab": true }],
 		"logo": "Docotel",
 		"shortDescription": "Revamp website dhealth with modern framework javascript",
-		"no": 5
+		"no": 6
 	},
 	{
 		"slug": "software-freelance",
@@ -116,6 +132,6 @@
 		"links": [],
 		"logo": "Unknown",
 		"shortDescription": "Creating awesome applications for customers.",
-		"no": 6
+		"no": 7
 	}
 ]
