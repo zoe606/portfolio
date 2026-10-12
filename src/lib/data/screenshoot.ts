@@ -26,11 +26,11 @@ const Screenshoot = {
 	iate3: a('iate-3.jpg'),
 	iate4: a('iate-4.jpg'),
 	iate5: a('iate-5.jpg'),
-	mp1: a('mp1.png'),
-	mp2: a('mp2.png'),
-	mp3: a('mp3.png'),
-	mp4: a('mp4.png'),
-	mp5: a('mp5.png')
+	mp1: a('mp-1.webp'),
+	mp2: a('mp-2.webp'),
+	mp3: a('mp-3.webp'),
+	mp4: a('mp-4.webp'),
+	mp5: a('mp-5.webp')
 };
 
 export default Screenshoot;
