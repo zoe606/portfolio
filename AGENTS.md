@@ -127,6 +127,17 @@ The `Markdown.svelte` component:
 
 Markdown content is stored in `src/lib/md/` directory.
 
+### Animations
+
+All motion goes through `src/lib/animations/` (built on `motion`'s `animateMini`). Import from the barrel `$lib/animations`:
+
+- `scrollReveal` - Svelte action that fades an element in when it scrolls into view (`direction`: `up`, `left`, or `scale`; stagger siblings with `delay: index * REVEAL.stagger`)
+- `cardHover` - Svelte action for the spring lift and shadow on hover and press
+- `pageIn` / `pageOut` - route transitions used in `+layout.svelte`
+- `presets.ts` - shared `DURATION`, `EASING`, `SPRING`, `REVEAL`, `CARD`, and `PAGE_TRANSITION` values
+
+Reuse the presets instead of hard-coding timings. The actions do nothing when `prefers-reduced-motion: reduce` is set or during SSR, so content stays visible; keep that behavior in any new animation.
+
 ### Performance Monitoring
 
 **Web Vitals integration** in `+layout.svelte`:
@@ -204,7 +215,7 @@ Before deploying to GitHub Pages:
 
 1. Ensure `base` parameter in `svelte.config.js` matches your repo path
 2. Verify GitHub Pages is enabled in repository settings
-3. Put the resume PDF in `static/` and set `resume.item` in `src/lib/data/site.json` to `/<file>.pdf` (no base path; `src/routes/resume/+page.svelte` prefixes `base`). Regenerate the PDF with `scripts/make_cv.py` (ReportLab) so it keeps the CV layout
+3. Put the resume PDF in `static/` and set `resume.item` in `src/lib/data/site.json` to `/<file>.pdf` (no base path; `src/routes/resume/+page.svelte` prefixes `base`). Regenerate the PDF with `scripts/make_cv.py` (ReportLab; see its docstring for setup) so it keeps the CV layout. The script reads the summary and the full-time jobs from `src/lib/data`, so edit the JSON first, then regenerate
 4. Run `yarn build` to generate static files in `build/` directory
 5. GitHub Pages should point to `build/` directory or use GitHub Actions
 
