@@ -84,6 +84,8 @@ const Assets = {
 	Privy: a('privy.png'),
 	Docotel: a('docotel.png'),
 	Dhealth: a('dhealth.webp'),
+	CheckProof: a('checkproof.png'),
+	Luce: a('luce.svg'),
 	Stdkreatif: a('stdkreatif.png'),
 	UlasId: a('ulasid.jpeg'),
 	CI: a('codeigniter.svg'),
