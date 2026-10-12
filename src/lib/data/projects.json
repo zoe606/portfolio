@@ -17,6 +17,25 @@
 	},
 	{
 		"no": 2,
+		"slug": "themx",
+		"color": "Black",
+		"description": "Built themx, a catalog of 38 web design themes that turns a chosen theme into ready-to-use prompts for AI coding agents. A prompt builder combines the theme with the project brief, framework, and UI library, then exports a design bundle with DESIGN.md, an AGENTS.md section, and CSS and JSON tokens. Live previews render each theme on sample dashboard, product, and portfolio pages with daisyUI and shadcn/ui components. Shipped as a static Astro site with Preact islands, Tailwind CSS 4, and Vitest and Playwright tests.",
+		"shortDescription": "Design theme catalog that generates prompts and design bundles for AI coding agents.",
+		"links": [
+			{ "to": "https://zoe606.github.io/themx", "label": "Website", "newTab": true },
+			{ "to": "https://github.com/zoe606/themx", "label": "GitHub", "newTab": true }
+		],
+		"logo": "Themx",
+		"name": "themx",
+		"period": {
+			"from": "2026-03-01"
+		},
+		"skills": ["astro", "ts", "tailwind", "css", "html"],
+		"type": "Side Project · Design Tooling",
+		"screenshots": []
+	},
+	{
+		"no": 3,
 		"slug": "checkproof-ai-checklist-generation",
 		"color": "Red",
 		"description": "Delivered AI-powered checklist generation (NestJS, AWS Bedrock) that turns complex PDF and Excel documents into ready-to-use inspection checklists. Improved the service's production reliability with structured logging and Sentry monitoring.",
@@ -33,7 +52,7 @@
 		"screenshots": []
 	},
 	{
-		"no": 3,
+		"no": 4,
 		"slug": "luce-backend-internal-apps",
 		"color": "Blue",
 		"description": "Led backend scalability, security, and refactoring work on Luce's Ruby on Rails monolith, whose GraphQL API serves internal admin apps, client websites, and mobile apps. Raised test coverage from 26% to 77% with RSpec and VCR, upgraded Rails 7.0 → 7.2, cut production Sentry errors by 73%, removed all high-severity security issues, and improved fast API calls by 32% (p95 <500ms).",
@@ -50,7 +69,7 @@
 		"screenshots": []
 	},
 	{
-		"no": 4,
+		"no": 5,
 		"slug": "luce-workers-mobile-app",
 		"color": "Green",
 		"description": "Contributed frontend and mobile features to Luce's React Native app that field technicians use to manage work orders and service requests, backed by the GraphQL API.",
@@ -67,7 +86,7 @@
 		"screenshots": []
 	},
 	{
-		"no": 5,
+		"no": 6,
 		"slug": "monoproperty",
 		"color": "Grey",
 		"description": "Built the front end of a Next.js property listing platform, including responsive layouts, advanced search, and listing management for agents.",
@@ -90,7 +109,7 @@
 		]
 	},
 	{
-		"no": 6,
+		"no": 7,
 		"slug": "iate-polban",
 		"color": "Yellow",
 		"description": "Built the APIs and dashboard for IATE Polban's alumni location app with Laravel, Vue.js, PostgreSQL, and Redis.",
@@ -113,7 +132,7 @@
 		]
 	},
 	{
-		"no": 7,
+		"no": 8,
 		"slug": "privy-wallet",
 		"color": "Blue",
 		"description": "Designed and deployed a high-throughput wallet ID generator in Go, cutting generation time from 2 hours to 5 minutes with goroutines and distributed workers. Maintained the wallet service under heavy production load, keeping it reliable and fault tolerant.",
@@ -130,7 +149,7 @@
 		"screenshots": []
 	},
 	{
-		"no": 8,
+		"no": 9,
 		"slug": "privy-mkk",
 		"color": "Purple",
 		"description": "Maintained a large Rails and PostgreSQL credit card service, fixing bugs and delivering custom client requests.",
@@ -147,7 +166,7 @@
 		"screenshots": []
 	},
 	{
-		"no": 9,
+		"no": 10,
 		"slug": "privy-pgp-x-pgpf",
 		"color": "Blue",
 		"description": "Led development of the PGPxPGPF golf scoring system across four apps (CMS, player app, caddy app, and live scoring) while modernizing an inherited, non-standard codebase.",
@@ -170,7 +189,7 @@
 		]
 	},
 	{
-		"no": 10,
+		"no": 11,
 		"slug": "privy-hirio-ats",
 		"color": "Purple",
 		"description": "Built Hirio, a multi-tenant applicant tracking system, in one month: job posting, applicant tracking, analytics, digital signatures, and email invitations, synced in real time with Privy apps. Each new client company gets its own dashboard and landing page automatically.",
@@ -193,7 +212,7 @@
 		]
 	},
 	{
-		"no": 11,
+		"no": 12,
 		"slug": "privy-acceleration",
 		"color": "Black",
 		"description": "Completed Privy's 3-month internal Go bootcamp, building microservices with the SAGA pattern, gRPC, message brokers, and SOLID design.",
@@ -210,7 +229,7 @@
 		"screenshots": []
 	},
 	{
-		"no": 12,
+		"no": 13,
 		"slug": "privy-core-middleware",
 		"color": "Red",
 		"description": "Built features, fixed bugs, and improved modules in Privy's core Rails middleware, a large, module-heavy service at the center of the platform.",
@@ -227,7 +246,7 @@
 		"screenshots": []
 	},
 	{
-		"no": 13,
+		"no": 14,
 		"slug": "privy-ocsaver",
 		"color": "Orange",
 		"description": "Designed and built the Rails backend API for CIMB Octo Saver in 14 days, my first project at Privy.",
@@ -244,7 +263,7 @@
 		"screenshots": []
 	},
 	{
-		"no": 14,
+		"no": 15,
 		"slug": "boboho",
 		"color": "Purple",
 		"description": "Built a Laravel 8 point-of-sale platform with inventory management, invoicing, and financial records.",
@@ -261,7 +280,7 @@
 		"screenshots": [{ "label": "", "src": "bbh1" }]
 	},
 	{
-		"no": 15,
+		"no": 16,
 		"slug": "ulasid",
 		"color": "Yellow",
 		"description": "Built the Rails backend of Ulas.id, a review and discussion platform for Indonesian films, with a React front end.",
@@ -278,7 +297,7 @@
 		"screenshots": [{ "label": "", "src": "uls1" }]
 	},
 	{
-		"no": 16,
+		"no": 17,
 		"slug": "stickermotorindo",
 		"color": "Orange",
 		"description": "Built a Laravel 7 sticker ordering platform with order approval, invoicing, and sales and balance-sheet reports.",
@@ -295,7 +314,7 @@
 		"screenshots": [{ "label": "", "src": "std1" }]
 	},
 	{
-		"no": 17,
+		"no": 18,
 		"slug": "dhealth-hospital-information-system",
 		"color": "Green",
 		"description": "Built and maintained a hospital information system used by 10+ hospitals for nearly four years, growing from junior developer to team lead. Covered patient registration, queuing, medical records, insurance claims, and BPJS and third-party integrations.",
@@ -312,7 +331,7 @@
 		"screenshots": []
 	},
 	{
-		"no": 18,
+		"no": 19,
 		"slug": "antawijaya",
 		"color": "Purple",
 		"description": "Built my first solo project, a Laravel CMS that lets admins manage landing page sections without code.",

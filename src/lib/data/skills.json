@@ -189,6 +189,20 @@
 		"name": "Svelte"
 	},
 	{
+		"slug": "astro",
+		"color": "Purple",
+		"description": "Astro is a web framework for content-driven sites that renders pages to static HTML and loads JavaScript only for interactive components.",
+		"logo": "Astro",
+		"name": "Astro"
+	},
+	{
+		"slug": "tailwind",
+		"color": "Blue",
+		"description": "Tailwind CSS is a utility-first CSS framework for building custom designs directly in markup.",
+		"logo": "Tailwind",
+		"name": "Tailwind CSS"
+	},
+	{
 		"slug": "vuejs",
 		"color": "Green",
 		"description": "Vue.js is a progressive JavaScript framework for building user interfaces. It is approachable, versatile, and easy to integrate, making it an excellent choice for both small-scale projects and larger applications.",
