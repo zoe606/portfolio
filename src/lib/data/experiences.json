@@ -7,7 +7,18 @@
 		"type": "Software Development",
 		"location": "Remote, Sweden-based",
 		"period": { "from": "2026-02-02" },
-		"skills": ["php", "laravel", "ts", "graphql", "pgsql", "redis", "aws-s3", "docker", "git"],
+		"skills": [
+			"php",
+			"laravel",
+			"ts",
+			"nestjs",
+			"graphql",
+			"pgsql",
+			"redis",
+			"aws-s3",
+			"docker",
+			"git"
+		],
 		"name": "Backend Engineer",
 		"color": "Yellow",
 		"links": [],
@@ -28,7 +39,7 @@
 		"color": "Blue",
 		"links": [],
 		"logo": "Unknown",
-		"shortDescription": "Leading backend scalability and security initiatives",
+		"shortDescription": "Led backend scalability and security initiatives",
 		"no": 2
 	},
 	{
@@ -105,7 +116,7 @@
 	{
 		"slug": "internship",
 		"company": "Docotel Teknologi",
-		"description": "Revamp website dhealth with modern framework javascript, integration accouting system with dhealth",
+		"description": "Rebuilt the Dhealth website with a modern JavaScript framework and integrated it with the accounting system.",
 		"contract": "Internship",
 		"type": "Software Development",
 		"location": "Bandung, West Java",
@@ -115,23 +126,23 @@
 		"color": "#ffffff",
 		"links": [{ "to": "https://www.dhealth.co.id/", "label": "Dhealth", "newTab": true }],
 		"logo": "Docotel",
-		"shortDescription": "Revamp website dhealth with modern framework javascript",
+		"shortDescription": "Rebuilt the Dhealth website and integrated accounting",
 		"no": 6
 	},
 	{
 		"slug": "software-freelance",
 		"company": "Self-employed",
-		"description": "As a Freelancer, I am passionate about creating exceptional custom applications that cater to the unique needs of my clients. With a focus on innovation and user-centric design, I specialize in crafting cutting-edge solutions. I've been delivering outstanding software development services since January 2019. As a dedicated professional, I take pride in transforming ideas into functional and visually stunning applications that exceed client expectations.",
+		"description": "Build custom web applications for clients, from Laravel back ends to React, Vue, and Svelte front ends.",
 		"contract": "Freelance",
 		"type": "Software Development",
-		"location": "Home",
+		"location": "Remote",
 		"period": { "from": "2019-01-01" },
 		"skills": ["svelte", "ts", "sass", "css", "html", "js", "vuejs", "reactjs", "php", "laravel"],
 		"name": "Freelancer",
 		"color": "#ffffff",
 		"links": [],
 		"logo": "Unknown",
-		"shortDescription": "Creating awesome applications for customers.",
+		"shortDescription": "Custom web applications for clients",
 		"no": 7
 	}
 ]

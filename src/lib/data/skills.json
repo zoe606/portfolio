@@ -140,6 +140,13 @@
 		"name": "Laravel"
 	},
 	{
+		"slug": "nestjs",
+		"color": "Red",
+		"description": "NestJS is a TypeScript framework for building structured, testable Node.js server applications with modules, dependency injection, and decorators.",
+		"logo": "NestJs",
+		"name": "NestJS"
+	},
+	{
 		"slug": "yii2",
 		"color": "Green",
 		"description": "Yii 2 is a high-performance PHP framework designed for developing modern web applications. It follows the MVC pattern and includes features such as code generation and a powerful caching system for efficient development.",
