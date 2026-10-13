@@ -1,0 +1,1 @@
+var e={fast:.3,normal:.4,slow:.5},t={easeOut:[.25,.1,.25,1],easeInOut:[.4,0,.2,1]},n={slideDistance:20,slideLeftDistance:30,scaleFrom:.95,stagger:.08,threshold:.2},r={duration:300,y:10};export{n as i,t as n,r,e as t};
