@@ -125,21 +125,16 @@ Reuse the presets instead of hard-coding timings. The actions do nothing when `p
 
 ### Performance Monitoring
 
-**Web Vitals integration** in `+layout.svelte`:
+**Web Vitals** in `+layout.svelte`:
 
-- Tracks CLS, INP, LCP, FCP, TTFB
-- Logs to console in development
-- Ready for analytics service integration in production
+- Logs CLS, INP, LCP, FCP and TTFB to the console in development only
+- `web-vitals` is loaded with a dynamic import inside `import.meta.env.DEV`, so it is not in the production bundle
 
 ### Utilities (`src/lib/utils/`)
 
-- `analytics.svelte.ts` - Analytics tracking utilities
-- `color.ts` - Color manipulation utilities
-- `eventDelegation.svelte.ts` - Event delegation patterns
 - `helpers.ts` - Date and text helpers (`formatYears`, `getTimeDiff`, `splitSentences`, `plural`)
 - `search.ts` - `PortfolioSearch`, the Fuse.js search over projects, experience, and skills
-- `scrollPreservation.svelte.ts` - Scroll position preservation
-- `index.ts` - Utility exports including `Icons` enum
+- `seo.ts` - `buildPageSEO`, the title, description, canonical, Open Graph and Twitter tags used by `TabTitle`
 
 ### Route Structure
 
@@ -253,4 +248,4 @@ Shared state lives in `.svelte.ts` modules with runes (e.g., `theme` in `src/lib
 - **Node.js:** Requires Node 22.17+ (SvelteKit 3). CI and the deploy workflow use Node 24
 - **Prerendering:** All routes are statically generated at build time
 - **Base path:** Production builds include `/portfolio` prefix for GitHub Pages
-- **Performance:** Web Vitals monitoring is built-in and active
+- **Performance:** Web Vitals are logged in development only

@@ -6,7 +6,6 @@
 	import SearchModal from '#lib/components/SearchModal.svelte';
 	import { theme } from '#lib/stores/theme.svelte.js';
 	import { onMount } from 'svelte';
-	import { onCLS, onINP, onLCP, onFCP, onTTFB, type Metric } from 'web-vitals';
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
 	import { pageIn, pageOut } from '#lib/animations/transitions.js';
@@ -32,17 +31,15 @@
 
 		document.addEventListener('keydown', handleGlobalKeydown);
 
-		const logVital = (metric: Metric) => {
-			if (import.meta.env.DEV) {
-				console.log(`[Web Vitals] ${metric.name}:`, metric.value, metric);
-			}
-		};
-
-		onCLS(logVital);
-		onINP(logVital);
-		onLCP(logVital);
-		onFCP(logVital);
-		onTTFB(logVital);
+		// Web Vitals are only logged in development. The dynamic import keeps
+		// web-vitals out of the production bundle.
+		if (import.meta.env.DEV) {
+			import('web-vitals').then(({ onCLS, onINP, onLCP, onFCP, onTTFB }) => {
+				for (const report of [onCLS, onINP, onLCP, onFCP, onTTFB]) {
+					report((metric) => console.log(`[Web Vitals] ${metric.name}:`, metric.value, metric));
+				}
+			});
+		}
 
 		return () => {
 			document.removeEventListener('keydown', handleGlobalKeydown);
