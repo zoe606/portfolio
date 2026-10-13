@@ -18,6 +18,10 @@
 		"title": "Home",
 		"name": "Librantara",
 		"lastName": "Erlangga",
+		"role": "Backend Engineer",
+		"location": "Bandung, Indonesia",
+		"headline": "I make production backends faster, safer, and easier to change.",
+		"intro": "5+ years across fintech, healthcare, SaaS, and AI. Now building the scheduling backend at CheckProof AB, a SaaS platform used in 35+ countries.",
 		"description": "Versatile Backend Software Engineer with 5+ years of experience building scalable and reliable systems across startup, fintech, healthcare, and AI environments. Proven ability to design, refactor, and modernize Ruby on Rails and GraphQL architectures, integrate complex APIs, and lead initiatives that improve performance, reliability, and developer productivity. Experienced in backend services, workflow systems, dependency management, and system optimization for production environments.",
 		"links": [
 			{ "platform": "github", "link": "https://github.com/zoe606" },
@@ -29,7 +33,44 @@
 				"platform": "email",
 				"link": "librantaraerlangga@gmail.com"
 			}
-		]
+		],
+		"spotlight": {
+			"caption": "Scheduler cutover at CheckProof AB",
+			"project": "checkproof-scheduling-tool",
+			"flow": ["legacy scheduler", "one switch", "scheduling tool"],
+			"stats": [
+				{ "value": "1M", "label": "tasks load-tested" },
+				{ "value": "0", "label": "failures or deadlocks" },
+				{ "value": "−75%", "label": "DB calls per status change" }
+			]
+		},
+		"highlights": [
+			{
+				"project": "privy-wallet",
+				"meta": "PrivyID · 2024 · Go",
+				"before": "2h",
+				"after": "5m",
+				"title": "Wallet ID generation",
+				"summary": "Rebuilt in Go with goroutines and distributed workers for the core wallet service."
+			},
+			{
+				"project": "luce-backend-internal-apps",
+				"meta": "Luce · 2025 · Rails",
+				"before": "errors",
+				"after": "−73%",
+				"title": "Rails reliability overhaul",
+				"summary": "A Rails 7.0 → 7.2 upgrade and every high-severity security issue removed on a large monolith."
+			},
+			{
+				"project": "dhealth-hospital-information-system",
+				"meta": "D’Health · 2022 · Team lead",
+				"before": "team of 5",
+				"after": "10+",
+				"title": "Hospital system for 10+ hospitals",
+				"summary": "Led five engineers building a hospital information system used by more than ten hospitals."
+			}
+		],
+		"sideProject": "themx"
 	},
 	"projects": {
 		"title": "Projects",

@@ -89,11 +89,39 @@ export interface HomeLink {
 	link: string;
 }
 
+export interface HomeStat {
+	value: string;
+	label: string;
+}
+
+export interface HomeSpotlight {
+	caption: string;
+	project: string;
+	flow: Array<string>;
+	stats: Array<HomeStat>;
+}
+
+export interface HomeHighlight {
+	project: string;
+	meta: string;
+	before: string;
+	after: string;
+	title: string;
+	summary: string;
+}
+
 export interface HomePageParams extends PageParams {
 	name: string;
 	lastName: string;
+	role: string;
+	location: string;
+	headline: string;
+	intro: string;
 	description: string;
 	links: Array<HomeLink>;
+	spotlight: HomeSpotlight;
+	highlights: Array<HomeHighlight>;
+	sideProject: string;
 	skills?: Array<Skill>;
 }
 
@@ -132,8 +160,15 @@ export interface HomeConfig {
 	title: string;
 	name: string;
 	lastName: string;
+	role: string;
+	location: string;
+	headline: string;
+	intro: string;
 	description: string;
 	links: Array<{ platform: string; link: string }>;
+	spotlight: HomeSpotlight;
+	highlights: Array<HomeHighlight>;
+	sideProject: string;
 }
 
 export interface SiteConfig {
