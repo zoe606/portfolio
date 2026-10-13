@@ -1,13 +1,14 @@
 <script lang="ts">
 	import 'uno.css';
-	import NavMenu from '$lib/components/NavMenu/NavMenu.svelte';
-	import SearchModal from '$lib/components/SearchModal.svelte';
 	import '$lib/index.scss';
-	import { onHydrated, currentTheme } from '$lib/stores/theme';
+	import SiteHeader from '$lib/components/Site/SiteHeader.svelte';
+	import SiteFooter from '$lib/components/Site/SiteFooter.svelte';
+	import SearchModal from '$lib/components/SearchModal.svelte';
+	import { theme } from '$lib/stores/theme.svelte';
 	import { onMount } from 'svelte';
 	import { onCLS, onINP, onLCP, onFCP, onTTFB, type Metric } from 'web-vitals';
 	import type { Snippet } from 'svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { pageIn, pageOut } from '$lib/animations/transitions';
 
 	interface Props {
@@ -18,12 +19,8 @@
 
 	let searchModalOpen = $state(false);
 
-	function handleSearchOpen() {
-		searchModalOpen = true;
-	}
-
 	onMount(() => {
-		onHydrated();
+		theme.init();
 
 		// Global keyboard shortcut for search (Cmd+K / Ctrl+K)
 		const handleGlobalKeydown = (e: KeyboardEvent) => {
@@ -35,22 +32,17 @@
 
 		document.addEventListener('keydown', handleGlobalKeydown);
 
-		// Performance monitoring with Web Vitals
 		const logVital = (metric: Metric) => {
-			// Log to console in development
 			if (import.meta.env.DEV) {
 				console.log(`[Web Vitals] ${metric.name}:`, metric.value, metric);
 			}
-			// In production, you could send to analytics service:
-			// sendToAnalytics(metric);
 		};
 
-		// Track Core Web Vitals
-		onCLS(logVital); // Cumulative Layout Shift
-		onINP(logVital); // Interaction to Next Paint (replaces FID in v3+)
-		onLCP(logVital); // Largest Contentful Paint
-		onFCP(logVital); // First Contentful Paint
-		onTTFB(logVital); // Time to First Byte
+		onCLS(logVital);
+		onINP(logVital);
+		onLCP(logVital);
+		onFCP(logVital);
+		onTTFB(logVital);
 
 		return () => {
 			document.removeEventListener('keydown', handleGlobalKeydown);
@@ -58,38 +50,42 @@
 	});
 </script>
 
-<div class={`body contents theme-${$currentTheme}`}>
-	<NavMenu onsearchclick={handleSearchOpen} />
-	<div class="content container">
-		{#key $page.url.pathname}
-			<div in:pageIn out:pageOut style="min-height: 100vh;">
+<div class="site">
+	<SiteHeader onsearchclick={() => (searchModalOpen = true)} />
+	<main class="bp-container page-stack">
+		<!-- The leaving and entering pages share one grid cell, so the new page does not jump below the old one. -->
+		{#key page.url.pathname}
+			<div class="page" in:pageIn out:pageOut>
 				{@render children()}
 			</div>
 		{/key}
-	</div>
+	</main>
+	<SiteFooter />
 	<SearchModal bind:open={searchModalOpen} />
 </div>
 
-<style lang="scss">
-	.content {
+<style>
+	.site {
 		display: flex;
 		flex-direction: column;
-		flex: 1;
-		padding: 0px 0px;
+		min-height: 100vh;
+		background-color: var(--bp-bg);
+		background-image:
+			linear-gradient(var(--bp-grid) 1px, transparent 1px),
+			linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px);
+		background-size: 32px 32px;
+		color: var(--bp-ink);
+		font-family: var(--text-f);
 	}
 
-	.body {
-		margin: 0px;
-		background-color: var(--main);
-		color: var(--main-text);
-		font-family: var(--text-f);
-		display: flex;
-		flex-direction: column;
-		transition-duration: 200ms;
+	.page-stack {
+		display: grid;
+		flex: 1;
+	}
 
-		letter-spacing: 1px;
-
-		min-height: 100vh;
+	.page {
+		grid-area: 1 / 1;
+		min-width: 0;
 	}
 
 	:global(p) {

@@ -1,6 +1,13 @@
-// Removed invalid @tailwind directives - UnoCSS doesn't use these
-// UnoCSS is configured via uno.config.ts and loaded automatically
-// See: https://unocss.dev/guide/
+// UnoCSS is configured in uno.config.ts. It ships no base reset, so these rules
+// give utilities like `w-full px-6` and `border-t` the behavior they expect.
+*,
+::before,
+::after {
+	box-sizing: border-box;
+	border-width: 0;
+	border-style: solid;
+	border-color: var(--bp-line);
+}
 
 :root {
 	--dark-0: #000;
@@ -38,16 +45,14 @@
 	--code-operator-dark: #67cdcc;
 	--code-operator-light: #016464;
 
-	--link-dark: #2563eb;
-	--link-light: #3b82f6;
-
 	--dark-0-60: rgba(0, 0, 0, 0.6);
 	--light-0-60: rgba(255, 255, 255, 0.6);
 
 	// fonts
-	--text-f: 'Inter', sans-serif; // Use Inter for regular text
-	--title-f: 'Inter', sans-serif; // Use Inter for titles as well
-	--title-bold-f: 'Inter Bold', sans-serif; // Use a bolder version of Inter for titles
+	--text-f: 'IBM Plex Sans', system-ui, sans-serif;
+	--title-f: 'Space Grotesk', system-ui, sans-serif;
+	--title-bold-f: 'Space Grotesk', system-ui, sans-serif;
+	--mono-f: 'IBM Plex Mono', ui-monospace, monospace;
 
 	overflow-y: scroll;
 }
@@ -101,209 +106,80 @@ html {
 	}
 }
 
-:root[data-theme='dark'] {
-	color-scheme: dark;
-
-	--main: var(--dark-0);
-	--main-hover: var(--dark-1);
-	--secondary: var(--dark-1);
-	--secondary-hover: var(--dark-2);
-	--tertiary: var(--dark-2);
-	--tertiary-hover: var(--dark-3);
-	--accent: var(--dark-3);
-	--accent-hover: var(--dark-4);
-
-	--main-text: var(--light-0);
-	--main-text-hover: var(--light-1);
-	--secondary-text: var(--light-1);
-	--secondary-text-hover: var(--light-2);
-	--tertiary-text: var(--light-2);
-	--tertiary-text-hover: var(--light-3);
-	--accent-text: var(--light-3);
-	--accent-text-hover: var(--light-4);
-
-	--border: var(--dark-2);
-	--border-hover: var(--light-7);
-
-	--main-60: var(--dark-0-60);
-
-	--code-keyword: var(--code-keyword-dark);
-	--code-string: var(--code-string-dark);
-	--code-function: var(--code-function-dark);
-	--code-constant: var(--code-constant-dark);
-	--code-operator: var(--code-operator-dark);
-	--link: var(--link-light);
-}
-
+// Blueprint palette. The --bp-* tokens are the design system. The older names
+// below them (--main, --secondary-text, ...) map onto it so every page shares
+// one palette.
+:root,
 :root[data-theme='light'] {
 	color-scheme: light;
 
-	--main: var(--light-0);
-	--main-hover: var(--light-1);
-	--secondary: var(--light-1);
-	--secondary-hover: var(--light-2);
-	--tertiary: var(--light-2);
-	--tertiary-hover: var(--light-3);
-	--accent: var(--light-3);
-	--accent-hover: var(--light-4);
-
-	--main-text: var(--dark-0);
-	--main-text-hover: var(--dark-1);
-	--secondary-text: var(--dark-1);
-	--secondary-text-hover: var(--dark-2);
-	--tertiary-text: var(--dark-2);
-	--tertiary-text-hover: var(--dark-3);
-	--accent-text: var(--dark-3);
-	--accent-text-hover: var(--dark-4);
-
-	--border: var(--light-1);
-	--border-hover: var(--dark-8);
-
-	--main-60: var(--light-0-60);
+	--bp-bg: #f3f5f8;
+	--bp-grid: #e1e6ed;
+	--bp-surface: #ffffff;
+	--bp-surface-2: #e9edf2;
+	--bp-ink: #0b1b33;
+	--bp-muted: #3d4b5f;
+	--bp-line: #c9d1dc;
+	--bp-accent: #c2410c;
+	--bp-on-accent: #ffffff;
+	--bp-inverse: #0b1b33;
+	--bp-on-inverse: #ffffff;
+	--bp-on-inverse-muted: #c9d3e0;
 
 	--code-keyword: var(--code-keyword-light);
 	--code-string: var(--code-string-light);
 	--code-function: var(--code-function-light);
 	--code-constant: var(--code-constant-light);
 	--code-operator: var(--code-operator-light);
-	--link: var(--link-dark);
 }
 
-:root[data-theme='synthwave'] {
+:root[data-theme='dark'] {
 	color-scheme: dark;
 
-	// Synthwave color palette
-	--synthwave-bg: #0a0e27;
-	--synthwave-bg-light: #1a1e47;
-	--synthwave-pink: #ff0080;
-	--synthwave-purple: #7928ca;
-	--synthwave-blue: #0070f3;
-	--synthwave-cyan: #00d9ff;
-	--synthwave-text: #f5f5f5;
-	--synthwave-text-dim: #b8b8d1;
+	--bp-bg: #0a1628;
+	--bp-grid: #13233a;
+	--bp-surface: #0f1e35;
+	--bp-surface-2: #162a47;
+	--bp-ink: #e6edf7;
+	--bp-muted: #a9b6c8;
+	--bp-line: #2a3b55;
+	--bp-accent: #fb923c;
+	--bp-on-accent: #0a1628;
+	--bp-inverse: #e6edf7;
+	--bp-on-inverse: #0a1628;
+	--bp-on-inverse-muted: #3d4b5f;
 
-	--main: var(--synthwave-bg);
-	--main-hover: var(--synthwave-bg-light);
-	--secondary: var(--synthwave-bg-light);
-	--secondary-hover: #2a2e57;
-	--tertiary: #2a2e57;
-	--tertiary-hover: #3a3e67;
-	--accent: #3a3e67;
-	--accent-hover: #4a4e77;
-
-	--main-text: var(--synthwave-text);
-	--main-text-hover: #ffffff;
-	--secondary-text: var(--synthwave-text-dim);
-	--secondary-text-hover: var(--synthwave-cyan);
-	--tertiary-text: #9898b1;
-	--tertiary-text-hover: var(--synthwave-blue);
-	--accent-text: var(--synthwave-cyan);
-	--accent-text-hover: var(--synthwave-pink);
-
-	--border: rgba(255, 0, 128, 0.2);
-	--border-hover: var(--synthwave-pink);
-
-	--main-60: rgba(10, 14, 39, 0.6);
-
-	--code-keyword: var(--synthwave-pink);
-	--code-string: var(--synthwave-cyan);
-	--code-function: var(--synthwave-blue);
-	--code-constant: var(--synthwave-purple);
-	--code-operator: var(--synthwave-cyan);
-	--link: var(--synthwave-pink);
+	--code-keyword: var(--code-keyword-dark);
+	--code-string: var(--code-string-dark);
+	--code-function: var(--code-function-dark);
+	--code-constant: var(--code-constant-dark);
+	--code-operator: var(--code-operator-dark);
 }
 
-:root[data-theme='terminal'] {
-	color-scheme: dark;
+:root {
+	--main: var(--bp-bg);
+	--main-hover: var(--bp-surface-2);
+	--secondary: var(--bp-surface);
+	--secondary-hover: var(--bp-surface-2);
+	--tertiary: var(--bp-surface-2);
+	--tertiary-hover: var(--bp-line);
+	--accent: var(--bp-line);
+	--accent-hover: var(--bp-muted);
 
-	// Terminal color palette
-	--terminal-bg: #0c0c0c;
-	--terminal-bg-light: #1a1a1a;
-	--terminal-green: #00ff00;
-	--terminal-green-dim: #00cc00;
-	--terminal-green-bright: #66ff66;
-	--terminal-text: #33ff33;
+	--main-text: var(--bp-ink);
+	--main-text-hover: var(--bp-ink);
+	--secondary-text: var(--bp-ink);
+	--secondary-text-hover: var(--bp-accent);
+	--tertiary-text: var(--bp-muted);
+	--tertiary-text-hover: var(--bp-ink);
+	--accent-text: var(--bp-accent);
+	--accent-text-hover: var(--bp-ink);
 
-	--main: var(--terminal-bg);
-	--main-hover: var(--terminal-bg-light);
-	--secondary: var(--terminal-bg-light);
-	--secondary-hover: #242424;
-	--tertiary: #242424;
-	--tertiary-hover: #2e2e2e;
-	--accent: #2e2e2e;
-	--accent-hover: #383838;
+	--border: var(--bp-line);
+	--border-hover: var(--bp-ink);
 
-	--main-text: var(--terminal-green);
-	--main-text-hover: var(--terminal-green-bright);
-	--secondary-text: var(--terminal-green-dim);
-	--secondary-text-hover: var(--terminal-green);
-	--tertiary-text: #009900;
-	--tertiary-text-hover: var(--terminal-green-dim);
-	--accent-text: var(--terminal-green-bright);
-	--accent-text-hover: #99ff99;
-
-	--border: rgba(0, 255, 0, 0.2);
-	--border-hover: var(--terminal-green);
-
-	--main-60: rgba(12, 12, 12, 0.6);
-
-	--code-keyword: var(--terminal-green-bright);
-	--code-string: var(--terminal-green);
-	--code-function: var(--terminal-green-dim);
-	--code-constant: var(--terminal-green-bright);
-	--code-operator: var(--terminal-green);
-	--link: var(--terminal-green-bright);
-
-	// Terminal-specific effects
-	font-family: 'Courier New', monospace;
-	text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-}
-
-:root[data-theme='paper'] {
-	color-scheme: light;
-
-	// Paper color palette
-	--paper-bg: #f5e6d3;
-	--paper-bg-dark: #e8d5ba;
-	--paper-brown: #8b6f47;
-	--paper-brown-dark: #6b5437;
-	--paper-brown-light: #a08866;
-	--paper-text: #3d2817;
-	--paper-text-light: #5d4837;
-
-	--main: var(--paper-bg);
-	--main-hover: var(--paper-bg-dark);
-	--secondary: var(--paper-bg-dark);
-	--secondary-hover: #d9c5a8;
-	--tertiary: #d9c5a8;
-	--tertiary-hover: #cab598;
-	--accent: #cab598;
-	--accent-hover: #bba588;
-
-	--main-text: var(--paper-text);
-	--main-text-hover: var(--paper-brown-dark);
-	--secondary-text: var(--paper-text-light);
-	--secondary-text-hover: var(--paper-brown);
-	--tertiary-text: var(--paper-brown-light);
-	--tertiary-text-hover: var(--paper-brown);
-	--accent-text: var(--paper-brown);
-	--accent-text-hover: var(--paper-brown-dark);
-
-	--border: rgba(139, 111, 71, 0.2);
-	--border-hover: var(--paper-brown);
-
-	--main-60: rgba(245, 230, 211, 0.6);
-
-	--code-keyword: #b5651d;
-	--code-string: #6b8e23;
-	--code-function: #4682b4;
-	--code-constant: #cd853f;
-	--code-operator: #8b4513;
-	--link: #cd853f;
-
-	// Paper-specific styling
-	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAG0lEQVQYV2NkYGD4z8DAwMgABXAGNgGwSgwVAFbmAgXQdISfAAAAAElFTkSuQmCC');
-	background-repeat: repeat;
+	--main-60: color-mix(in srgb, var(--bp-bg) 60%, transparent);
+	--link: var(--bp-accent);
 }
 
 .container {
