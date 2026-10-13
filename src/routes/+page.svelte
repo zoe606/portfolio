@@ -7,7 +7,7 @@
 	import { REVEAL } from '#lib/animations/presets.js';
 	import { formatYears } from '#lib/utils/helpers.js';
 
-	const { title, description, role, location, headline, intro, spotlight, highlights } = HOME;
+	const { title, role, location, headline, intro, spotlight, highlights } = HOME;
 
 	const projectHref = (slug: string) => resolve('/projects/[slug]', { slug });
 
@@ -19,7 +19,8 @@
 	const sideProjectSite = sideProject?.links[0];
 </script>
 
-<TabTitle {title} {description} path="/" />
+<!-- home.description is the long CV summary. Without a description, TabTitle uses the shorter metadata.defaultDescription. -->
+<TabTitle {title} path="/" />
 
 <section class="flex flex-wrap items-center gap-12 pb-16 pt-24" use:scrollReveal>
 	<div class="flex min-w-0 flex-[1_1_520px] flex-col gap-6">

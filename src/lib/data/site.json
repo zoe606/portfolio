@@ -3,7 +3,8 @@
 	"metadata": {
 		"baseUrl": "https://zoe606.github.io/portfolio",
 		"siteName": "Librantara Erlangga Portfolio",
-		"defaultDescription": "Versatile Backend Software Engineer with 5+ years of experience across startup, fintech, healthcare, and AI environments, specialising in Ruby on Rails, GraphQL, and performance-focused backend architecture.",
+		"defaultDescription": "Backend engineer with 5+ years across fintech, healthcare, SaaS, and AI, building fast, reliable Ruby on Rails, Go, and GraphQL systems.",
+		"defaultImage": "og.png",
 		"twitterHandle": "@librantara"
 	},
 	"navBar": {
