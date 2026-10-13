@@ -73,6 +73,24 @@
 		],
 		"principles": [
 			{
+				"title": "Agents write the code. I own the decisions.",
+				"proof": "One agent studies the ticket, records it in a knowledge wiki, and drafts a plan. I review the plan, and so does a fresh agent, before an executor agent writes any code. The merge request stays a draft until the reviewer agent and I have both checked the change.",
+				"stat": { "value": "2×", "label": "reviews on every plan and every change" },
+				"figure": {
+					"kind": "pipeline",
+					"steps": [
+						{ "label": "understand the ticket", "by": "agent" },
+						{ "label": "record it in the wiki", "by": "agent" },
+						{ "label": "draft the plan", "by": "agent" },
+						{ "label": "review the plan", "by": "me + agent", "loop": true },
+						{ "label": "implement", "by": "agent" },
+						{ "label": "review the code", "by": "agent", "loop": true },
+						{ "label": "review the draft MR", "by": "me", "loop": true },
+						{ "label": "open the MR, update the wiki", "by": "me" }
+					]
+				}
+			},
+			{
 				"project": "checkproof-scheduling-tool",
 				"title": "Pin down the old behavior before replacing it.",
 				"proof": "Captured CheckProof's legacy scheduler in characterization tests, then moved customers' live schedules to the new system with a rollback switch that worked at any point.",

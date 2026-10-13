@@ -32,7 +32,21 @@
 			{/each}
 		</ul>
 		<p class="result" style:--i={figure.items.length}>{figure.result}</p>
-	{:else}
+	{:else if figure.kind === 'pipeline'}
+		<ol class="pipeline">
+			{#each figure.steps as step, i (step.label)}
+				<li class="step" style:--i={i}>
+					<span class="text-bp-muted">{String(i + 1).padStart(2, '0')}</span>
+					<span>
+						{step.label}
+						{#if step.loop}<span class="text-bp-accent" title="repeats until it passes">↺</span
+							>{/if}
+					</span>
+					<span class={['who', step.by.includes('me') && 'who-me']}>{step.by}</span>
+				</li>
+			{/each}
+		</ol>
+	{:else if figure.kind === 'load'}
 		<div class="flex flex-col gap-1.5">
 			<p class="flex justify-between gap-3 font-mono text-xs text-bp-muted">
 				<span>{figure.label}</span>
@@ -173,6 +187,45 @@
 		border-color: var(--bp-muted);
 		background: none;
 		color: var(--bp-muted);
+	}
+
+	/* Pipeline: the steps light up in order. My review steps are filled. */
+	.pipeline {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-family: var(--mono-f);
+		font-size: 12px;
+	}
+
+	.step {
+		display: grid;
+		grid-template-columns: 22px minmax(0, 1fr) auto;
+		align-items: center;
+		gap: 8px;
+		transition: opacity 250ms ease calc(var(--i) * 180ms + 200ms);
+	}
+
+	.who {
+		padding: 2px 6px;
+		border: 1.5px solid var(--bp-muted);
+		color: var(--bp-muted);
+		font-size: 11px;
+		text-transform: uppercase;
+		white-space: nowrap;
+	}
+
+	.who-me {
+		border-color: var(--bp-accent);
+		background: var(--bp-accent);
+		color: var(--bp-on-accent);
+	}
+
+	.figure:global([data-motion='ready']) .step {
+		opacity: 0.2;
 	}
 
 	/* Load: the backlog bar fills while the failure counters stay at zero. */

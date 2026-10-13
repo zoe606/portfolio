@@ -106,9 +106,11 @@
 						{item.title}
 					</h3>
 					<p class="max-w-130 leading-relaxed text-bp-muted">{item.proof}</p>
-					<a href={projectHref(item.project)} class="mt-auto self-start py-3 font-mono text-sm">
-						See the proof →
-					</a>
+					{#if item.project}
+						<a href={projectHref(item.project)} class="mt-auto self-start py-3 font-mono text-sm">
+							See the proof →
+						</a>
+					{/if}
 				</div>
 				<figure class="principle-figure m-0">
 					<figcaption class="bp-label text-bp-muted">Fig. 3.{i + 1}</figcaption>
