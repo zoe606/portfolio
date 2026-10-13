@@ -4,13 +4,13 @@ Guidance for AI coding agents and contributors working in this repository.
 
 ## Project Overview
 
-This is a personal portfolio website built with **SvelteKit 2**, **Svelte 5**, and **Vite 7**. It's configured for static site generation and deployed to GitHub Pages with a base path of `/portfolio`.
+This is a personal portfolio website built with **SvelteKit 3**, **Svelte 5**, and **Vite 8**. It's configured for static site generation and deployed to GitHub Pages with a base path of `/portfolio`.
 
 **Key Technologies:**
 
 - **Svelte 5** with runes
-- **SvelteKit 2** with static adapter
-- **Vite 7** for build tooling
+- **SvelteKit 3** with static adapter
+- **Vite 8** for build tooling
 - **UnoCSS** for utility-first styling with custom shortcuts
 - **TypeScript** for type safety
 - **Fuse.js** for fuzzy search
@@ -51,6 +51,10 @@ All portfolio content lives in JSON files in `src/lib/data/`:
 
 The `.params.ts` files in `src/lib/` (`params.ts`, `projects.params.ts`, etc.) are typed adapters: they import the JSON and map string keys (`color`, `logo`, `contract`, skill slugs) to `data/colors.ts`, `data/assets.ts`, `ContractType` and `Skill` objects.
 
+**Imports:** Import from `src/lib` with the `#lib/*` subpath alias (defined in `package.json` `imports`) and include the file extension, for example `#lib/utils/helpers.js` or `#lib/components/TabTitle.svelte`.
+
+**Paths:** Build links with `resolve()` from `$app/paths`, either a route ID (`resolve('/projects/[slug]', { slug })`) or a path without a leading slash (`resolve('skills')`). Build URLs for files in `static/` with `asset()`, for example `asset('logos/go.svg')`. `asset()` takes the `AssetPath` type, so `data/assets.ts` and `data/screenshoot.ts` fail the type check when a listed file does not exist.
+
 **To update portfolio content:** Edit the JSON file. Edit `.params.ts` only when changing the mapping or types (`src/lib/types.ts`).
 
 ### Core Type System (`src/lib/types.ts`)
@@ -70,7 +74,7 @@ Key interfaces that define the data structure:
 
 **GitHub Pages Configuration:**
 
-- Base path: `/portfolio` (configured in `svelte.config.js`)
+- Base path: `/portfolio` (set in the `sveltekit()` options in `vite.config.ts`; SvelteKit 3 has no `svelte.config.js`)
 - Adapter: `@sveltejs/adapter-static` with fallback to `404.html`
 - Base path is only applied in production (`process.env.NODE_ENV === 'production'`)
 
@@ -110,7 +114,7 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 
 ### Animations
 
-All motion goes through `src/lib/animations/` (built on `motion`'s `animateMini`). Import from the barrel `$lib/animations`:
+All motion goes through `src/lib/animations/` (built on `motion`'s `animateMini`). Import from the barrel `#lib/animations/index.js`:
 
 - `scrollReveal` - Svelte action that fades an element in when it scrolls into view (`direction`: `up`, `left`, or `scale`; stagger siblings with `delay: index * REVEAL.stagger`)
 - `cardHover` - Svelte action for the spring lift and shadow on hover and press
@@ -190,9 +194,9 @@ Write components with runes (`$props`, `$state`, `$derived`) and snippets. Put s
 
 Before deploying to GitHub Pages:
 
-1. Ensure `base` parameter in `svelte.config.js` matches your repo path
+1. Ensure the `base` constant in `vite.config.ts` matches your repo path
 2. Verify GitHub Pages is enabled in repository settings
-3. Put the resume PDF in `static/` and set `resume.item` in `src/lib/data/site.json` to `/<file>.pdf` (no base path; `src/routes/resume/+page.svelte` prefixes `base`). Regenerate the PDF with `scripts/make_cv.py` (ReportLab; see its docstring for setup) so it keeps the CV layout. The script reads the summary and the full-time jobs from `src/lib/data`, so edit the JSON first, then regenerate
+3. Put the resume PDF in `static/` and set `resume.item` in `src/lib/data/site.json` to `<file>.pdf` (no leading slash and no base path; `src/routes/resume/+page.svelte` passes it to `asset()`). Regenerate the PDF with `scripts/make_cv.py` (ReportLab; see its docstring for setup) so it keeps the CV layout. The script reads the summary and the full-time jobs from `src/lib/data`, so edit the JSON first, then regenerate
 4. Run `yarn build` to generate static files in `build/` directory
 5. GitHub Pages should point to `build/` directory or use GitHub Actions
 
@@ -242,11 +246,11 @@ Shared state lives in `.svelte.ts` modules with runes (e.g., `theme` in `src/lib
 - Follow Conventional Commits (`feat:`, `fix:`, `docs:`, `chore:`). Squash small tweaks into the related commit before pushing.
 - Before every commit, push, or PR, run all quality checks: `yarn run check`, `yarn lint` (or `yarn lint:ci`), and `yarn build`. Fix every failure first.
 - Each PR describes the motivation, summarizes the key changes, and includes the check results. Add screenshots or short recordings for UI changes.
-- Confirm `svelte.config.js` has the correct `base` for GitHub Pages deployments.
+- Confirm `vite.config.ts` has the correct `base` for GitHub Pages deployments.
 
 ## Important Notes
 
-- **Node.js:** Requires Node 16+ (Svelte 5 dropped Node 14 support)
+- **Node.js:** Requires Node 22.17+ (SvelteKit 3). CI and the deploy workflow use Node 24
 - **Prerendering:** All routes are statically generated at build time
 - **Base path:** Production builds include `/portfolio` prefix for GitHub Pages
 - **Performance:** Web Vitals monitoring is built-in and active

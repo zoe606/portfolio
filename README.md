@@ -6,7 +6,7 @@ Vercel-like style portfolio template for developers.
 
 - **📱 Fully Responsive Design**: Optimized for mobile, tablet, and desktop with adaptive layouts
 - **🎨 Multiple Themes**: Dark, light, synthwave, and paper themes with auto time-based switching
-- **⚡ Modern Stack**: Built with SvelteKit 2, Svelte 5, TypeScript, and UnoCSS
+- **⚡ Modern Stack**: Built with SvelteKit 3, Svelte 5, TypeScript, and UnoCSS
 - **🎯 Accessible**: 44px+ touch targets, ARIA labels, keyboard navigation support
 - **🚀 Performance**: Static site generation, optimized images, lazy loading
 - **🎭 Portal-Based UI**: Advanced modal and dropdown positioning for perfect mobile UX
@@ -23,7 +23,7 @@ Feel free to explore and hack the template to your needs if you feel like it.
 
 Before deploying to `GitHub Pages`:
 
-- make sure to change the `base` parameter in `svelte.config.js`.
+- make sure to change the `base` constant in `vite.config.ts`.
 - allow `GitHub Pages` in your repo settings.
 
 ## Known issues:
