@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { onMount } from 'svelte';
-	import { SKILLS } from '$lib/params';
-	import MY_PROJECTS from '$lib/projects.params';
-	import MY_EXPERIENCES from '$lib/experiences.params';
-	import { getAssetURL } from '$lib/data/assets';
-	import { plural } from '$lib/utils/helpers';
-	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
-	import TabTitle from '$lib/components/TabTitle.svelte';
-	import { scrollReveal } from '$lib/animations/actions';
-	import { REVEAL } from '$lib/animations/presets';
+	import { SKILLS } from '#lib/params.js';
+	import MY_PROJECTS from '#lib/projects.params.js';
+	import MY_EXPERIENCES from '#lib/experiences.params.js';
+	import { getAssetURL } from '#lib/data/assets.js';
+	import { plural } from '#lib/utils/helpers.js';
+	import PageHeader from '#lib/components/Blueprint/PageHeader.svelte';
+	import TabTitle from '#lib/components/TabTitle.svelte';
+	import { scrollReveal } from '#lib/animations/actions.js';
+	import { REVEAL } from '#lib/animations/presets.js';
 
 	const { items, title, description } = SKILLS;
 

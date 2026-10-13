@@ -1,15 +1,15 @@
 <script lang="ts">
 	import 'uno.css';
-	import '$lib/index.scss';
-	import SiteHeader from '$lib/components/Site/SiteHeader.svelte';
-	import SiteFooter from '$lib/components/Site/SiteFooter.svelte';
-	import SearchModal from '$lib/components/SearchModal.svelte';
-	import { theme } from '$lib/stores/theme.svelte';
+	import '#lib/index.scss';
+	import SiteHeader from '#lib/components/Site/SiteHeader.svelte';
+	import SiteFooter from '#lib/components/Site/SiteFooter.svelte';
+	import SearchModal from '#lib/components/SearchModal.svelte';
+	import { theme } from '#lib/stores/theme.svelte.js';
 	import { onMount } from 'svelte';
 	import { onCLS, onINP, onLCP, onFCP, onTTFB, type Metric } from 'web-vitals';
 	import type { Snippet } from 'svelte';
 	import { page } from '$app/state';
-	import { pageIn, pageOut } from '$lib/animations/transitions';
+	import { pageIn, pageOut } from '#lib/animations/transitions.js';
 
 	interface Props {
 		children: Snippet;

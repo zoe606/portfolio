@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { HOME } from '$lib/params';
-	import { Platform } from '$lib/types';
-	import { capitalize } from '$lib/utils/helpers';
+	import { HOME } from '#lib/params.js';
+	import { Platform } from '#lib/types.js';
+	import { capitalize } from '#lib/utils/helpers.js';
 
 	const LABELS: Partial<Record<Platform, string>> = {
 		[Platform.GitHub]: 'GitHub',
@@ -27,7 +27,7 @@
 					>{LABELS[profile.platform] ?? capitalize(profile.platform)}</a
 				>
 			{/each}
-			<a href={resolve('/resume')} class="footer-link">CV</a>
+			<a href={resolve('resume')} class="footer-link">CV</a>
 		</div>
 	</div>
 </footer>

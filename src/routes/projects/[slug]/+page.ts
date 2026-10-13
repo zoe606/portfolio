@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import MY_PROJECTS from '$lib/projects.params';
+import MY_PROJECTS from '#lib/projects.params.js';
 import type { PageLoad } from './$types';
 
 export const prerender = true;

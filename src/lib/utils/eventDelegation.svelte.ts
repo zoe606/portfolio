@@ -56,7 +56,7 @@ export function createListClickHandler<T extends { id: string | number }>(
 
 // Example usage in a component:
 // <script>
-//   import { delegateEvent } from '$lib/utils/eventDelegation.svelte';
+//   import { delegateEvent } from '#lib/utils/eventDelegation.svelte.js';
 //
 //   const handleClick = delegateEvent('.project-card', (target) => {
 //     const projectId = target.dataset.projectId;

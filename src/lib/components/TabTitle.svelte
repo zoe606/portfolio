@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { buildPageSEO } from '$lib/utils/seo';
+	import { buildPageSEO } from '#lib/utils/seo.js';
 
 	export let title: string;
 	export let description: string | undefined = undefined;

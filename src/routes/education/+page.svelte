@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { EDUCATION } from '$lib/params';
-	import { formatYears } from '$lib/utils/helpers';
-	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
-	import TabTitle from '$lib/components/TabTitle.svelte';
-	import { scrollReveal } from '$lib/animations/actions';
-	import { REVEAL } from '$lib/animations/presets';
+	import { EDUCATION } from '#lib/params.js';
+	import { formatYears } from '#lib/utils/helpers.js';
+	import PageHeader from '#lib/components/Blueprint/PageHeader.svelte';
+	import TabTitle from '#lib/components/TabTitle.svelte';
+	import { scrollReveal } from '#lib/animations/actions.js';
+	import { REVEAL } from '#lib/animations/presets.js';
 
 	const { items, title, description } = EDUCATION;
 </script>

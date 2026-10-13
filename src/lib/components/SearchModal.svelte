@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import { goto } from '$app/navigation';
 	import UIcon from './Icon/UIcon.svelte';
-	import { plural } from '$lib/utils/helpers';
-	import { PortfolioSearch, type SearchResultItem } from '$lib/utils/search';
-	import MY_EXPERIENCES from '$lib/experiences.params';
-	import MY_PROJECTS from '$lib/projects.params';
-	import MY_SKILLS from '$lib/skills.params';
+	import { plural } from '#lib/utils/helpers.js';
+	import { PortfolioSearch, type SearchResultItem } from '#lib/utils/search.js';
+	import MY_EXPERIENCES from '#lib/experiences.params.js';
+	import MY_PROJECTS from '#lib/projects.params.js';
+	import MY_SKILLS from '#lib/skills.params.js';
 
 	interface Props {
 		open?: boolean;
@@ -68,7 +68,7 @@
 	}
 
 	function navigateToResult(result: SearchResultItem) {
-		goto(`${base}/${result.to}`);
+		goto(resolve(result.to));
 		close();
 	}
 

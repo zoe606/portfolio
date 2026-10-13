@@ -1,3 +1,4 @@
+import type { AssetPath } from '$app/types';
 export enum Platform {
 	GitHub = 'github',
 	StackOverflow = 'stackoverflow',
@@ -138,7 +139,7 @@ export type EducationPageParams = PageWithSearchParams<Education>;
 export type SkillsPageParams = PageWithSearchParams<Skill>;
 
 export interface ResumePageParams extends PageParams {
-	item: string;
+	item: AssetPath;
 }
 
 export interface SiteMetadata {

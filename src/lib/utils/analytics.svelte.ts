@@ -176,7 +176,7 @@ export function trackNavigation(to: string, from?: string): void {
 }
 
 // Example usage in components:
-// import { analytics, trackEvent } from '$lib/utils/analytics.svelte';
+// import { analytics, trackEvent } from '#lib/utils/analytics.svelte.js';
 //
 // onMount(() => {
 //   analytics.initialize(true);

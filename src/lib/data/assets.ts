@@ -1,9 +1,16 @@
-import type { Asset } from '$lib/types';
-import { theme } from '$lib/stores/theme.svelte';
-import { base } from '$app/paths';
+import type { Asset } from '#lib/types.js';
+import { theme } from '#lib/stores/theme.svelte.js';
+import { asset } from '$app/paths';
+import type { AssetPath } from '$app/types';
 
-const gh = (file: string) => `${base}/logos/${file}`;
-const a = (light: string, dark?: string): Asset =>
+/**
+ * File names in static/logos/. A missing file fails the type check.
+ * `infer P` makes TypeScript check each path in the AssetPath union separately.
+ */
+type File = AssetPath extends infer P ? (P extends `logos/${infer Name}` ? Name : never) : never;
+
+const gh = (file: File) => asset(`logos/${file}`);
+const a = (light: File, dark?: File): Asset =>
 	dark ? { dark: gh(dark), light: gh(light) } : gh(light);
 
 const Assets = {
@@ -13,7 +20,6 @@ const Assets = {
 	Cpp: a('cpp.svg'),
 	Celery: a('celery.svg'),
 	Django: a('django.svg'),
-	FastApi: a('fastapi'),
 	Flask: a('flask.svg'),
 	Go: a('go.svg'),
 	Kafka: a('kafka.svg'),
@@ -22,7 +28,7 @@ const Assets = {
 	Numpy: a('numpy.svg'),
 	Pandas: a('pandas.svg'),
 	RabbitMQ: a('rabbitmq.svg'),
-	Rust: a('rust.svg', 'rust-dark.png'),
+	Rust: a('rust.svg'),
 	Scrapy: a('scrapy.png'),
 	Selenium: a('selenium.svg'),
 	Docker: a('docker.svg'),
@@ -36,11 +42,11 @@ const Assets = {
 	Kotlin: a('kotlin.png'),
 	Python: a('python.png'),
 	NodeJs: a('node.png'),
-	Deno: a('deno.png', 'deno-dark.png'),
+	Deno: a('deno.png'),
 	Svelte: a('svelte.png'),
 	ExpressJs: a('express.png'),
 	JavaScript: a('js.png'),
-	Fastify: a('fastify.svg', 'fastify-dark.png'),
+	Fastify: a('fastify.svg'),
 	NestJs: a('nest.svg'),
 	Quasar: a('quasar.svg'),
 	SolidJs: a('solid.svg'),

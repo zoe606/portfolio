@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { getAssetURL } from '$lib/data/assets';
-	import type { Skill } from '$lib/types';
+	import { getAssetURL } from '#lib/data/assets.js';
+	import type { Skill } from '#lib/types.js';
 
 	interface Props {
 		skills: Array<Skill>;

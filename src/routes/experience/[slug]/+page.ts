@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import MY_EXPERIENCES from '$lib/experiences.params';
+import MY_EXPERIENCES from '#lib/experiences.params.js';
 import type { PageLoad } from './$types';
 
 export const prerender = true;

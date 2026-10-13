@@ -1,11 +1,12 @@
 import Fuse from 'fuse.js';
-import type { Project, Experience, Skill } from '$lib/types';
+import type { Path } from '$app/types';
+import type { Project, Experience, Skill } from '#lib/types.js';
 
 export interface SearchResultItem<T = unknown> {
 	icon: string;
 	name: string;
 	data: T;
-	to: string;
+	to: Path;
 	score?: number;
 	type: 'project' | 'skill' | 'experience';
 }
@@ -85,7 +86,7 @@ export class PortfolioSearch {
 				data: result.item,
 				icon: 'i-carbon-cube',
 				name: result.item.name,
-				to: `projects/${result.item.slug}`,
+				to: `projects/${result.item.slug}` as const,
 				score: result.score,
 				type: 'project' as const
 			}))
@@ -98,7 +99,7 @@ export class PortfolioSearch {
 				data: result.item,
 				icon: 'i-carbon-development',
 				name: `${result.item.name} @ ${result.item.company}`,
-				to: `experience/${result.item.slug}`,
+				to: `experience/${result.item.slug}` as const,
 				score: result.score,
 				type: 'experience' as const
 			}))
@@ -111,7 +112,7 @@ export class PortfolioSearch {
 				data: result.item,
 				icon: 'i-carbon-software-resource-cluster',
 				name: result.item.name,
-				to: `skills/${result.item.slug}`,
+				to: `skills/${result.item.slug}` as const,
 				score: result.score,
 				type: 'skill' as const
 			}))
@@ -133,7 +134,7 @@ export class PortfolioSearch {
 			data: result.item,
 			icon: 'i-carbon-cube',
 			name: result.item.name,
-			to: `projects/${result.item.slug}`,
+			to: `projects/${result.item.slug}` as const,
 			score: result.score,
 			type: 'project' as const
 		}));
@@ -151,7 +152,7 @@ export class PortfolioSearch {
 			data: result.item,
 			icon: 'i-carbon-development',
 			name: `${result.item.name} @ ${result.item.company}`,
-			to: `experience/${result.item.slug}`,
+			to: `experience/${result.item.slug}` as const,
 			score: result.score,
 			type: 'experience' as const
 		}));
@@ -169,7 +170,7 @@ export class PortfolioSearch {
 			data: result.item,
 			icon: 'i-carbon-software-resource-cluster',
 			name: result.item.name,
-			to: `skills/${result.item.slug}`,
+			to: `skills/${result.item.slug}` as const,
 			score: result.score,
 			type: 'skill' as const
 		}));

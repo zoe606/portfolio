@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { SKILLS } from '$lib/params';
-	import { getAssetURL } from '$lib/data/assets';
-	import { formatYears } from '$lib/utils/helpers';
-	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
-	import TabTitle from '$lib/components/TabTitle.svelte';
+	import { SKILLS } from '#lib/params.js';
+	import { getAssetURL } from '#lib/data/assets.js';
+	import { formatYears } from '#lib/utils/helpers.js';
+	import PageHeader from '#lib/components/Blueprint/PageHeader.svelte';
+	import TabTitle from '#lib/components/TabTitle.svelte';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -19,7 +19,7 @@
 	type="article"
 />
 
-<a href={resolve('/skills')} class="back bp-label">← All skills</a>
+<a href={resolve('skills')} class="back bp-label">← All skills</a>
 
 <PageHeader label="Skill" title={skill.name} description={skill.description} class="pt-8">
 	<img src={getAssetURL(skill.logo)} alt="" width="56" height="56" class="logo order-first" />

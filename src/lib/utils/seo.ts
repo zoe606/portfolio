@@ -1,4 +1,4 @@
-import { SITE_METADATA, TITLE_SUFFIX } from '$lib/params';
+import { SITE_METADATA, TITLE_SUFFIX } from '#lib/params.js';
 import { useTitle } from './helpers';
 
 type SEOType = 'website' | 'article';

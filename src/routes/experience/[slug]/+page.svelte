@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { EXPERIENCES } from '$lib/params';
-	import { getAssetURL } from '$lib/data/assets';
-	import { formatYears, getTimeDiff, splitSentences } from '$lib/utils/helpers';
-	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
-	import WorkList from '$lib/components/Blueprint/WorkList.svelte';
-	import SkillChips from '$lib/components/Blueprint/SkillChips.svelte';
-	import Pager from '$lib/components/Blueprint/Pager.svelte';
-	import TabTitle from '$lib/components/TabTitle.svelte';
+	import { EXPERIENCES } from '#lib/params.js';
+	import { getAssetURL } from '#lib/data/assets.js';
+	import { formatYears, getTimeDiff, splitSentences } from '#lib/utils/helpers.js';
+	import PageHeader from '#lib/components/Blueprint/PageHeader.svelte';
+	import WorkList from '#lib/components/Blueprint/WorkList.svelte';
+	import SkillChips from '#lib/components/Blueprint/SkillChips.svelte';
+	import Pager from '#lib/components/Blueprint/Pager.svelte';
+	import TabTitle from '#lib/components/TabTitle.svelte';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -25,7 +25,7 @@
 	type="article"
 />
 
-<a href={resolve('/experience')} class="back bp-label">← All experience</a>
+<a href={resolve('experience')} class="back bp-label">← All experience</a>
 
 <PageHeader label={`${job.contract} · ${job.location}`} title={job.company} class="pt-8">
 	<div class="flex flex-wrap items-center gap-3">
