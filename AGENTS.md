@@ -8,12 +8,12 @@ This is a personal portfolio website built with **SvelteKit 2**, **Svelte 5**, a
 
 **Key Technologies:**
 
-- **Svelte 5** (latest with runes and modern reactivity)
+- **Svelte 5** with runes (some components still use legacy syntax)
 - **SvelteKit 2** with static adapter
 - **Vite 7** for build tooling
 - **UnoCSS** for utility-first styling with custom shortcuts
 - **TypeScript** for type safety
-- **shadcn-svelte** for UI components
+- Hand-written UI components in the shadcn style
 - **Marked** with plugins for markdown rendering (GFM heading IDs, mangle)
 - **Prism.js** for syntax highlighting
 - **web-vitals** for performance monitoring
@@ -97,15 +97,13 @@ Key interfaces that define the data structure:
 
 **Reusable UI Components** (`src/lib/components/ui/`):
 
-- Built with **shadcn-svelte** design system
-- Includes: avatar, badge, button, card, dialog, dropdown-menu, input, separator, switch, tabs, tooltip
-- All components use modern Svelte 5 runes syntax
+- Hand-written in the shadcn style; they do not use bits-ui or the shadcn-svelte registry
+- Some still use legacy Svelte syntax (`export let`, `$:`, `<slot>`, `on:`). Write new components with runes and snippets
 
 **Feature Components** (`src/lib/components/`):
 
 - `Banner/` - Hero banner component
 - `Card/` - Card components with logo, link, title variants
-- `Carrousel/` - Image carousel for screenshots
 - `ExperienceCard/` - Experience entries display
 - `ProjectCard/` - Project entries display
 - `Markdown.svelte` - Markdown renderer using marked + Prism.js + DOMPurify
