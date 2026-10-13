@@ -1,0 +1,1 @@
+import{f as e,a as i}from"./DADXm-ag.js";import{t as f}from"./njnbSrDn.js";import{s as p}from"./Di_cpTTa.js";import{p as a}from"./Dxy_UnCG.js";var c=e("<i></i>");function U(t,o){let r=a(o,"icon",3,""),m=a(o,"classes",3,"");var s=c();f(()=>p(s,1,`${r()} ${m()}`)),i(t,s)}export{U};

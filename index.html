@@ -4,17 +4,48 @@
 		<meta charset="utf-8" />
 		<meta name="description" content="Librantara Portfolio" />
 		<link rel="icon" href="/portfolio/favicon.ico" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+		/>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<script>
+			// Apply the theme before the first paint. Older versions saved
+			// 'synthwave' and 'terminal' (dark) or 'paper' (light).
+			(function () {
+				var saved = null;
+				try {
+					saved = localStorage.getItem('@zoe606-theme');
+				} catch (e) {}
+				var dark = saved
+					? saved === 'dark' || saved === 'synthwave' || saved === 'terminal'
+					: window.matchMedia('(prefers-color-scheme: dark)').matches;
+				document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+			})();
+		</script>
+		<link href="/portfolio/_app/immutable/entry/start.BZNc73AQ.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/D4J-HQPw.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/njnbSrDn.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/BrSIyo6j.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/ZmUOajH9.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/entry/app.0XWaVJuv.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/DADXm-ag.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/Dxy_UnCG.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/Ct8AMw-2.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/nodes/0.Dycwmq7x.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/CMTOggWV.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/DtijUGBx.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/Di_cpTTa.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/Bia2ocKT.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/0iJsyPC3.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/Bo7Sp2z2.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/BW95Ugl2.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/DL3OSyz7.js" rel="modulepreload">
+		<link href="/portfolio/_app/immutable/chunks/BZbDRSf_.js" rel="modulepreload">
 		
-		<link rel="modulepreload" href="/portfolio/_app/immutable/entry/start.CXYPALcK.js">
-		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/BENUyq5X.js">
-		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/BA0BGH1y.js">
-		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/CK38ghyP.js">
-		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/B3G3I3mP.js">
-		<link rel="modulepreload" href="/portfolio/_app/immutable/entry/app.BDSC5pEx.js">
-		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/DqaWrdPE.js">
-		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/B1QJo_Zr.js">
-		<link rel="modulepreload" href="/portfolio/_app/immutable/chunks/D3n5utw-.js">
+		<link href="/portfolio/_app/immutable/assets/0.CEl2ObBE.css" rel="stylesheet">
 	</head>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-T08K0WD5SY"></script>
 	<script>
@@ -29,7 +60,7 @@
 		<div style="display: contents">
 			<script>
 				{
-					__sveltekit_sxhncm = {
+					__sveltekit_1fekylu = {
 						base: "/portfolio",
 						assets: "/portfolio"
 					};
@@ -37,8 +68,8 @@
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("/portfolio/_app/immutable/entry/start.CXYPALcK.js"),
-						import("/portfolio/_app/immutable/entry/app.BDSC5pEx.js")
+						import("/portfolio/_app/immutable/entry/start.BZNc73AQ.js"),
+						import("/portfolio/_app/immutable/entry/app.0XWaVJuv.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element);
 					});
