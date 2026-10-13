@@ -3,6 +3,7 @@
 	import { HOME, PROJECTS, EXPERIENCES, RESUME } from '#lib/params.js';
 	import { ContractType, Platform } from '#lib/types.js';
 	import TabTitle from '#lib/components/TabTitle.svelte';
+	import PrincipleFigure from '#lib/components/Blueprint/PrincipleFigure.svelte';
 	import { scrollReveal } from '#lib/animations/actions.js';
 	import { REVEAL } from '#lib/animations/presets.js';
 	import { formatYears } from '#lib/utils/helpers.js';
@@ -96,23 +97,29 @@
 
 <section class="flex flex-col gap-6 pt-24" aria-labelledby="principles">
 	<h2 id="principles" class="bp-label m-0 text-bp-muted">03 / How I work</h2>
-	<ol class="bp-panel m-0 list-none p-0">
+	<ol class="m-0 flex list-none flex-col gap-5 p-0">
 		{#each principles as item, i (item.title)}
-			<li class="principle" use:scrollReveal={{ delay: i * REVEAL.stagger }}>
-				<span class="bp-label text-bp-accent">{String(i + 1).padStart(2, '0')}</span>
-				<div class="flex min-w-0 flex-col gap-3">
-					<h3 class="m-0 font-display text-[clamp(1.5rem,3vw,2rem)] font-bold leading-tight">
+			<li class="principle bp-panel" use:scrollReveal={{ delay: i * REVEAL.stagger }}>
+				<div class="flex min-w-0 flex-col gap-4">
+					<span class="bp-label text-bp-accent">Principle {String(i + 1).padStart(2, '0')}</span>
+					<h3 class="m-0 font-display text-[clamp(1.75rem,3.6vw,2.5rem)] font-bold leading-[1.08]">
 						{item.title}
 					</h3>
-					<p class="max-w-150 leading-relaxed text-bp-muted">{item.proof}</p>
-					<a href={projectHref(item.project)} class="self-start py-3 font-mono text-sm">
+					<p class="max-w-130 leading-relaxed text-bp-muted">{item.proof}</p>
+					<a href={projectHref(item.project)} class="mt-auto self-start py-3 font-mono text-sm">
 						See the proof →
 					</a>
 				</div>
-				<p class="flex flex-col">
-					<span class="font-display text-4xl font-bold text-bp-accent">{item.stat.value}</span>
-					<span class="text-sm text-bp-muted">{item.stat.label}</span>
-				</p>
+				<figure class="principle-figure m-0">
+					<figcaption class="bp-label text-bp-muted">Fig. 3.{i + 1}</figcaption>
+					<PrincipleFigure figure={item.figure} />
+					<p class="flex flex-col border-t border-bp-line pt-4">
+						<span class="font-display text-[44px] font-bold leading-none text-bp-accent">
+							{item.stat.value}
+						</span>
+						<span class="mt-1.5 text-sm text-bp-muted">{item.stat.label}</span>
+					</p>
+				</figure>
 			</li>
 		{/each}
 	</ol>
@@ -176,19 +183,27 @@
 
 	.principle {
 		display: grid;
-		grid-template-columns: auto minmax(0, 1fr) 200px;
-		gap: 24px;
-		padding: 28px;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+		gap: 40px;
+		padding: 36px;
 	}
-	.principle + .principle {
-		border-top: 1px solid var(--bp-line);
+	.principle-figure {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		padding: 24px;
+		background: var(--bp-bg);
+		background-image:
+			linear-gradient(var(--bp-grid) 1px, transparent 1px),
+			linear-gradient(90deg, var(--bp-grid) 1px, transparent 1px);
+		background-size: 16px 16px;
+		border: 1px solid var(--bp-line);
 	}
-	@media (max-width: 720px) {
+	@media (max-width: 760px) {
 		.principle {
-			grid-template-columns: auto minmax(0, 1fr);
-		}
-		.principle > :last-child {
-			grid-column: 2;
+			grid-template-columns: minmax(0, 1fr);
+			gap: 24px;
+			padding: 24px;
 		}
 	}
 	.flow {
