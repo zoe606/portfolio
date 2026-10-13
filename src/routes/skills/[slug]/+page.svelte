@@ -1,111 +1,124 @@
 <script lang="ts">
-	import { Separator } from '$lib/components/ui';
-	import CardLogo from '$lib/components/Card/CardLogo.svelte';
-	import MainTitle from '$lib/components/MainTitle/MainTitle.svelte';
-	import MY_EXPERIENCES from '$lib/experiences.params';
-	import MY_PROJECTS from '$lib/projects.params';
-
-	import { base } from '$app/paths';
-	import type { Skill } from '$lib/types';
-	import { getAssetURL } from '$lib/data/assets';
+	import { resolve } from '$app/paths';
 	import { SKILLS } from '$lib/params';
-	import Markdown from '$lib/components/Markdown.svelte';
+	import { getAssetURL } from '$lib/data/assets';
+	import { formatYears } from '$lib/utils/helpers';
+	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
 	import TabTitle from '$lib/components/TabTitle.svelte';
-	import { Badge } from '$lib/components/ui';
-	import Banner from '$lib/components/Banner/Banner.svelte';
-	import UIcon from '$lib/components/Icon/UIcon.svelte';
+	import type { PageProps } from './$types';
 
-	type Related = {
-		display: string;
-		name: string;
-		img: string;
-		type: 'projects' | 'experience';
-		url: string;
-	};
+	let { data }: PageProps = $props();
 
-	export let data: { skill?: Skill };
-
-	const { title, description: skillsPageDescription } = SKILLS;
-
-	const getRelatedProjects = (): Array<Related> => {
-		const out: Array<Related> = [];
-
-		const skill = data.skill;
-
-		if (!skill) {
-			return [];
-		}
-
-		MY_PROJECTS.forEach((item) => {
-			if (item.skills.some((tech) => tech.slug === skill.slug)) {
-				out.push({
-					img: getAssetURL(item.logo),
-					display: `${item.name} (${item.type})`,
-					name: item.name,
-					type: 'projects',
-					url: `/projects/${item.slug}`
-				});
-			}
-		});
-		MY_EXPERIENCES.forEach((item) => {
-			if (item.skills.some((tech) => tech.slug === skill.slug)) {
-				out.push({
-					img: getAssetURL(item.logo),
-					display: `${item.name} @ ${item.company}`,
-					name: item.name,
-					type: 'experience',
-					url: `/experience/${item.slug}`
-				});
-			}
-		});
-
-		return out;
-	};
-
-	$: computedTitle = data.skill ? `${data.skill.name} - ${title}` : title;
-	$: skillPath = data.skill ? `/skills/${data.skill.slug}` : '/skills';
-	$: skillDescription = data.skill?.description ?? skillsPageDescription;
-	$: related = data.skill ? getRelatedProjects() : [];
+	const skill = $derived(data.skill);
 </script>
 
-<TabTitle title={computedTitle} description={skillDescription} path={skillPath} type="article" />
+<TabTitle
+	title={`${skill.name} - ${SKILLS.title}`}
+	description={skill.description}
+	path={`/skills/${skill.slug}`}
+	type="article"
+/>
 
-<div class="pb-10 overflow-x-hidden col flex-1">
-	{#if data.skill === undefined}
-		<div class="p-5 col-center gap-3 m-y-auto text-[var(--accent-text)]">
-			<UIcon icon="i-carbon-software-resource-cluster" classes="text-3.5em" />
-			<p class="font-300">Could not load skill data.</p>
-		</div>
-	{:else}
-		<div class="flex flex-col items-center overflow-x-hidden">
-			<Banner img={getAssetURL(data.skill.logo)}>
-				<MainTitle>{data.skill.name}</MainTitle>
-			</Banner>
-			<div class="pt-3 pb-1 overflow-x-hidden w-full">
-				<div class="px-10px m-y-5">
-					{#if data.skill.description}
-						<Markdown content={data.skill.description ?? 'This place is yet to be filled...'} />
-					{:else}
-						<div class="p-5 col-center gap-3 m-y-auto text-[var(--border)]">
-							<UIcon icon="i-carbon-text-font" classes="text-3.5em" />
-							<p class="font-300">No description</p>
-						</div>
-					{/if}
-				</div>
-			</div>
-			<div class="self-stretch mb-2">
-				<Separator />
-			</div>
-			<div class="flex flex-row gap-1 self-stretch flex-wrap">
-				<div class="px-10px">
-					{#each related as item (item.url)}
-						<Badge class="inline-flex flex-row items-center justify-center" href={base + item.url}>
-							<CardLogo src={item.img} alt={item.name} radius="0px" size={15} classes="mr-2" />
-							<span class="text-[0.9em]">{item.display}</span>
-						</Badge>
-					{/each}
-				</div>
-			</div>
-		</div>
+<a href={resolve('/skills')} class="back bp-label">← All skills</a>
+
+<PageHeader label="Skill" title={skill.name} description={skill.description} class="pt-8">
+	<img src={getAssetURL(skill.logo)} alt="" width="56" height="56" class="logo order-first" />
+</PageHeader>
+
+{#snippet usedIn(
+	id: string,
+	heading: string,
+	items: Array<{ href: string; name: string; meta: string; years: string }>
+)}
+	<section class="flex flex-col gap-5" aria-labelledby={id}>
+		<h2 {id} class="bp-label text-bp-muted">{heading}</h2>
+		<ul class="bp-panel m-0 list-none p-0">
+			{#each items as item (item.href)}
+				<li class="border-t border-bp-line first:border-t-0">
+					<a href={item.href} class="row-link">
+						<span class="flex min-w-0 flex-col gap-1">
+							<span class="font-display text-lg font-semibold">{item.name}</span>
+							<span class="text-sm text-bp-muted">{item.meta}</span>
+						</span>
+						<span class="bp-label shrink-0 text-bp-muted">{item.years}</span>
+					</a>
+				</li>
+			{/each}
+		</ul>
+	</section>
+{/snippet}
+
+<div class="flex flex-col gap-12">
+	{#if data.projects.length}
+		{@render usedIn(
+			'projects',
+			'02 / Used in projects',
+			data.projects.map((project) => ({
+				href: resolve('/projects/[slug]', { slug: project.slug }),
+				name: project.name,
+				meta: project.type,
+				years: formatYears(project.period)
+			}))
+		)}
+	{/if}
+
+	{#if data.experiences.length}
+		{@render usedIn(
+			'experience',
+			`${data.projects.length ? '03' : '02'} / Used in roles`,
+			data.experiences.map((job) => ({
+				href: resolve('/experience/[slug]', { slug: job.slug }),
+				name: job.company,
+				meta: job.name,
+				years: formatYears(job.period)
+			}))
+		)}
 	{/if}
 </div>
+
+{#if !data.projects.length && !data.experiences.length}
+	<p class="bp-panel p-10 text-center text-bp-muted">
+		No listed project or role uses {skill.name} yet.
+	</p>
+{/if}
+
+<style>
+	.back {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		margin-top: 32px;
+		color: var(--bp-muted);
+		text-decoration: none;
+	}
+
+	.back:hover {
+		color: var(--bp-accent);
+	}
+
+	.logo {
+		padding: 6px;
+		background: #ffffff;
+		border: 1px solid var(--bp-line);
+		object-fit: contain;
+	}
+
+	.row-link {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+		padding: 18px 28px;
+		color: var(--bp-ink);
+		text-decoration: none;
+	}
+
+	.row-link:hover {
+		color: var(--bp-accent);
+	}
+
+	.row-link:focus-visible {
+		outline: 2px solid var(--bp-accent);
+		outline-offset: -2px;
+	}
+</style>

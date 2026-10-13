@@ -1,90 +1,73 @@
 <script lang="ts">
 	import { base } from '$app/paths';
-	import { Badge } from '$lib/components/ui';
-	import CommonPage from '$lib/components/CommonPage.svelte';
-	import TabTitle from '$lib/components/TabTitle.svelte';
 	import { RESUME } from '$lib/params';
+	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
+	import TabTitle from '$lib/components/TabTitle.svelte';
 
 	const { item, title, description } = RESUME;
-	const resolvedSrc = item ? `${base}${item}` : undefined;
+	const src = item ? `${base}${item}` : undefined;
 </script>
 
 <TabTitle {title} {description} path="/resume" />
-<CommonPage {title}>
-	{#if resolvedSrc}
-		<div class="resume-actions">
-			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-			<a href={resolvedSrc} download title="Download resume">
-				<Badge class="text-1em">Download PDF</Badge>
-			</a>
-			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-			<a href={resolvedSrc} target="_blank" rel="noreferrer" title="Open in new tab">
-				<Badge variant="outline" class="text-1em">Open in new tab</Badge>
-			</a>
-		</div>
 
-		<div class="resume-viewer">
-			<iframe
-				src={`${resolvedSrc}#view=FitH`}
-				title="Resume preview"
-				class="resume-frame"
-				loading="lazy"
-			></iframe>
-		</div>
-	{:else}
-		<div class="resume-empty">
-			<p>No resume available at the moment.</p>
+<PageHeader label="Document · CV" {title} {description}>
+	{#if src}
+		<div class="flex flex-wrap gap-3 pt-2">
+			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+			<a href={src} download class="button button-primary">Download PDF ↓</a>
+			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+			<a href={src} target="_blank" rel="noreferrer" class="button">Open in new tab ↗</a>
 		</div>
 	{/if}
-</CommonPage>
+</PageHeader>
 
-<style lang="scss">
-	.resume-actions {
-		display: flex;
-		gap: 12px;
-		justify-content: center;
-		margin: 16px 0 24px;
+{#if src}
+	<div class="bp-panel overflow-hidden">
+		<iframe src={`${src}#view=FitH`} title="Resume preview" class="frame" loading="lazy"></iframe>
+	</div>
+{:else}
+	<p class="bp-panel p-10 text-center text-bp-muted">No resume is available right now.</p>
+{/if}
 
-		a {
-			text-decoration: none;
-		}
-
-		@media (max-width: 640px) {
-			flex-direction: column;
-
-			a {
-				width: 100%;
-				display: flex;
-				justify-content: center;
-			}
-		}
-	}
-
-	.resume-viewer {
-		border: 1px solid var(--border);
-		border-radius: 12px;
-		overflow: hidden;
-		background: var(--main);
-	}
-
-	.resume-frame {
-		width: 100%;
-		height: 75vh;
-		border: none;
-		background: #fff;
-
-		@media (max-width: 640px) {
-			height: 60vh;
-		}
-	}
-
-	.resume-empty {
-		display: flex;
-		justify-content: center;
+<style>
+	.button {
+		display: inline-flex;
 		align-items: center;
-		min-height: 50vh;
-		color: var(--accent-text);
-		font-weight: 300;
-		text-align: center;
+		min-height: 44px;
+		padding: 0 18px;
+		border: 2px solid var(--bp-ink);
+		color: var(--bp-ink);
+		font-family: var(--mono-f);
+		font-size: 14px;
+		text-decoration: none;
+	}
+
+	.button:hover {
+		border-color: var(--bp-accent);
+		color: var(--bp-accent);
+	}
+
+	.button-primary {
+		border-color: var(--bp-accent);
+		background: var(--bp-accent);
+		color: var(--bp-on-accent);
+	}
+
+	.button-primary:hover {
+		color: var(--bp-on-accent);
+		filter: brightness(1.1);
+	}
+
+	.frame {
+		display: block;
+		width: 100%;
+		height: 80vh;
+		background: #ffffff;
+	}
+
+	@media (max-width: 640px) {
+		.frame {
+			height: 65vh;
+		}
 	}
 </style>

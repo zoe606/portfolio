@@ -1,11 +1,21 @@
+import { error } from '@sveltejs/kit';
 import MY_SKILLS from '$lib/skills.params';
+import MY_PROJECTS from '$lib/projects.params';
+import MY_EXPERIENCES from '$lib/experiences.params';
+import type { PageLoad } from './$types';
 
-export function load({ params }: { params: Record<string, string> }) {
-	if (params.slug) {
-		const skill = MY_SKILLS.find((item) => {
-			return item.slug === params.slug;
-		});
+export const prerender = true;
 
-		return { skill };
-	}
-}
+const uses = (slug: string) => (item: { skills: Array<{ slug: string }> }) =>
+	item.skills.some((skill) => skill.slug === slug);
+
+export const load: PageLoad = ({ params }) => {
+	const skill = MY_SKILLS.find((item) => item.slug === params.slug);
+	if (!skill) error(404, 'Skill not found');
+
+	return {
+		skill,
+		projects: MY_PROJECTS.filter(uses(skill.slug)).toSorted((a, b) => a.no - b.no),
+		experiences: MY_EXPERIENCES.filter(uses(skill.slug)).toSorted((a, b) => a.no - b.no)
+	};
+};
