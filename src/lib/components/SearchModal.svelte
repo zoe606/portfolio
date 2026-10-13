@@ -3,6 +3,7 @@
 	import { base } from '$app/paths';
 	import { goto } from '$app/navigation';
 	import UIcon from './Icon/UIcon.svelte';
+	import { plural } from '$lib/utils/helpers';
 	import { PortfolioSearch, type SearchResultItem } from '$lib/utils/search';
 	import MY_EXPERIENCES from '$lib/experiences.params';
 	import MY_PROJECTS from '$lib/projects.params';
@@ -100,103 +101,68 @@
 {#if open}
 	<div
 		bind:this={modalElement}
-		class="search-modal-backdrop"
+		class="backdrop"
 		onclick={handleBackdropClick}
 		onkeydown={(e) => e.key === 'Escape' && close()}
 		role="dialog"
 		aria-modal="true"
-		aria-labelledby="search-modal-title"
+		aria-label="Search"
 		tabindex="-1"
 	>
-		<div class="search-modal">
-			<!-- Search Input -->
-			<div class="search-input-wrapper">
-				<UIcon icon="i-carbon-search" classes="text-[var(--accent-text)] text-xl" />
+		<div class="bp-panel modal">
+			<div class="input-row">
+				<UIcon icon="i-carbon-search" classes="text-xl text-bp-muted" />
 				<input
 					bind:this={inputElement}
 					bind:value={query}
 					type="text"
-					placeholder="Search projects, skills, experiences..."
-					class="search-input"
+					placeholder="Search projects, skills, experience"
+					class="input"
 					aria-label="Search"
 				/>
-				<kbd class="keyboard-hint">ESC</kbd>
+				<kbd>ESC</kbd>
 			</div>
 
-			<!-- Results -->
-			<div class="search-results">
+			<div class="results">
 				{#if query.trim().length === 0}
-					<div class="search-empty">
-						<UIcon
-							icon="i-carbon-search-locate-mirror"
-							classes="text-4xl text-[var(--accent-text)]"
-						/>
-						<span class="text-[var(--secondary-text)]">Start typing to search...</span>
-						<div class="keyboard-shortcuts">
-							<div class="shortcut">
-								<kbd>↑</kbd><kbd>↓</kbd>
-								<span>Navigate</span>
-							</div>
-							<div class="shortcut">
-								<kbd>↵</kbd>
-								<span>Select</span>
-							</div>
-							<div class="shortcut">
-								<kbd>ESC</kbd>
-								<span>Close</span>
-							</div>
+					<div class="empty">
+						<span>Start typing to search.</span>
+						<div class="flex flex-wrap justify-center gap-6">
+							<span class="shortcut"><kbd>↑</kbd><kbd>↓</kbd> Navigate</span>
+							<span class="shortcut"><kbd>↵</kbd> Select</span>
+							<span class="shortcut"><kbd>ESC</kbd> Close</span>
 						</div>
 					</div>
 				{:else if results.length === 0}
-					<div class="search-empty">
-						<UIcon icon="i-carbon-cube" classes="text-4xl text-[var(--accent-text)]" />
-						<span class="text-[var(--secondary-text)]">No results found for "{query}"</span>
+					<div class="empty">
+						<span>No results for "{query}".</span>
 					</div>
 				{:else}
-					<!-- Result count -->
-					<div class="result-summary">
-						<span class="font-semibold text-[var(--main-text)]"
-							>{results.length} result{results.length !== 1 ? 's' : ''}</span
-						>
+					<p class="bp-label summary">
+						{plural(results.length, 'result')}
 						{#if resultCount.projects > 0}
-							<span class="text-[var(--secondary-text)]"
-								>• {resultCount.projects} project{resultCount.projects !== 1 ? 's' : ''}</span
-							>
+							· {plural(resultCount.projects, 'project')}
 						{/if}
 						{#if resultCount.experiences > 0}
-							<span class="text-[var(--secondary-text)]"
-								>• {resultCount.experiences} experience{resultCount.experiences !== 1
-									? 's'
-									: ''}</span
-							>
+							· {plural(resultCount.experiences, 'experience')}
 						{/if}
 						{#if resultCount.skills > 0}
-							<span class="text-[var(--secondary-text)]"
-								>• {resultCount.skills} skill{resultCount.skills !== 1 ? 's' : ''}</span
-							>
+							· {plural(resultCount.skills, 'skill')}
 						{/if}
-					</div>
+					</p>
 
-					<!-- Result items -->
-					<div class="result-list">
+					<div class="list">
 						{#each results as result, index (result.to)}
 							<button
-								class="result-item"
+								class="item"
 								class:selected={index === selectedIndex}
 								onclick={() => navigateToResult(result)}
 								onmouseenter={() => (selectedIndex = index)}
 							>
-								<div class="result-icon">
-									<UIcon icon={result.icon} classes="text-[var(--accent-text)]" />
-								</div>
-								<div class="result-content">
-									<span class="result-name">{result.name}</span>
-									<span class="result-type">{result.type}</span>
-								</div>
+								<span class="bp-label type">{result.type}</span>
+								<span class="name">{result.name}</span>
 								{#if index === selectedIndex}
-									<div class="result-hint">
-										<kbd>↵</kbd>
-									</div>
+									<kbd>↵</kbd>
 								{/if}
 							</button>
 						{/each}
@@ -207,196 +173,139 @@
 	</div>
 {/if}
 
-<style lang="scss">
-	.search-modal-backdrop {
+<style>
+	.backdrop {
 		position: fixed;
 		inset: 0;
 		z-index: 9999;
 		display: flex;
 		align-items: flex-start;
 		justify-content: center;
-		padding: 10vh 20px 20px;
-		background-color: rgba(0, 0, 0, 0.5);
-		backdrop-filter: blur(4px);
-		animation: fadeIn 0.15s ease-out;
+		padding: 10vh 16px 16px;
+		background-color: rgb(11 27 51 / 0.55);
+		animation: fade-in 0.15s ease-out;
 	}
 
-	.search-modal {
+	.modal {
 		width: 100%;
 		max-width: 640px;
-		background-color: var(--main);
-		border-radius: 12px;
-		box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 		overflow: hidden;
-		animation: slideDown 0.2s ease-out;
-		border: 1px solid var(--border);
+		box-shadow: 8px 8px 0 var(--bp-ink);
+		animation: slide-down 0.2s ease-out;
 	}
 
-	.search-input-wrapper {
+	.input-row {
 		display: flex;
 		align-items: center;
 		gap: 12px;
 		padding: 16px 20px;
-		border-bottom: 1px solid var(--border);
+		border-bottom: 2px solid var(--bp-ink);
 	}
 
-	.search-input {
+	.input {
 		flex: 1;
+		min-width: 0;
 		background: transparent;
-		border: none;
 		outline: none;
+		color: var(--bp-ink);
+		font: inherit;
 		font-size: 16px;
-		color: var(--main-text);
-		font-family: inherit;
-
-		&::placeholder {
-			color: var(--tertiary-text);
-		}
 	}
 
-	.keyboard-hint {
-		padding: 4px 8px;
-		background-color: var(--main-hover);
-		border: 1px solid var(--border);
-		border-radius: 4px;
+	.input::placeholder {
+		color: var(--bp-muted);
+	}
+
+	kbd {
+		padding: 2px 8px;
+		border: 1px solid var(--bp-line);
+		background: var(--bp-surface-2);
+		color: var(--bp-muted);
+		font-family: var(--mono-f);
 		font-size: 12px;
-		font-weight: 500;
-		color: var(--secondary-text);
 	}
 
-	.search-results {
+	.results {
 		max-height: 400px;
 		overflow-y: auto;
 	}
 
-	.search-empty {
+	.empty {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
-		padding: 60px 20px;
-		gap: 16px;
-	}
-
-	.keyboard-shortcuts {
-		display: flex;
 		gap: 24px;
-		margin-top: 20px;
-
-		.shortcut {
-			display: flex;
-			align-items: center;
-			gap: 8px;
-			font-size: 13px;
-			color: var(--tertiary-text);
-
-			kbd {
-				padding: 4px 8px;
-				background-color: var(--main-hover);
-				border: 1px solid var(--border);
-				border-radius: 4px;
-				font-size: 12px;
-				font-weight: 500;
-			}
-		}
+		padding: 48px 20px;
+		color: var(--bp-muted);
+		text-align: center;
 	}
 
-	.result-summary {
-		display: flex;
-		flex-wrap: wrap;
-		gap: 8px;
-		padding: 12px 20px;
+	.shortcut {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
 		font-size: 13px;
-		border-bottom: 1px solid var(--border);
 	}
 
-	.result-list {
+	.summary {
+		padding: 12px 20px;
+		border-bottom: 1px solid var(--bp-line);
+		color: var(--bp-muted);
+	}
+
+	.list {
 		padding: 8px;
 	}
 
-	.result-item {
-		width: 100%;
+	.item {
 		display: flex;
 		align-items: center;
 		gap: 12px;
-		padding: 12px 12px;
-		border: none;
+		width: 100%;
+		min-height: 48px;
+		padding: 8px 12px;
 		background: transparent;
-		border-radius: 8px;
-		cursor: pointer;
-		transition: background-color 0.15s;
+		color: var(--bp-ink);
+		font: inherit;
 		text-align: left;
-
-		&:hover,
-		&.selected {
-			background-color: var(--main-hover);
-		}
-
-		&.selected {
-			outline: 2px solid var(--border-hover);
-			outline-offset: -2px;
-		}
+		cursor: pointer;
 	}
 
-	.result-icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 32px;
-		height: 32px;
-		border-radius: 6px;
-		background-color: var(--main-hover);
-		border: 1px solid var(--border);
+	.item.selected {
+		background: var(--bp-surface-2);
+		outline: 2px solid var(--bp-accent);
+		outline-offset: -2px;
 	}
 
-	.result-content {
+	.type {
+		width: 92px;
+		flex-shrink: 0;
+		color: var(--bp-accent);
+	}
+
+	.name {
 		flex: 1;
-		display: flex;
-		flex-direction: column;
-		gap: 2px;
-	}
-
-	.result-name {
-		font-size: 14px;
+		min-width: 0;
 		font-weight: 500;
-		color: var(--main-text);
 	}
 
-	.result-type {
-		font-size: 12px;
-		color: var(--tertiary-text);
-		text-transform: capitalize;
-	}
-
-	.result-hint {
-		kbd {
-			padding: 4px 8px;
-			background-color: var(--accent-hover);
-			border: 1px solid var(--border-hover);
-			border-radius: 4px;
-			font-size: 12px;
-			font-weight: 500;
-			color: var(--accent-text);
-		}
-	}
-
-	@keyframes fadeIn {
+	@keyframes fade-in {
 		from {
 			opacity: 0;
 		}
-		to {
-			opacity: 1;
+	}
+
+	@keyframes slide-down {
+		from {
+			opacity: 0;
+			transform: translateY(-12px);
 		}
 	}
 
-	@keyframes slideDown {
-		from {
-			opacity: 0;
-			transform: translateY(-20px);
-		}
-		to {
-			opacity: 1;
-			transform: translateY(0);
+	@media (prefers-reduced-motion: reduce) {
+		.backdrop,
+		.modal {
+			animation: none;
 		}
 	}
 </style>

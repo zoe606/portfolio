@@ -102,3 +102,8 @@ export function formatYears(period: { from: Date; to?: Date }): string {
 	const to = period.to.getFullYear();
 	return from === to ? `${from}` : `${from} — ${to}`;
 }
+
+/** Formats a count with its noun: "1 project", "3 projects". */
+export function plural(count: number, noun: string): string {
+	return `${count} ${noun}${count === 1 ? '' : 's'}`;
+}
