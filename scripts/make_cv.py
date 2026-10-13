@@ -87,11 +87,11 @@ achievements = [
         '75% fewer database calls per task status change',
     ]),
     ('At Luce (2025–2026)', [
-        '+51% increase in backend test coverage (26% → 77%)',
-        '+57% increase in dependency freshness (backend)',
         '−73% reduction in production Sentry errors',
         '100% removal of high-severity security issues',
         '32% improvement in fast API call performance (p95 <500ms)',
+        'Rails 7.0 → 7.2 upgrade, backed by a test safety net that grew coverage from 26% to 77%',
+        'Backend dependencies up to date: 26% → 83%',
     ]),
     ('At PrivyID (2023–2024)', [
         'Reduced ID generation time from 2 hours → 5 minutes by redesigning wallet ID generation with Go and distributed workers.',
