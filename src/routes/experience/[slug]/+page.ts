@@ -1,16 +1,18 @@
+import { error } from '@sveltejs/kit';
 import MY_EXPERIENCES from '$lib/experiences.params';
 import type { PageLoad } from './$types';
 
 export const prerender = true;
 
+const ordered = MY_EXPERIENCES.toSorted((a, b) => a.no - b.no);
+
 export const load: PageLoad = ({ params }) => {
-	if (params.slug) {
-		const experience = MY_EXPERIENCES.find((item) => {
-			return item.slug === params.slug;
-		});
+	const index = ordered.findIndex((item) => item.slug === params.slug);
+	if (index === -1) error(404, 'Experience not found');
 
-		return { experience };
-	}
-
-	return { experience: undefined };
+	return {
+		experience: ordered[index],
+		previous: ordered[index - 1],
+		next: ordered[index + 1]
+	};
 };

@@ -109,14 +109,9 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 
 **Feature Components** (`src/lib/components/`):
 
-- `Banner/` - Hero banner component
-- `Card/` - Card components with logo, link, title variants
-- `ExperienceCard/` - Experience entries display
-- `ProjectCard/` - Project entries display
-- `Markdown.svelte` - Markdown renderer using marked + Prism.js + DOMPurify
-- `SearchPage.svelte` - Search functionality component
-- `CommonPage.svelte` - Base page layout wrapper
 - `Site/` - `SiteHeader` (navigation, search, theme toggle) and `SiteFooter`
+- `Blueprint/` - building blocks for redesigned pages: `PageHeader` (label, title, description), `MetricStrip` (headline numbers), `WorkList` (numbered achievements), `SkillChips` (skill links), `Pager` (previous and next)
+- `Banner/`, `Card/CardLogo`, `MainTitle/`, `Markdown.svelte`, `SearchPage.svelte`, `CommonPage.svelte` - older building blocks still used by the skills, education, resume, and search pages
 - `Icon/` - Icon system (UIcon for UnoCSS icons, Icon for custom icons)
 
 ### Markdown Processing
@@ -180,8 +175,10 @@ All routes in `src/routes/`:
 **Projects:**
 
 1. Edit `src/lib/data/projects.json`
-2. Add project object with all required fields (from `Project` type)
-3. Build will automatically generate project pages
+2. Add project object with all required fields (from `Project` type). `no` sets the order and the `PRJ-xx` code
+3. Write `description` as sentences that each state one achievement. The project page lists each sentence as a numbered item
+4. Optionally add `metrics` (`{ "value", "label" }`). Use only figures that the CV or other evidence supports
+5. Build will automatically generate project pages
 
 **Experience:**
 

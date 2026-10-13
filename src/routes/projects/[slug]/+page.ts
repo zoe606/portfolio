@@ -1,16 +1,18 @@
+import { error } from '@sveltejs/kit';
 import MY_PROJECTS from '$lib/projects.params';
 import type { PageLoad } from './$types';
 
 export const prerender = true;
 
+const ordered = MY_PROJECTS.toSorted((a, b) => a.no - b.no);
+
 export const load: PageLoad = ({ params }) => {
-	if (params.slug) {
-		const project = MY_PROJECTS.find((item) => {
-			return item.slug === params.slug;
-		});
+	const index = ordered.findIndex((item) => item.slug === params.slug);
+	if (index === -1) error(404, 'Project not found');
 
-		return { project };
-	}
-
-	return { project: undefined };
+	return {
+		project: ordered[index],
+		previous: ordered[index - 1],
+		next: ordered[index + 1]
+	};
 };

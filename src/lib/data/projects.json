@@ -13,6 +13,11 @@
 		},
 		"skills": ["php", "laravel", "pgsql", "graphql"],
 		"type": "Maintenance Scheduling Platform",
+		"metrics": [
+			{ "value": "1M", "label": "tasks in load tests" },
+			{ "value": "0", "label": "failures or deadlocks" },
+			{ "value": "−75%", "label": "DB calls per status change" }
+		],
 		"screenshots": []
 	},
 	{
@@ -32,6 +37,7 @@
 		},
 		"skills": ["astro", "ts", "tailwind", "css", "html"],
 		"type": "Side Project · Design Tooling",
+		"metrics": [{ "value": "38", "label": "design themes" }],
 		"screenshots": []
 	},
 	{
@@ -66,6 +72,11 @@
 		},
 		"skills": ["ruby", "ruby-on-rails", "graphql", "pgsql", "redis", "docker", "git"],
 		"type": "Internal API Platform",
+		"metrics": [
+			{ "value": "−73%", "label": "production Sentry errors" },
+			{ "value": "0", "label": "high-severity security issues" },
+			{ "value": "+32%", "label": "fast API call performance" }
+		],
 		"screenshots": []
 	},
 	{
@@ -146,6 +157,7 @@
 		},
 		"skills": ["go", "pgsql", "redis", "grpc"],
 		"type": "Wallet Service (Core Team)",
+		"metrics": [{ "value": "2h → 5m", "label": "wallet ID generation" }],
 		"screenshots": []
 	},
 	{
@@ -180,6 +192,7 @@
 		},
 		"skills": ["go", "mysql", "docker", "mongodb", "kafka"],
 		"type": "Golf Scoring System",
+		"metrics": [{ "value": "4", "label": "apps in one system" }],
 		"screenshots": [
 			{ "label": "", "src": "pgp1" },
 			{ "label": "", "src": "pgp2" },
@@ -203,6 +216,7 @@
 		},
 		"skills": ["go", "docker", "redis", "aws-s3", "pubsub", "pgsql"],
 		"type": "ATS (Internal Tools)",
+		"metrics": [{ "value": "1 month", "label": "from start to launch" }],
 		"screenshots": [
 			{ "label": "", "src": "ats1" },
 			{ "label": "", "src": "ats2" },
@@ -260,6 +274,7 @@
 		},
 		"skills": ["ruby", "ruby-on-rails", "pgsql"],
 		"type": "Landing and Integration",
+		"metrics": [{ "value": "14 days", "label": "to a working backend API" }],
 		"screenshots": []
 	},
 	{
@@ -328,6 +343,10 @@
 		},
 		"skills": ["php", "docker", "redis", "yii2", "jquery", "pgsql"],
 		"type": "Hospital Information System Product",
+		"metrics": [
+			{ "value": "10+", "label": "hospitals" },
+			{ "value": "~4 years", "label": "junior to team lead" }
+		],
 		"screenshots": []
 	},
 	{

@@ -49,6 +49,8 @@ export interface Color {
 export interface Project extends Item {
 	no: number;
 	links: Array<Link>;
+	/** Headline numbers for the project page. Only use figures from the CV. */
+	metrics?: Array<Metric>;
 	color: string;
 	period: {
 		from: Date;
@@ -89,7 +91,7 @@ export interface HomeLink {
 	link: string;
 }
 
-export interface HomeStat {
+export interface Metric {
 	value: string;
 	label: string;
 }
@@ -98,7 +100,7 @@ export interface HomeSpotlight {
 	caption: string;
 	project: string;
 	flow: Array<string>;
-	stats: Array<HomeStat>;
+	stats: Array<Metric>;
 }
 
 export interface HomeHighlight {

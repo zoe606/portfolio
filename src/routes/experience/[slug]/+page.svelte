@@ -1,102 +1,75 @@
 <script lang="ts">
-	import CardLogo from '$lib/components/Card/CardLogo.svelte';
-	import MainTitle from '$lib/components/MainTitle/MainTitle.svelte';
-
-	import { base } from '$app/paths';
-	import type { Experience } from '$lib/types';
-	import { getAssetURL } from '$lib/data/assets';
+	import { resolve } from '$app/paths';
 	import { EXPERIENCES } from '$lib/params';
-	import Markdown from '$lib/components/Markdown.svelte';
+	import { getAssetURL } from '$lib/data/assets';
+	import { formatYears, getTimeDiff, splitSentences } from '$lib/utils/helpers';
+	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
+	import WorkList from '$lib/components/Blueprint/WorkList.svelte';
+	import SkillChips from '$lib/components/Blueprint/SkillChips.svelte';
+	import Pager from '$lib/components/Blueprint/Pager.svelte';
 	import TabTitle from '$lib/components/TabTitle.svelte';
-	import { Badge } from '$lib/components/ui';
-	import Banner from '$lib/components/Banner/Banner.svelte';
-	import UIcon from '$lib/components/Icon/UIcon.svelte';
-	import { Separator } from '$lib/components/ui';
-	import { getTimeDiff } from '$lib/utils';
+	import type { PageProps } from './$types';
 
-	export let data: { experience?: Experience };
+	let { data }: PageProps = $props();
 
-	const { title } = EXPERIENCES;
-
-	$: computedTitle = data.experience ? `${data.experience.name} - ${title}` : title;
-	$: experiencePath = data.experience ? `/experience/${data.experience.slug}` : '/experience';
-	$: experienceDescription =
-		data.experience?.shortDescription ?? data.experience?.description ?? EXPERIENCES.description;
+	const job = $derived(data.experience);
+	const href = (slug: string) => resolve('/experience/[slug]', { slug });
+	const neighbor = (item?: { slug: string; company: string }) =>
+		item && { href: href(item.slug), name: item.company };
 </script>
 
 <TabTitle
-	title={computedTitle}
-	description={experienceDescription}
-	path={experiencePath}
+	title={`${job.name} at ${job.company} - ${EXPERIENCES.title}`}
+	description={job.shortDescription}
+	path={`/experience/${job.slug}`}
 	type="article"
 />
 
-<div class="pb-10 overflow-x-hidden col flex-1">
-	{#if data.experience === undefined}
-		<div class="p-5 col-center gap-3 m-y-auto text-[var(--accent-text)]">
-			<UIcon icon="i-carbon-cube" classes="text-3.5em" />
-			<p class="font-300">Could not load experience data...</p>
-		</div>
-	{:else}
-		<div class="flex flex-col items-center overflow-x-hidden">
-			<Banner img={getAssetURL(data.experience.logo)}>
-				<div class="col-center p-y-20">
-					<div class="text-0.9em">
-						<MainTitle>{data.experience.name}</MainTitle>
-					</div>
-					<p class="font-300 text-[var(--tertiary-text)] m-y-2 text-center">
-						{data.experience.company} · {data.experience.location} · {data.experience.type}
-					</p>
-					<p class="font-300 text-0.9em text-[var(--tertiary-text)] m-y-2 text-center">
-						{getTimeDiff(data.experience.period.from, data.experience.period.to)}
-					</p>
-					<div class="w-75%">
-						<Separator />
-					</div>
-					<div class="row-center flex-wrap text-[0.9em] text-[var(--tertiary-text)] m-b-2">
-						{#each data.experience.links as item (item.to ?? item.label)}
-							<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-							<Badge href={item.to}>
-								<div class="row-center gap-2">
-									<UIcon icon="i-carbon-link" />
-									<span>{item.label}</span>
-								</div>
-							</Badge>
-						{/each}
-					</div>
-					<div class="row-center flex-wrap m-b-2">
-						{#each data.experience.skills as item (item.slug)}
-							<Badge
-								class="inline-flex flex-row items-center justify-center"
-								href={`${base}/skills/${item.slug}`}
-							>
-								<CardLogo
-									src={getAssetURL(item.logo)}
-									alt={item.name}
-									radius="0px"
-									size={15}
-									class="mr-2"
-								/>
-								<span class="text-[0.9em]">{item.name}</span>
-							</Badge>
-						{/each}
-					</div>
-				</div>
-			</Banner>
-			<div class="pt-3 pb-1 overflow-x-hidden w-full">
-				<div class="px-10px m-y-5">
-					{#if data.experience.description}
-						<Markdown
-							content={data.experience.description ?? 'This place is yet to be filled...'}
-						/>
-					{:else}
-						<div class="p-5 col-center gap-3 m-y-auto text-[var(--border)]">
-							<UIcon icon="i-carbon-text-font" classes="text-3.5em" />
-							<p class="font-300">No description...</p>
-						</div>
-					{/if}
-				</div>
-			</div>
-		</div>
-	{/if}
-</div>
+<a href={resolve('/experience')} class="back bp-label">← All experience</a>
+
+<PageHeader label={`${job.contract} · ${job.location}`} title={job.company} class="pt-8">
+	<div class="flex flex-wrap items-center gap-3">
+		<img src={getAssetURL(job.logo)} alt="" width="40" height="40" class="logo" />
+		<span class="font-display text-xl font-semibold">{job.name}</span>
+		<span class="bp-label text-bp-muted">
+			{formatYears(job.period)} · {getTimeDiff(job.period.from, job.period.to)}
+		</span>
+	</div>
+	<p class="max-w-160 text-lg leading-relaxed text-bp-muted">{job.shortDescription}</p>
+</PageHeader>
+
+<section class="flex flex-col gap-5" aria-labelledby="work">
+	<h2 id="work" class="bp-label text-bp-muted">02 / What I did</h2>
+	<WorkList items={splitSentences(job.description)} />
+</section>
+
+{#if job.skills.length}
+	<section class="flex flex-col gap-5 pt-16" aria-labelledby="stack">
+		<h2 id="stack" class="bp-label text-bp-muted">03 / Stack</h2>
+		<SkillChips skills={job.skills} />
+	</section>
+{/if}
+
+<Pager label="More experience" previous={neighbor(data.previous)} next={neighbor(data.next)} />
+
+<style>
+	.back {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		margin-top: 32px;
+		color: var(--bp-muted);
+		text-decoration: none;
+	}
+
+	.back:hover {
+		color: var(--bp-accent);
+	}
+
+	.logo {
+		padding: 4px;
+		background: #ffffff;
+		border: 1px solid var(--bp-line);
+		object-fit: contain;
+	}
+</style>

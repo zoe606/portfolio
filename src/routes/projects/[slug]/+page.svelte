@@ -1,138 +1,136 @@
 <script lang="ts">
-	import CardLogo from '$lib/components/Card/CardLogo.svelte';
-	import MainTitle from '$lib/components/MainTitle/MainTitle.svelte';
-
-	import { base } from '$app/paths';
-	import type { Asset, Project } from '$lib/types';
-	import { getAssetURL } from '$lib/data/assets';
+	import { resolve } from '$app/paths';
 	import { PROJECTS } from '$lib/params';
-	import Markdown from '$lib/components/Markdown.svelte';
+	import { getAssetURL } from '$lib/data/assets';
+	import { getScrenshootURL } from '$lib/data/screenshoot';
+	import { formatYears, getTimeDiff, splitSentences } from '$lib/utils/helpers';
+	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
+	import MetricStrip from '$lib/components/Blueprint/MetricStrip.svelte';
+	import WorkList from '$lib/components/Blueprint/WorkList.svelte';
+	import SkillChips from '$lib/components/Blueprint/SkillChips.svelte';
+	import Pager from '$lib/components/Blueprint/Pager.svelte';
 	import TabTitle from '$lib/components/TabTitle.svelte';
-	import { Badge } from '$lib/components/ui';
-	import Banner from '$lib/components/Banner/Banner.svelte';
-	import UIcon from '$lib/components/Icon/UIcon.svelte';
-	import { Separator } from '$lib/components/ui';
-	import BackButton from '$lib/components/Button/Back.svelte';
+	import type { PageProps } from './$types';
 
-	export let data: { project?: Project };
+	let { data }: PageProps = $props();
 
-	const { title } = PROJECTS;
-
-	const screenshots = data.project?.screenshots ?? [];
-	$: projectPath = data.project ? `/projects/${data.project.slug}` : '/projects';
-	$: projectDescription =
-		data.project?.shortDescription ?? data.project?.description ?? PROJECTS.description;
-
-	const resolveAssetUrl = (asset: Asset): string => {
-		return typeof asset === 'string' ? asset : asset.light;
-	};
-
-	// Function to open the image in a new tab
-	function openInNewTab(url: string) {
-		const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
-		if (newWindow) newWindow.opener = null;
-	}
-
-	$: computedTitle = data.project ? `${data.project.name} - ${title}` : title;
+	const project = $derived(data.project);
+	const href = (slug: string) => resolve('/projects/[slug]', { slug });
+	const code = $derived(`PRJ-${String(project.no).padStart(2, '0')}`);
 </script>
 
 <TabTitle
-	title={computedTitle}
-	description={projectDescription}
-	path={projectPath}
+	title={`${project.name} - ${PROJECTS.title}`}
+	description={project.shortDescription}
+	path={`/projects/${project.slug}`}
 	type="article"
 />
 
-<div class="pb-10 overflow-x-hidden col flex-1">
-	{#if data.project === undefined}
-		<div class="p-5 col-center gap-3 m-y-auto text-[var(--accent-text)]">
-			<UIcon icon="i-carbon-cube" classes="text-3.5em" />
-			<p class="font-300">Could not load project data...</p>
+<a href={resolve('/projects')} class="back bp-label">← All projects</a>
+
+<PageHeader
+	label={`${code} · ${project.type}`}
+	title={project.name}
+	description={project.shortDescription}
+	class="pt-8"
+>
+	<div class="flex flex-wrap items-center gap-3 pt-2">
+		<img src={getAssetURL(project.logo)} alt="" width="40" height="40" class="logo" />
+		<span class="bp-label text-bp-muted">
+			{formatYears(project.period)} · {getTimeDiff(project.period.from, project.period.to)}
+		</span>
+		{#each project.links as link (link.to)}
+			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+			<a href={link.to} class="link-button" target="_blank" rel="noreferrer">{link.label} ↗</a>
+		{/each}
+	</div>
+</PageHeader>
+
+{#if project.metrics?.length}
+	<section aria-label="Results">
+		<MetricStrip metrics={project.metrics} />
+	</section>
+{/if}
+
+<section class="flex flex-col gap-5 pt-16" aria-labelledby="work">
+	<h2 id="work" class="bp-label text-bp-muted">02 / What I did</h2>
+	<WorkList items={splitSentences(project.description)} />
+</section>
+
+<section class="flex flex-col gap-5 pt-16" aria-labelledby="stack">
+	<h2 id="stack" class="bp-label text-bp-muted">03 / Stack</h2>
+	<SkillChips skills={project.skills} />
+</section>
+
+{#if project.screenshots?.length}
+	<section class="flex flex-col gap-5 pt-16" aria-labelledby="screenshots">
+		<h2 id="screenshots" class="bp-label text-bp-muted">04 / Screenshots</h2>
+		<div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
+			{#each project.screenshots as shot, i (i)}
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+				<a href={getScrenshootURL(shot.src)} target="_blank" rel="noreferrer" class="shot">
+					<img
+						src={getScrenshootURL(shot.src)}
+						alt={shot.label || `${project.name} screenshot ${i + 1}`}
+						loading="lazy"
+						class="aspect-video w-full object-cover"
+					/>
+				</a>
+			{/each}
 		</div>
-	{:else}
-		<div class="flex flex-col items-center overflow-x-hidden">
-			<Banner img={getAssetURL(data.project.logo)}>
-				<div class="col-center p-y-20">
-					<div class="text-0.9em">
-						<MainTitle>{data.project.name}</MainTitle>
-					</div>
-					<p class="font-300 text-center text-[var(--tertiary-text)] m-y-2">{data.project.type}</p>
-					<div class="w-75%">
-						<Separator />
-					</div>
-					<div class="row-center flex-wrap text-[0.9em] text-[var(--tertiary-text)] m-b-2">
-						{#each data.project.links as item (item.to ?? item.label)}
-							<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-							<Badge href={item.to}>
-								<div class="row-center gap-2">
-									<UIcon icon="i-carbon-link" />
-									<span>{item.label}</span>
-								</div>
-							</Badge>
-						{/each}
-					</div>
-					<div class="row-center flex-wrap m-b-2">
-						{#each data.project.skills as item (item.slug)}
-							<Badge
-								class="inline-flex flex-row items-center justify-center"
-								href={`${base}/skills/${item.slug}`}
-							>
-								<CardLogo
-									src={getAssetURL(item.logo)}
-									alt={item.name}
-									radius="0px"
-									size={15}
-									class="mr-2"
-								/>
-								<span class="text-[0.9em]">{item.name}</span>
-							</Badge>
-						{/each}
-					</div>
-				</div>
-				<BackButton />
-			</Banner>
-			<div class="pt-3 pb-1 overflow-x-hidden w-full">
-				<div class="px-10px m-y-5">
-					{#if data.project.description}
-						<Markdown content={data.project.description} />
-					{:else}
-						<div class="p-5 col-center gap-3 m-y-auto text-[var(--border)]">
-							<UIcon icon="i-carbon-text-font" classes="text-3.5em" />
-							<p class="font-300">No description</p>
-						</div>
-					{/if}
-				</div>
-				<div class="w-100% m-t-8">
-					<Separator />
-				</div>
-				{#if screenshots.length > 0}
-					<div
-						class="px-10px grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 m-t-10"
-					>
-						{#each screenshots as item (resolveAssetUrl(item.src))}
-							<!-- svelte-ignore a11y-click-events-have-key-events -->
-							<!-- svelte-ignore a11y-no-static-element-interactions -->
-							<div
-								class="col-center gap-3 overflow-hidden w-100% h-100% rounded-10px"
-								on:click={() => openInNewTab(resolveAssetUrl(item.src))}
-							>
-								<img
-									class="aspect-video w-100%"
-									src={resolveAssetUrl(item.src)}
-									alt={item.label}
-									loading="lazy"
-								/>
-								<p class="text-[var(--tertiary-text)] font-300">{item.label}</p>
-							</div>
-						{/each}
-					</div>
-				{:else}
-					<div class="p-5 col-center gap-3 m-y-auto text-[var(--border)]">
-						<UIcon icon="i-carbon-image" classes="text-3.5em" />
-						<p class="font-300">No screenshots</p>
-					</div>
-				{/if}
-			</div>
-		</div>
-	{/if}
-</div>
+	</section>
+{/if}
+
+<Pager
+	label="More projects"
+	previous={data.previous && { href: href(data.previous.slug), name: data.previous.name }}
+	next={data.next && { href: href(data.next.slug), name: data.next.name }}
+/>
+
+<style>
+	.back {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		margin-top: 32px;
+		color: var(--bp-muted);
+		text-decoration: none;
+	}
+
+	.back:hover {
+		color: var(--bp-accent);
+	}
+
+	.logo {
+		padding: 4px;
+		background: #ffffff;
+		border: 1px solid var(--bp-line);
+		object-fit: contain;
+	}
+
+	.link-button {
+		display: inline-flex;
+		align-items: center;
+		min-height: 44px;
+		padding: 0 16px;
+		border: 1px solid var(--bp-ink);
+		color: var(--bp-ink);
+		font-family: var(--mono-f);
+		font-size: 13px;
+		text-decoration: none;
+	}
+
+	.link-button:hover {
+		border-color: var(--bp-accent);
+		color: var(--bp-accent);
+	}
+
+	.shot {
+		display: block;
+		border: 2px solid var(--bp-ink);
+	}
+
+	.shot:hover {
+		border-color: var(--bp-accent);
+	}
+</style>

@@ -45,7 +45,9 @@ export default defineConfig({
 			'col-center': 'col justify-center items-center',
 			'row-center': 'row justify-center items-center',
 
-			'bp-container': 'mx-auto w-full max-w-1120px px-6'
+			'bp-container': 'mx-auto w-full max-w-1120px px-6',
+			'bp-panel': 'bg-bp-surface border-2 border-bp-ink',
+			'bp-label': 'm-0 font-mono text-[13px] uppercase tracking-[0.04em]'
 		}
 	]
 });
