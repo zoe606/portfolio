@@ -70,7 +70,8 @@
 			"mysql",
 			"pgsql",
 			"grpc",
-			"redis"
+			"redis",
+			"git"
 		],
 		"name": "Backend Engineer",
 		"color": "Red",
@@ -99,8 +100,7 @@
 			"mysql",
 			"pgsql",
 			"bootstrap",
-			"ci",
-			"linux"
+			"git"
 		],
 		"name": "Development Team Lead",
 		"color": "#ffffff",
@@ -131,8 +131,7 @@
 			"mysql",
 			"pgsql",
 			"bootstrap",
-			"ci",
-			"linux"
+			"git"
 		],
 		"name": "Web Developer",
 		"color": "#ffffff",
@@ -149,7 +148,7 @@
 		"type": "Software Development",
 		"location": "Onsite, Indonesia",
 		"period": { "from": "2019-01-01", "to": "2019-04-04" },
-		"skills": ["reactjs", "js", "laravel", "html", "css"],
+		"skills": ["reactjs", "js", "laravel", "html", "css", "git"],
 		"name": "Internship",
 		"color": "#ffffff",
 		"links": [{ "to": "https://www.dhealth.co.id/", "label": "D’Health", "newTab": true }],
@@ -165,7 +164,20 @@
 		"type": "Software Development",
 		"location": "Remote",
 		"period": { "from": "2019-01-01" },
-		"skills": ["svelte", "ts", "sass", "css", "html", "js", "vuejs", "reactjs", "php", "laravel"],
+		"skills": [
+			"svelte",
+			"ts",
+			"sass",
+			"css",
+			"html",
+			"js",
+			"vuejs",
+			"reactjs",
+			"php",
+			"laravel",
+			"ci",
+			"git"
+		],
 		"name": "Freelancer",
 		"color": "#ffffff",
 		"links": [],

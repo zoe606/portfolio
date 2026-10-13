@@ -2,266 +2,266 @@
 	{
 		"slug": "go",
 		"color": "Blue",
-		"description": "Go is a statically typed, compiled language designed for simplicity and efficiency. It excels in building scalable and performant applications. With its clean syntax and robust standard library, Go is an excellent choice for various development projects.",
+		"description": "Rebuilt PrivyID's wallet ID generator in Go with goroutines and distributed workers, cutting generation time from 2 hours to 5 minutes.",
 		"logo": "Go",
 		"name": "Go"
 	},
 	{
 		"slug": "php",
 		"color": "Blue",
-		"description": "PHP is a server-side scripting language widely used for web development. Known for its flexibility and ease of integration, PHP empowers developers to create dynamic and interactive web applications.",
+		"description": "Backend language from 2019 to today: Yii 2 at Docotel and D’Health, Laravel for client projects, and CheckProof's Scheduling Tool.",
 		"logo": "Php",
 		"name": "PHP"
 	},
 	{
 		"slug": "ruby",
 		"color": "Red",
-		"description": "Ruby is a dynamic, object-oriented programming language that emphasizes simplicity and productivity. It is known for its elegant syntax and developer-friendly features, making it a favorite for building web applications.",
+		"description": "Used at PrivyID and Luce to build and maintain Rails services, and to improve legacy Ruby code for performance and maintainability.",
 		"logo": "Ruby",
 		"name": "Ruby"
 	},
 	{
 		"slug": "redis",
 		"color": "Red",
-		"description": "Redis is an in-memory data structure store known for its speed and flexibility. It is often used as a caching mechanism and for real-time analytics, providing high-performance solutions for various applications.",
+		"description": "Part of the backend stack at Docotel, D’Health, PrivyID, Luce, and CheckProof, and in IATE Polban's alumni location app.",
 		"logo": "Redis",
 		"name": "Redis"
 	},
 	{
 		"slug": "pgsql",
 		"color": "Blue",
-		"description": "PostgreSQL is a powerful, open-source relational database management system. With its advanced features, extensibility, and SQL compliance, PostgreSQL is a reliable choice for handling complex data requirements.",
+		"description": "The database behind most of my backends, from D’Health's hospital system to Luce's Rails monolith and CheckProof's Scheduling Tool.",
 		"logo": "PostgreSQL",
 		"name": "PostgreSQL"
 	},
 	{
 		"slug": "mysql",
 		"color": "Orange",
-		"description": "MySQL is a popular open-source relational database management system. It is known for its reliability, ease of use, and scalability, making it a go-to choice for many web applications.",
+		"description": "Used at Docotel, D’Health, and PrivyID, and in Laravel client projects such as Boboho and Stickermotorindo.",
 		"logo": "Mysql",
 		"name": "MySQL"
 	},
 	{
 		"slug": "mongodb",
 		"color": "Green",
-		"description": "MongoDB is a NoSQL database known for its flexibility and scalability. It stores data in a JSON-like format, allowing for dynamic schema design and efficient handling of large volumes of data.",
+		"description": "Used at PrivyID in Glacier, Privy's core Rails middleware, and in the PGPxPGPF golf scoring system.",
 		"logo": "MongoDB",
 		"name": "MongoDB"
 	},
 	{
 		"slug": "docker",
 		"color": "Black",
-		"description": "Docker is a platform for automating the deployment and scaling of applications in lightweight, portable containers. It simplifies the process of packaging, distributing, and running applications across diverse environments.",
+		"description": "Used to run applications at Docotel, D’Health, PrivyID, Luce, and CheckProof.",
 		"logo": "Docker",
 		"name": "Docker"
 	},
 	{
 		"slug": "rabbit-mq",
 		"color": "Orange",
-		"description": "RabbitMQ is a message broker that facilitates communication between distributed systems. It provides a reliable and scalable solution for handling message queues in various applications.",
+		"description": "Used as a message broker in Privy's 3-month Go bootcamp, building microservices with the SAGA pattern.",
 		"logo": "RabbitMQ",
 		"name": "RabbitMQ"
 	},
 	{
 		"slug": "kafka",
 		"color": "Black",
-		"description": "Apache Kafka is a distributed streaming platform known for its high-throughput, fault-tolerance, and real-time data processing capabilities. It is widely used for building scalable and resilient data pipelines.",
+		"description": "Used at PrivyID in Glacier, Privy's core Rails middleware, in the PGPxPGPF golf scoring system, and in Privy's Go bootcamp.",
 		"logo": "Kafka",
 		"name": "Kafka"
 	},
 	{
 		"slug": "grpc",
 		"color": "Blue",
-		"description": "gRPC is a modern open-source framework for building efficient and scalable APIs. It uses the HTTP/2 protocol for communication and Protocol Buffers for serialization, providing high-performance and language-agnostic RPC.",
+		"description": "Used at PrivyID in the wallet service and in Privy's Go bootcamp, building microservices with the SAGA pattern.",
 		"logo": "Grpc",
 		"name": "gRPC"
 	},
 	{
 		"slug": "graphql",
 		"color": "Pink",
-		"description": "GraphQL is a query language for APIs and a runtime for executing those queries. It provides a complete and understandable description of the data in your API, giving clients the power to ask for exactly what they need and nothing more.",
+		"description": "Worked on the GraphQL API of Luce's Rails monolith, which serves admin apps, client websites, and mobile apps, and on CheckProof's backend.",
 		"logo": "GraphQL",
 		"name": "GraphQL"
 	},
 	{
 		"slug": "js",
 		"color": "Yellow",
-		"description": "JavaScript is a versatile and widely used programming language that powers dynamic content on the web. With its extensive ecosystem and support for both client and server-side development, JavaScript is essential for modern web applications.",
+		"description": "Used for front ends since 2019, from D’Health's website and hospital system modules to client projects and Luce's mobile app.",
 		"logo": "JavaScript",
 		"name": "JavaScript"
 	},
 	{
 		"slug": "ts",
 		"color": "Blue",
-		"description": "TypeScript is a superset of JavaScript that adds static typing and other features to enhance developer productivity and code quality. It allows for better collaboration and catches potential errors early in the development process.",
+		"description": "Used at CheckProof for the NestJS AI checklist generation service, and for themx, a static Astro site with Preact islands.",
 		"logo": "TypeScript",
 		"name": "TypeScript"
 	},
 	{
 		"slug": "css",
 		"color": "Blue",
-		"description": "CSS (Cascading Style Sheets) is a fundamental technology for styling web pages. It enables developers to control the layout and appearance of HTML elements, creating visually appealing and responsive user interfaces.",
+		"description": "Used for front ends since 2019, from hospital system modules at Docotel and D’Health to themx, which exports CSS design tokens.",
 		"logo": "CSS",
 		"name": "CSS"
 	},
 	{
 		"slug": "bootstrap",
 		"color": "Purple",
-		"description": "Bootstrap is a popular front-end framework that simplifies the process of designing responsive and aesthetically pleasing websites. It provides a set of pre-designed components and styles, allowing for rapid development.",
+		"description": "As a backend-focused engineer, I use Bootstrap's ready-made components instead of building UI from scratch, for example at Docotel and D’Health.",
 		"logo": "Bootstrap",
 		"name": "Bootstrap"
 	},
 	{
 		"slug": "html",
 		"color": "Orange",
-		"description": "HTML (Hypertext Markup Language) is the standard markup language for creating web pages and web applications. It structures content on the web and serves as the foundation for building interactive and accessible sites.",
+		"description": "Used for front ends since 2019, from Docotel and D’Health to client projects, MonoProperty, and themx.",
 		"logo": "HTML",
 		"name": "HTML"
 	},
 	{
 		"slug": "git",
 		"color": "Orange",
-		"description": "Git is a distributed version control system widely used for tracking changes in source code during software development. It facilitates collaboration among developers and provides a robust history of project modifications.",
+		"description": "Used for version control at every job since 2019, and at university before that.",
 		"logo": "Git",
 		"name": "Git"
 	},
 	{
 		"slug": "sass",
 		"color": "Pink",
-		"description": "Sass is a CSS preprocessor that adds powerful features like variables, nesting, and mixins, helping developers write maintainable and reusable stylesheets for complex user interfaces.",
+		"description": "Used for styling in freelance client projects.",
 		"logo": "Sass",
 		"name": "Sass"
 	},
 	{
 		"slug": "laravel",
 		"color": "Cyan",
-		"description": "Laravel is a PHP web application framework known for its elegant syntax and developer-friendly features. It simplifies common tasks in web development, allowing developers to focus on building robust and scalable applications.",
+		"description": "Built CheckProof's Scheduling Tool backend with Laravel, plus client projects such as Boboho's point-of-sale platform and IATE Polban's APIs.",
 		"logo": "Laravel",
 		"name": "Laravel"
 	},
 	{
 		"slug": "nestjs",
 		"color": "Red",
-		"description": "NestJS is a TypeScript framework for building structured, testable Node.js server applications with modules, dependency injection, and decorators.",
+		"description": "Built CheckProof's AI checklist generation service with NestJS and AWS Bedrock, turning PDF and Excel documents into inspection checklists.",
 		"logo": "NestJs",
 		"name": "NestJS"
 	},
 	{
 		"slug": "yii2",
 		"color": "Green",
-		"description": "Yii 2 is a high-performance PHP framework designed for developing modern web applications. It follows the MVC pattern and includes features such as code generation and a powerful caching system for efficient development.",
+		"description": "The framework behind D’Health's hospital information system for 10+ hospitals, from Docotel web developer to D’Health team lead.",
 		"logo": "Yii2",
 		"name": "Yii 2"
 	},
 	{
 		"slug": "ruby-on-rails",
 		"color": "Red",
-		"description": "Ruby on Rails, or Rails, is a web application framework written in Ruby. It follows the convention over configuration and don't repeat yourself principles, streamlining the development of robust and maintainable applications.",
+		"description": "Upgraded Luce's Rails monolith from 7.0 to 7.2 and raised its test coverage from 26% to 77%. Built Rails APIs at PrivyID and for Ulas.id.",
 		"logo": "Rails",
 		"name": "Ruby on Rails"
 	},
 	{
 		"slug": "jquery",
 		"color": "Black",
-		"description": "jQuery is a fast and lightweight JavaScript library designed to simplify HTML document traversal and manipulation, event handling, and animation. It makes front-end development more accessible and efficient.",
+		"description": "Used at Docotel and D’Health, and in Laravel client projects such as Boboho and Stickermotorindo.",
 		"logo": "Jquery",
 		"name": "jQuery"
 	},
 	{
 		"slug": "reactjs",
 		"color": "Blue",
-		"description": "React is a JavaScript library for building user interfaces, particularly for single-page applications where data can change over time. It enables developers to create reusable UI components, making the development process modular and efficient.",
+		"description": "Used at Docotel for hospital system modules with GatsbyJS, at Luce for frontend and mobile features, and in client projects.",
 		"logo": "ReactJs",
 		"name": "React"
 	},
 	{
 		"slug": "react-native",
 		"color": "Blue",
-		"description": "React Native is a framework for building native mobile applications using React. It allows developers to use React along with native platform capabilities, enabling cross-platform mobile development with a single codebase.",
+		"description": "Contributed features to Luce's React Native app that field technicians use to manage work orders and service requests.",
 		"logo": "ReactJs",
 		"name": "React Native"
 	},
 	{
 		"slug": "svelte",
 		"color": "Orange",
-		"description": "Svelte is a front-end framework that compiles components to highly efficient imperative code, delivering snappy user experiences with minimal runtime overhead.",
+		"description": "Used for client front ends and for this portfolio, built with SvelteKit and Svelte 5.",
 		"logo": "Svelte",
 		"name": "Svelte"
 	},
 	{
 		"slug": "astro",
 		"color": "Purple",
-		"description": "Astro is a web framework for content-driven sites that renders pages to static HTML and loads JavaScript only for interactive components.",
+		"description": "Built themx, a catalog of 38 web design themes, as a static Astro site with Preact islands.",
 		"logo": "Astro",
 		"name": "Astro"
 	},
 	{
 		"slug": "tailwind",
 		"color": "Blue",
-		"description": "Tailwind CSS is a utility-first CSS framework for building custom designs directly in markup.",
+		"description": "Used Tailwind CSS 4 for themx, a catalog of 38 web design themes with live previews.",
 		"logo": "Tailwind",
 		"name": "Tailwind CSS"
 	},
 	{
 		"slug": "vuejs",
 		"color": "Green",
-		"description": "Vue.js is a progressive JavaScript framework for building user interfaces. It is approachable, versatile, and easy to integrate, making it an excellent choice for both small-scale projects and larger applications.",
+		"description": "Used for hospital system modules at Docotel, client front ends, and IATE Polban's alumni location dashboard.",
 		"logo": "VueJs",
 		"name": "Vue.js"
 	},
 	{
 		"slug": "aws-s3",
 		"color": "Orange",
-		"description": "Amazon S3 is a versatile and scalable object storage service that offers durable, highly available storage for a wide range of workloads from static assets to data lake workloads.",
+		"description": "Used at CheckProof, including the AI checklist generation service, and in Hirio, PrivyID's applicant tracking system.",
 		"logo": "S3",
 		"name": "Amazon S3"
 	},
 	{
 		"slug": "ci",
 		"color": "Orange",
-		"description": "CodeIgniter is a lightweight PHP framework that helps developers build web applications rapidly with minimal configuration and a small footprint.",
+		"description": "Used for PHP web applications in freelance client projects.",
 		"logo": "CI",
 		"name": "CodeIgniter"
 	},
 	{
 		"slug": "nextjs",
 		"color": "Black",
-		"description": "Next.js is a React framework that enables hybrid static and server rendering, route prefetching, and a rich developer experience out of the box.",
+		"description": "Built the front end of MonoProperty, a property listing platform with advanced search and listing management for agents.",
 		"logo": "NextJs",
 		"name": "Next.js"
 	},
 	{
 		"slug": "sentry",
 		"color": "Purple",
-		"description": "Sentry is an error tracking and performance monitoring platform that helps developers identify, triage, and resolve issues in real-time.",
+		"description": "Cut production Sentry errors at Luce by 73%, and added Sentry monitoring to CheckProof's AI checklist generation service.",
 		"logo": "Sentry",
 		"name": "Sentry"
 	},
 	{
 		"slug": "new-relic",
 		"color": "Green",
-		"description": "New Relic is an observability platform that provides real-time insights into application performance, infrastructure monitoring, and user experience.",
+		"description": "Used at Luce, together with Sentry, to monitor application health.",
 		"logo": "NewRelic",
 		"name": "New Relic"
 	},
 	{
 		"slug": "linux",
 		"color": "Black",
-		"description": "Linux is an open-source operating system widely used for servers, development environments, and production deployments. Proficiency includes command-line operations, system administration, and shell scripting.",
+		"description": "A personal hobby outside work, not something any job required.",
 		"logo": "Linux",
 		"name": "Linux"
 	},
 	{
 		"slug": "minio",
 		"color": "Yellow",
-		"description": "MinIO is a high-performance, S3-compatible object storage solution used for building scalable, cloud-native data architectures on-premise or in the cloud.",
+		"description": "Used in Glacier, Privy's core Rails middleware at the center of the platform.",
 		"logo": "Minio",
 		"name": "MinIO"
 	},
 	{
 		"slug": "pubsub",
 		"color": "Yellow",
-		"description": "Publish/Subscribe messaging patterns enable loosely coupled services to communicate asynchronously, supporting scalable event-driven architectures with brokers like Kafka or RabbitMQ.",
+		"description": "Used in Hirio, PrivyID's applicant tracking system that syncs in real time with Privy apps, and in Privy's Go bootcamp.",
 		"logo": "PubSub",
 		"name": "Pub/Sub"
 	}
