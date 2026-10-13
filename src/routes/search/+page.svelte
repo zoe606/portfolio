@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { base } from '$app/paths';
+	import { resolve } from '$app/paths';
 	import { onMount } from 'svelte';
-	import { SEARCH } from '$lib/params';
-	import MY_EXPERIENCES from '$lib/experiences.params';
-	import MY_PROJECTS from '$lib/projects.params';
-	import MY_SKILLS from '$lib/skills.params';
-	import { plural } from '$lib/utils/helpers';
-	import { PortfolioSearch, type SearchResultItem } from '$lib/utils/search';
-	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
-	import TabTitle from '$lib/components/TabTitle.svelte';
+	import { SEARCH } from '#lib/params.js';
+	import MY_EXPERIENCES from '#lib/experiences.params.js';
+	import MY_PROJECTS from '#lib/projects.params.js';
+	import MY_SKILLS from '#lib/skills.params.js';
+	import { plural } from '#lib/utils/helpers.js';
+	import { PortfolioSearch, type SearchResultItem } from '#lib/utils/search.js';
+	import PageHeader from '#lib/components/Blueprint/PageHeader.svelte';
+	import TabTitle from '#lib/components/TabTitle.svelte';
 
 	const { title, description } = SEARCH;
 
@@ -69,8 +69,7 @@
 						<ul class="bp-panel m-0 list-none p-0">
 							{#each matches as result (result.to)}
 								<li class="border-t border-bp-line first:border-t-0">
-									<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-									<a href={`${base}/${result.to}`} class="row-link">
+									<a href={resolve(result.to)} class="row-link">
 										<span class="font-display text-lg font-semibold">{result.name}</span>
 										<span aria-hidden="true">→</span>
 									</a>

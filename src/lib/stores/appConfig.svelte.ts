@@ -60,6 +60,6 @@ export function isAnalyticsEnabled(): boolean {
 }
 
 // Example usage:
-// import { appConfig } from '$lib/stores/appConfig.svelte';
+// import { appConfig } from '#lib/stores/appConfig.svelte.js';
 // console.log(appConfig.siteName); // ✅ OK
 // appConfig.siteName = 'New'; // ❌ TypeError in dev mode

@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
-import MY_SKILLS from '$lib/skills.params';
-import MY_PROJECTS from '$lib/projects.params';
-import MY_EXPERIENCES from '$lib/experiences.params';
+import MY_SKILLS from '#lib/skills.params.js';
+import MY_PROJECTS from '#lib/projects.params.js';
+import MY_EXPERIENCES from '#lib/experiences.params.js';
 import type { PageLoad } from './$types';
 
 export const prerender = true;

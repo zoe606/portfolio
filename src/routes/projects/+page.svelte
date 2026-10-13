@@ -2,14 +2,14 @@
 	import { resolve } from '$app/paths';
 	import { onMount } from 'svelte';
 	import { SvelteSet } from 'svelte/reactivity';
-	import { PROJECTS } from '$lib/params';
-	import MY_SKILLS from '$lib/skills.params';
-	import { getAssetURL } from '$lib/data/assets';
-	import { formatYears } from '$lib/utils/helpers';
-	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
-	import TabTitle from '$lib/components/TabTitle.svelte';
-	import { scrollReveal } from '$lib/animations/actions';
-	import { REVEAL } from '$lib/animations/presets';
+	import { PROJECTS } from '#lib/params.js';
+	import MY_SKILLS from '#lib/skills.params.js';
+	import { getAssetURL } from '#lib/data/assets.js';
+	import { formatYears } from '#lib/utils/helpers.js';
+	import PageHeader from '#lib/components/Blueprint/PageHeader.svelte';
+	import TabTitle from '#lib/components/TabTitle.svelte';
+	import { scrollReveal } from '#lib/animations/actions.js';
+	import { REVEAL } from '#lib/animations/presets.js';
 
 	const { items, title, description } = PROJECTS;
 

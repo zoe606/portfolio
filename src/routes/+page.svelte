@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { HOME, PROJECTS, EXPERIENCES } from '$lib/params';
-	import { ContractType } from '$lib/types';
-	import TabTitle from '$lib/components/TabTitle.svelte';
-	import { scrollReveal } from '$lib/animations/actions';
-	import { REVEAL } from '$lib/animations/presets';
-	import { formatYears } from '$lib/utils/helpers';
+	import { HOME, PROJECTS, EXPERIENCES } from '#lib/params.js';
+	import { ContractType } from '#lib/types.js';
+	import TabTitle from '#lib/components/TabTitle.svelte';
+	import { scrollReveal } from '#lib/animations/actions.js';
+	import { REVEAL } from '#lib/animations/presets.js';
+	import { formatYears } from '#lib/utils/helpers.js';
 
 	const { title, description, role, location, headline, intro, spotlight, highlights } = HOME;
 

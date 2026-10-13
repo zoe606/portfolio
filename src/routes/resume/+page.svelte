@@ -1,11 +1,11 @@
 <script lang="ts">
-	import { base } from '$app/paths';
-	import { RESUME } from '$lib/params';
-	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
-	import TabTitle from '$lib/components/TabTitle.svelte';
+	import { asset } from '$app/paths';
+	import { RESUME } from '#lib/params.js';
+	import PageHeader from '#lib/components/Blueprint/PageHeader.svelte';
+	import TabTitle from '#lib/components/TabTitle.svelte';
 
 	const { item, title, description } = RESUME;
-	const src = item ? `${base}${item}` : undefined;
+	const src = item ? asset(item) : undefined;
 </script>
 
 <TabTitle {title} {description} path="/resume" />

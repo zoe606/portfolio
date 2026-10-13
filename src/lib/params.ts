@@ -1,3 +1,4 @@
+import type { AssetPath } from '$app/types';
 import { MY_EDUCATIONS } from './educations.params';
 import MY_EXPERIENCES from './experiences.params';
 import MY_PROJECTS from './projects.params';
@@ -109,7 +110,8 @@ export const SKILLS: SkillsPageParams = {
 export const RESUME: ResumePageParams = {
 	title: siteConfig.resume.title,
 	description: siteConfig.resume.description,
-	item: siteConfig.resume.item
+	// site.json stores the file name as a plain string. It names a file in static/.
+	item: siteConfig.resume.item as AssetPath
 };
 
 export const SEARCH: SearchPageParams = {

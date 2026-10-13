@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Metric } from '$lib/types';
+	import type { Metric } from '#lib/types.js';
 
 	interface Props {
 		metrics: Array<Metric>;

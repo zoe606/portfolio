@@ -43,12 +43,11 @@ The following scripts are available in `package.json` to manage the development 
     - **`params.ts`**: Main configuration file for personal data.
   - **`routes/`**: Contains the pages of the application. Each file or directory in this folder corresponds to a route.
 - **`static/`**: Contains static assets such as images, fonts, and the resume PDF.
-- **`svelte.config.js`**: The main configuration file for SvelteKit.
-- **`vite.config.ts`**: The configuration file for Vite.
+- **`vite.config.ts`**: The configuration file for Vite and SvelteKit (adapter, base path).
 - **`package.json`**: Defines the project's dependencies and scripts.
 
 ## Deployment
 
-The project is configured to be deployed as a static site. The `svelte.config.js` file uses `@sveltejs/adapter-static` to generate the static files in the `build` directory.
+The project is configured to be deployed as a static site. The `sveltekit()` plugin in `vite.config.ts` uses `@sveltejs/adapter-static` to generate the static files in the `build` directory.
 
-Before deploying to GitHub Pages, ensure the `base` path in `svelte.config.js` is set correctly.
+Before deploying to GitHub Pages, ensure the `base` path in `vite.config.ts` is set correctly.

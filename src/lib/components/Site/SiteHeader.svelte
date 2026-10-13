@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { page } from '$app/state';
-	import { HOME, NavBar } from '$lib/params';
-	import { theme } from '$lib/stores/theme.svelte';
-	import UIcon from '$lib/components/Icon/UIcon.svelte';
+	import { HOME, NavBar } from '#lib/params.js';
+	import { theme } from '#lib/stores/theme.svelte.js';
+	import UIcon from '#lib/components/Icon/UIcon.svelte';
 
 	interface Props {
 		onsearchclick?: () => void;
@@ -12,10 +12,10 @@
 	let { onsearchclick }: Props = $props();
 
 	const items = [
-		{ title: NavBar.personal, href: resolve('/projects') },
-		{ title: NavBar.career, href: resolve('/experience') },
-		{ title: NavBar.skills, href: resolve('/skills') },
-		{ title: NavBar.Education, href: resolve('/education') }
+		{ title: NavBar.personal, href: resolve('projects') },
+		{ title: NavBar.career, href: resolve('experience') },
+		{ title: NavBar.skills, href: resolve('skills') },
+		{ title: NavBar.Education, href: resolve('education') }
 	];
 
 	let menuOpen = $state(false);
@@ -42,13 +42,14 @@
 					>{item.title}</a
 				>
 			{/each}
-			<a href={resolve('/resume')} class="cv-link">CV ↓</a>
+			<a href={resolve('resume')} class="cv-link">CV ↓</a>
 		</nav>
 
 		<div class="flex items-center gap-1">
-			<button type="button" class="icon-button" aria-label="Search (⌘K)" onclick={onsearchclick}>
-				<UIcon icon="i-carbon-search" />
-			</button>
+			<button type="button" class="icon-button" aria-label="Search (⌘K)" onclick={onsearchclick}
+				><UIcon icon="i-carbon-search" /></button
+			>
+
 			<button
 				type="button"
 				class="icon-button"
@@ -86,7 +87,8 @@
 					onclick={() => (menuOpen = false)}>{item.title}</a
 				>
 			{/each}
-			<a href={resolve('/resume')} class="nav-link" onclick={() => (menuOpen = false)}>CV ↓</a>
+
+			<a href={resolve('resume')} class="nav-link" onclick={() => (menuOpen = false)}>CV ↓</a>
 		</nav>
 	{/if}
 </header>

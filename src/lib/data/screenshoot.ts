@@ -1,10 +1,16 @@
-import type { Asset } from '$lib/types';
-import { theme } from '$lib/stores/theme.svelte';
-import { base } from '$app/paths';
+import type { Asset } from '#lib/types.js';
+import { theme } from '#lib/stores/theme.svelte.js';
+import { asset } from '$app/paths';
+import type { AssetPath } from '$app/types';
 
-const ss = (file: string) => `${base}/ss/${file}`;
+/**
+ * File names in static/ss/. A missing file fails the type check.
+ * `infer P` makes TypeScript check each path in the AssetPath union separately.
+ */
+type File = AssetPath extends infer P ? (P extends `ss/${infer Name}` ? Name : never) : never;
 
-const a = (light: string, dark?: string): Asset =>
+const ss = (file: File) => asset(`ss/${file}`);
+const a = (light: File, dark?: File): Asset =>
 	dark ? { dark: ss(dark), light: ss(light) } : ss(light);
 
 const Screenshoot = {

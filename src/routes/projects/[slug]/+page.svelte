@@ -1,15 +1,15 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { PROJECTS } from '$lib/params';
-	import { getAssetURL } from '$lib/data/assets';
-	import { getScrenshootURL } from '$lib/data/screenshoot';
-	import { formatYears, getTimeDiff, splitSentences } from '$lib/utils/helpers';
-	import PageHeader from '$lib/components/Blueprint/PageHeader.svelte';
-	import MetricStrip from '$lib/components/Blueprint/MetricStrip.svelte';
-	import WorkList from '$lib/components/Blueprint/WorkList.svelte';
-	import SkillChips from '$lib/components/Blueprint/SkillChips.svelte';
-	import Pager from '$lib/components/Blueprint/Pager.svelte';
-	import TabTitle from '$lib/components/TabTitle.svelte';
+	import { PROJECTS } from '#lib/params.js';
+	import { getAssetURL } from '#lib/data/assets.js';
+	import { getScrenshootURL } from '#lib/data/screenshoot.js';
+	import { formatYears, getTimeDiff, splitSentences } from '#lib/utils/helpers.js';
+	import PageHeader from '#lib/components/Blueprint/PageHeader.svelte';
+	import MetricStrip from '#lib/components/Blueprint/MetricStrip.svelte';
+	import WorkList from '#lib/components/Blueprint/WorkList.svelte';
+	import SkillChips from '#lib/components/Blueprint/SkillChips.svelte';
+	import Pager from '#lib/components/Blueprint/Pager.svelte';
+	import TabTitle from '#lib/components/TabTitle.svelte';
 	import type { PageProps } from './$types';
 
 	let { data }: PageProps = $props();
@@ -26,7 +26,7 @@
 	type="article"
 />
 
-<a href={resolve('/projects')} class="back bp-label">← All projects</a>
+<a href={resolve('projects')} class="back bp-label">← All projects</a>
 
 <PageHeader
 	label={`${code} · ${project.type}`}
