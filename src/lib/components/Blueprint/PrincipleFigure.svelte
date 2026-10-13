@@ -22,38 +22,32 @@
 			<span aria-hidden="true">↺</span>
 			{figure.note}
 		</p>
-	{:else if figure.kind === 'bars'}
-		<div class="flex flex-col gap-4">
-			{#each figure.bars as bar (bar.label)}
-				<div class="flex flex-col gap-1.5">
-					<p class="flex justify-between gap-3 font-mono text-xs text-bp-muted">
-						<span>{bar.label}</span>
-						<span class="whitespace-nowrap"
-							>{bar.before}% → <strong class="text-bp-accent">{bar.after}%</strong></span
-						>
-					</p>
-					<div
-						class="bar"
-						style:--before={`${bar.before}%`}
-						style:--after={`${bar.after}%`}
-						aria-hidden="true"
-					>
-						<span class="bar-before"></span>
-						<span class="bar-fill"></span>
-					</div>
+	{:else if figure.kind === 'checklist'}
+		<ul class="checklist">
+			{#each figure.items as item, i (item)}
+				<li class="check" style:--i={i}>
+					<span class="box" aria-hidden="true">✓</span>
+					{item}
+				</li>
+			{/each}
+		</ul>
+		<p class="result" style:--i={figure.items.length}>{figure.result}</p>
+	{:else}
+		<div class="flex flex-col gap-1.5">
+			<p class="flex justify-between gap-3 font-mono text-xs text-bp-muted">
+				<span>{figure.label}</span>
+				<strong class="text-bp-accent">{figure.total}</strong>
+			</p>
+			<div class="load" aria-hidden="true"><span class="load-fill"></span></div>
+		</div>
+		<dl class="counters">
+			{#each figure.counters as counter (counter.label)}
+				<div class="flex flex-col-reverse">
+					<dt class="font-mono text-xs text-bp-muted">{counter.label}</dt>
+					<dd class="counter-value">{counter.value}</dd>
 				</div>
 			{/each}
-		</div>
-	{:else}
-		<ol class="days" aria-label={`${figure.days} days`}>
-			{#each { length: figure.days }, i (i)}
-				<li class={['day', i === figure.days - 1 && 'day-last']} style:--i={i}></li>
-			{/each}
-		</ol>
-		<p class="flex justify-between font-mono text-xs text-bp-muted">
-			<span>day 1</span>
-			<span class="text-bp-accent">day {figure.days} · {figure.label}</span>
-		</p>
+		</dl>
 	{/if}
 </div>
 
@@ -126,59 +120,90 @@
 		color: var(--bp-muted);
 	}
 
-	/* Bars: the accent fill grows from "before" to "after". The faded part is the "before" value. */
-	.bar {
-		position: relative;
+	/* Checklist: each risk is ticked in turn, then the result lights up. */
+	.checklist {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-family: var(--mono-f);
+		font-size: 13px;
+	}
+
+	.check {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.box {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		border: 2px solid var(--bp-accent);
+		background: var(--bp-accent);
+		color: var(--bp-on-accent);
+		font-size: 12px;
+		transition: all 200ms ease calc(var(--i) * 350ms + 200ms);
+	}
+
+	.result {
+		padding: 10px 12px;
+		border: 2px solid var(--bp-ink);
+		background: var(--bp-inverse);
+		color: var(--bp-on-inverse);
+		font-family: var(--mono-f);
+		font-size: 14px;
+		text-align: center;
+		transition: all 300ms ease calc(var(--i) * 350ms + 300ms);
+	}
+
+	.figure:global([data-motion='ready']) .box {
+		border-color: var(--bp-muted);
+		background: none;
+		color: transparent;
+	}
+
+	.figure:global([data-motion='ready']) .result {
+		border-style: dashed;
+		border-color: var(--bp-muted);
+		background: none;
+		color: var(--bp-muted);
+	}
+
+	/* Load: the backlog bar fills while the failure counters stay at zero. */
+	.load {
 		height: 14px;
 		background: var(--bp-surface-2);
 	}
 
-	.bar-before,
-	.bar-fill {
-		position: absolute;
-		inset: 0 auto 0 0;
-	}
-
-	.bar-before {
-		z-index: 1;
-		width: var(--before);
-		border-right: 2px solid var(--bp-ink);
-		background: color-mix(in srgb, var(--bp-surface) 55%, transparent);
-	}
-
-	.bar-fill {
-		width: var(--after);
+	.load-fill {
+		display: block;
+		width: 100%;
+		height: 100%;
 		background: var(--bp-accent);
-		transition: width 1200ms cubic-bezier(0.4, 0, 0.2, 1) 200ms;
+		transition: width 1600ms cubic-bezier(0.4, 0, 0.2, 1) 200ms;
 	}
 
-	.figure:global([data-motion='ready']) .bar-fill {
-		width: var(--before);
+	.figure:global([data-motion='ready']) .load-fill {
+		width: 0;
 	}
 
-	/* Days: the squares fill one by one, and the last one is the release. */
-	.days {
+	.counters {
 		display: grid;
-		grid-template-columns: repeat(7, 1fr);
-		gap: 6px;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px;
 		margin: 0;
-		padding: 0;
-		list-style: none;
 	}
 
-	.day {
-		aspect-ratio: 1;
-		border: 1.5px solid var(--bp-line);
-		background: color-mix(in srgb, var(--bp-accent) 35%, transparent);
-		transition: background 200ms ease calc(var(--i) * 80ms);
-	}
-
-	.day-last {
-		border: 2px solid var(--bp-accent);
-		background: var(--bp-accent);
-	}
-
-	.figure:global([data-motion='ready']) .day {
-		background: none;
+	.counter-value {
+		margin: 0;
+		font-family: var(--title-f);
+		font-size: 28px;
+		font-weight: 700;
 	}
 </style>

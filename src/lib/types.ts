@@ -113,17 +113,11 @@ export interface HomeHighlight {
 	summary: string;
 }
 
-export interface PrincipleBar {
-	label: string;
-	before: number;
-	after: number;
-}
-
 /** The small animated diagram next to a home page principle. */
 export type PrincipleFigure =
 	| { kind: 'switch'; from: string; to: string; note: string }
-	| { kind: 'bars'; bars: Array<PrincipleBar> }
-	| { kind: 'days'; days: number; label: string };
+	| { kind: 'checklist'; items: Array<string>; result: string }
+	| { kind: 'load'; total: string; label: string; counters: Array<Metric> };
 
 export interface HomePrinciple {
 	project: string;

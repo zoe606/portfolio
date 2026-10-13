@@ -87,22 +87,28 @@
 			{
 				"project": "luce-backend-internal-apps",
 				"title": "Make code safe to change, then change it.",
-				"proof": "Raised test coverage on Luce's Rails monolith from 26% to 77% in six months, brought backend dependencies from 26% to 83% up to date, and upgraded Rails 7.0 → 7.2.",
-				"stat": { "value": "26% → 77%", "label": "test coverage in six months" },
+				"proof": "Upgraded Luce's Rails monolith from 7.0 to 7.2 by resolving transaction rollback, encryption, and dependency issues, with RSpec and VCR tests as the safety net.",
+				"stat": { "value": "26% → 83%", "label": "backend dependencies up to date" },
 				"figure": {
-					"kind": "bars",
-					"bars": [
-						{ "label": "test coverage", "before": 26, "after": 77 },
-						{ "label": "backend dependencies up to date", "before": 26, "after": 83 }
-					]
+					"kind": "checklist",
+					"items": ["transaction rollback", "encryption", "dependency issues"],
+					"result": "Rails 7.0 → 7.2"
 				}
 			},
 			{
-				"project": "privy-ocsaver",
-				"title": "Ship in weeks, not quarters.",
-				"proof": "Built the CIMB Octo Saver backend API at PrivyID in 14 days, and Hirio, a multi-tenant applicant tracking system, in one month.",
-				"stat": { "value": "14 days", "label": "to a working backend API" },
-				"figure": { "kind": "days", "days": 14, "label": "API live" }
+				"project": "checkproof-scheduling-tool",
+				"title": "Code is cheap now. Proof isn't.",
+				"proof": "Load-tested CheckProof's task lifecycle monitor against a 1M-task backlog before trusting it: zero failures or deadlocks, and 75% fewer database calls per status change.",
+				"stat": { "value": "−75%", "label": "database calls per status change" },
+				"figure": {
+					"kind": "load",
+					"total": "1,000,000",
+					"label": "tasks in the backlog",
+					"counters": [
+						{ "value": "0", "label": "failures" },
+						{ "value": "0", "label": "deadlocks" }
+					]
+				}
 			}
 		],
 		"sideProject": "themx"
