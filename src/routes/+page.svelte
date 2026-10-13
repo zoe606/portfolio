@@ -5,6 +5,7 @@
 	import TabTitle from '$lib/components/TabTitle.svelte';
 	import { scrollReveal } from '$lib/animations/actions';
 	import { REVEAL } from '$lib/animations/presets';
+	import { formatYears } from '$lib/utils/helpers';
 
 	const { title, description, role, location, headline, intro, spotlight, highlights } = HOME;
 
@@ -16,24 +17,21 @@
 
 	const sideProject = PROJECTS.items.find((item) => item.slug === HOME.sideProject);
 	const sideProjectSite = sideProject?.links[0];
-
-	const years = (period: { from: Date; to?: Date }) =>
-		`${period.from.getFullYear()} — ${period.to ? period.to.getFullYear() : 'now'}`;
 </script>
 
 <TabTitle {title} {description} path="/" />
 
 <section class="flex flex-wrap items-center gap-12 pb-16 pt-24" use:scrollReveal>
 	<div class="flex min-w-0 flex-[1_1_520px] flex-col gap-6">
-		<p class="label text-bp-accent">{role} · {location}</p>
+		<p class="bp-label text-bp-accent">{role} · {location}</p>
 		<h1 class="m-0 font-display text-[clamp(2.5rem,5.5vw,3.75rem)] font-bold leading-[1.04]">
 			{headline}
 		</h1>
 		<p class="max-w-140 text-lg leading-relaxed text-bp-muted">{intro}</p>
 	</div>
 
-	<figure class="panel m-0 flex min-w-0 flex-[1_1_400px] flex-col gap-4 p-7">
-		<figcaption class="label text-bp-muted">Fig. 1 · {spotlight.caption}</figcaption>
+	<figure class="bp-panel m-0 flex min-w-0 flex-[1_1_400px] flex-col gap-4 p-7">
+		<figcaption class="bp-label text-bp-muted">Fig. 1 · {spotlight.caption}</figcaption>
 		<div class="flow">
 			{#each spotlight.flow as step, i (step)}
 				{#if i > 0}
@@ -57,14 +55,14 @@
 </section>
 
 <section class="flex flex-col gap-6 pt-20" aria-labelledby="highlights">
-	<h2 id="highlights" class="label m-0 text-bp-muted">02 / Before → after</h2>
+	<h2 id="highlights" class="bp-label m-0 text-bp-muted">02 / Before → after</h2>
 	<div class="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-5">
 		{#each highlights as item, i (item.project)}
 			<article
-				class="panel flex flex-col gap-3.5 p-7"
+				class="bp-panel flex flex-col gap-3.5 p-7"
 				use:scrollReveal={{ delay: i * REVEAL.stagger }}
 			>
-				<p class="label text-bp-muted">{item.meta}</p>
+				<p class="bp-label text-bp-muted">{item.meta}</p>
 				<p class="flex flex-wrap items-baseline gap-3 font-display font-bold">
 					<span class="text-[32px] text-bp-muted">{item.before}</span>
 					<span aria-hidden="true" class="text-2xl">→</span>
@@ -81,8 +79,8 @@
 </section>
 
 <section class="flex flex-col gap-6 pt-24" aria-labelledby="timeline" use:scrollReveal>
-	<h2 id="timeline" class="label m-0 text-bp-muted">03 / Timeline</h2>
-	<div class="panel overflow-x-auto px-7 py-8">
+	<h2 id="timeline" class="bp-label m-0 text-bp-muted">03 / Timeline</h2>
+	<div class="bp-panel overflow-x-auto px-7 py-8">
 		<ol
 			class="m-0 grid min-w-215 list-none p-0"
 			style:grid-template-columns={`repeat(${timeline.length}, minmax(0, 1fr))`}
@@ -90,7 +88,7 @@
 			{#each timeline as job, i (job.slug)}
 				<li class={['timeline-item', i === 0 && 'timeline-current']}>
 					<a href={resolve('/experience/[slug]', { slug: job.slug })} class="decoration-none">
-						<span class="label block">{years(job.period)}</span>
+						<span class="bp-label block">{formatYears(job.period)}</span>
 						<span class="mt-1.5 block font-display text-lg font-semibold text-bp-ink">
 							{job.company}
 						</span>
@@ -104,7 +102,7 @@
 
 {#if sideProject}
 	<section class="flex flex-col gap-6 pt-24" aria-labelledby="side-project" use:scrollReveal>
-		<h2 id="side-project" class="label m-0 text-bp-muted">04 / Side project</h2>
+		<h2 id="side-project" class="bp-label m-0 text-bp-muted">04 / Side project</h2>
 		<div
 			class="flex flex-wrap items-center justify-between gap-6 bg-bp-inverse p-9 text-bp-oninverse"
 		>
@@ -128,24 +126,11 @@
 {/if}
 
 <style>
-	.label {
-		margin: 0;
-		font-family: var(--mono-f);
-		font-size: 13px;
-		letter-spacing: 0.04em;
-		text-transform: uppercase;
-	}
-
-	.panel {
-		background: var(--bp-surface);
-		border: 2px solid var(--bp-ink);
-	}
-
-	.panel a {
+	.bp-panel a {
 		color: var(--bp-ink);
 	}
 
-	.panel a:hover {
+	.bp-panel a:hover {
 		color: var(--bp-accent);
 	}
 
@@ -186,7 +171,7 @@
 		border-top: 6px solid var(--bp-ink);
 	}
 
-	.timeline-item .label {
+	.timeline-item .bp-label {
 		color: var(--bp-muted);
 	}
 
@@ -194,7 +179,7 @@
 		border-top-color: var(--bp-accent);
 	}
 
-	.timeline-current .label {
+	.timeline-current .bp-label {
 		color: var(--bp-accent);
 	}
 

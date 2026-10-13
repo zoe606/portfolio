@@ -86,3 +86,19 @@ export function addDaysToDate(date: Date, days: number): Date {
 export function isBlank(value: string | null | undefined): boolean {
 	return value === null || value === undefined || value.trim() === '';
 }
+
+/** Splits a description into sentences, e.g. to show it as a list of achievements. */
+export function splitSentences(text: string): Array<string> {
+	return text
+		.split(/(?<=\.)\s+(?=[A-Z])/)
+		.map((sentence) => sentence.trim())
+		.filter(Boolean);
+}
+
+/** Formats a period as a year range: "2023 — 2024", "2026 — now", or "2024" within one year. */
+export function formatYears(period: { from: Date; to?: Date }): string {
+	const from = period.from.getFullYear();
+	if (!period.to) return `${from} — now`;
+	const to = period.to.getFullYear();
+	return from === to ? `${from}` : `${from} — ${to}`;
+}
