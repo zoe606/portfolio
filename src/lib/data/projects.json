@@ -127,7 +127,7 @@
 		"shortDescription": "APIs and dashboard for IATE Polban's alumni location app.",
 		"links": [],
 		"logo": "Iate",
-		"name": "Iate Polban",
+		"name": "IATE Polban",
 		"period": {
 			"from": "2024-03-04",
 			"to": "2024-04-04"
@@ -336,7 +336,7 @@
 		"shortDescription": "Hospital information system used by 10+ hospitals; grew from junior developer to team lead.",
 		"links": [],
 		"logo": "Yii2",
-		"name": "Dhealth",
+		"name": "D’Health",
 		"period": {
 			"from": "2019-03-01",
 			"to": "2023-01-01"

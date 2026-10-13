@@ -116,17 +116,17 @@
 	{
 		"slug": "internship",
 		"company": "Docotel Teknologi",
-		"description": "Rebuilt the Dhealth website with a modern JavaScript framework and integrated it with the accounting system.",
+		"description": "Rebuilt the website for D’Health, Docotel’s healthcare product, with a modern JavaScript framework and integrated it with the accounting system.",
 		"contract": "Internship",
 		"type": "Software Development",
-		"location": "Bandung, West Java",
+		"location": "Onsite, Indonesia",
 		"period": { "from": "2019-01-01", "to": "2019-04-04" },
 		"skills": ["reactjs", "js", "laravel", "html", "css"],
 		"name": "Internship",
 		"color": "#ffffff",
-		"links": [{ "to": "https://www.dhealth.co.id/", "label": "Dhealth", "newTab": true }],
+		"links": [{ "to": "https://www.dhealth.co.id/", "label": "D’Health", "newTab": true }],
 		"logo": "Docotel",
-		"shortDescription": "Rebuilt the Dhealth website and integrated accounting",
+		"shortDescription": "Rebuilt the D’Health website and integrated accounting",
 		"no": 6
 	},
 	{
