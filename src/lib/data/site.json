@@ -71,6 +71,26 @@
 				"summary": "Led five engineers building a hospital information system used by more than ten hospitals."
 			}
 		],
+		"principles": [
+			{
+				"project": "checkproof-scheduling-tool",
+				"title": "Pin down the old behavior before replacing it.",
+				"proof": "Before rewriting CheckProof's scheduler, I captured its behavior in characterization tests. Then I moved customers' live schedules to the new system with a rollback switch that worked at any point.",
+				"stat": { "value": "1 switch", "label": "to roll back the cutover" }
+			},
+			{
+				"project": "luce-backend-internal-apps",
+				"title": "Make code safe to change, then change it.",
+				"proof": "On Luce's Rails monolith I raised test coverage from 26% to 77% in six months, upgraded Rails 7.0 → 7.2, and brought backend dependencies from 26% to 83% up to date.",
+				"stat": { "value": "26% → 77%", "label": "test coverage in six months" }
+			},
+			{
+				"project": "privy-ocsaver",
+				"title": "Ship in weeks, not quarters.",
+				"proof": "At PrivyID I built the CIMB Octo Saver backend API in 14 days, and Hirio, a multi-tenant applicant tracking system, in one month.",
+				"stat": { "value": "14 days", "label": "to a working backend API" }
+			}
+		],
 		"sideProject": "themx"
 	},
 	"projects": {

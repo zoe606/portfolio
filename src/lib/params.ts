@@ -66,6 +66,7 @@ export const HOME: HomePageParams = {
 	})),
 	spotlight: siteConfig.home.spotlight,
 	highlights: siteConfig.home.highlights,
+	principles: siteConfig.home.principles,
 	sideProject: siteConfig.home.sideProject
 };
 

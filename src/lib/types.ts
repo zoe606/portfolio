@@ -113,6 +113,13 @@ export interface HomeHighlight {
 	summary: string;
 }
 
+export interface HomePrinciple {
+	project: string;
+	title: string;
+	proof: string;
+	stat: Metric;
+}
+
 export interface HomePageParams extends PageParams {
 	name: string;
 	lastName: string;
@@ -124,6 +131,7 @@ export interface HomePageParams extends PageParams {
 	links: Array<HomeLink>;
 	spotlight: HomeSpotlight;
 	highlights: Array<HomeHighlight>;
+	principles: Array<HomePrinciple>;
 	sideProject: string;
 	skills?: Array<Skill>;
 }
@@ -171,6 +179,7 @@ export interface HomeConfig {
 	links: Array<{ platform: string; link: string }>;
 	spotlight: HomeSpotlight;
 	highlights: Array<HomeHighlight>;
+	principles: Array<HomePrinciple>;
 	sideProject: string;
 }
 

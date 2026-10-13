@@ -86,6 +86,7 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 
 - `--bp-*` custom properties hold the palette for `[data-theme='light']` and `[data-theme='dark']`. Use them for all colors.
 - `--text-f`, `--title-f`, and `--mono-f` hold the font stacks for scoped styles.
+- `.bp-button` and `.bp-button-primary` style links as buttons (the home page CTAs and the resume download).
 - The file starts with a small base reset (`box-sizing: border-box`, borders `0 solid`). UnoCSS has no reset of its own, and utilities such as `w-full px-6` and `border-t` depend on it.
 
 **UnoCSS Configuration** (`uno.config.ts`):

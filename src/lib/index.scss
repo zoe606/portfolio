@@ -76,3 +76,32 @@ html {
 	--bp-on-inverse: #0a1628;
 	--bp-on-inverse-muted: #3d4b5f;
 }
+
+// Bordered link buttons. Add .bp-button-primary for the filled accent version.
+.bp-button {
+	display: inline-flex;
+	align-items: center;
+	min-height: 44px;
+	padding: 0 18px;
+	border: 2px solid var(--bp-ink);
+	color: var(--bp-ink);
+	font-family: var(--mono-f);
+	font-size: 14px;
+	text-decoration: none;
+
+	&:hover {
+		border-color: var(--bp-accent);
+		color: var(--bp-accent);
+	}
+}
+
+.bp-button-primary {
+	border-color: var(--bp-accent);
+	background: var(--bp-accent);
+	color: var(--bp-on-accent);
+
+	&:hover {
+		color: var(--bp-on-accent);
+		filter: brightness(1.1);
+	}
+}

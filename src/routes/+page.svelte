@@ -1,13 +1,18 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
-	import { HOME, PROJECTS, EXPERIENCES } from '#lib/params.js';
-	import { ContractType } from '#lib/types.js';
+	import { asset, resolve } from '$app/paths';
+	import { HOME, PROJECTS, EXPERIENCES, RESUME } from '#lib/params.js';
+	import { ContractType, Platform } from '#lib/types.js';
 	import TabTitle from '#lib/components/TabTitle.svelte';
 	import { scrollReveal } from '#lib/animations/actions.js';
 	import { REVEAL } from '#lib/animations/presets.js';
 	import { formatYears } from '#lib/utils/helpers.js';
 
-	const { title, role, location, headline, intro, spotlight, highlights } = HOME;
+	const { title, role, location, headline, intro, spotlight, highlights, principles } = HOME;
+
+	const email = HOME.links.find((link) => link.platform === Platform.Email)?.link;
+	const emailHref =
+		email && `mailto:${email}?subject=${encodeURIComponent('Backend engineering role')}`;
+	const resumeHref = RESUME.item ? asset(RESUME.item) : undefined;
 
 	const projectHref = (slug: string) => resolve('/projects/[slug]', { slug });
 
@@ -29,6 +34,16 @@
 			{headline}
 		</h1>
 		<p class="max-w-140 text-lg leading-relaxed text-bp-muted">{intro}</p>
+		<div class="flex flex-wrap gap-3">
+			{#if emailHref}
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+				<a href={emailHref} class="bp-button bp-button-primary">Email me →</a>
+			{/if}
+			{#if resumeHref}
+				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
+				<a href={resumeHref} download class="bp-button">Download CV ↓</a>
+			{/if}
+		</div>
 	</div>
 
 	<figure class="bp-panel m-0 flex min-w-0 flex-[1_1_400px] flex-col gap-4 p-7">
@@ -79,8 +94,32 @@
 	</div>
 </section>
 
+<section class="flex flex-col gap-6 pt-24" aria-labelledby="principles">
+	<h2 id="principles" class="bp-label m-0 text-bp-muted">03 / How I work</h2>
+	<ol class="bp-panel m-0 list-none p-0">
+		{#each principles as item, i (item.title)}
+			<li class="principle" use:scrollReveal={{ delay: i * REVEAL.stagger }}>
+				<span class="bp-label text-bp-accent">{String(i + 1).padStart(2, '0')}</span>
+				<div class="flex min-w-0 flex-col gap-3">
+					<h3 class="m-0 font-display text-[clamp(1.5rem,3vw,2rem)] font-bold leading-tight">
+						{item.title}
+					</h3>
+					<p class="max-w-150 leading-relaxed text-bp-muted">{item.proof}</p>
+					<a href={projectHref(item.project)} class="self-start py-3 font-mono text-sm">
+						See the proof →
+					</a>
+				</div>
+				<p class="flex flex-col">
+					<span class="font-display text-4xl font-bold text-bp-accent">{item.stat.value}</span>
+					<span class="text-sm text-bp-muted">{item.stat.label}</span>
+				</p>
+			</li>
+		{/each}
+	</ol>
+</section>
+
 <section class="flex flex-col gap-6 pt-24" aria-labelledby="timeline" use:scrollReveal>
-	<h2 id="timeline" class="bp-label m-0 text-bp-muted">03 / Timeline</h2>
+	<h2 id="timeline" class="bp-label m-0 text-bp-muted">04 / Timeline</h2>
 	<div class="bp-panel overflow-x-auto px-7 py-8">
 		<ol
 			class="m-0 grid min-w-215 list-none p-0"
@@ -103,7 +142,7 @@
 
 {#if sideProject}
 	<section class="flex flex-col gap-6 pt-24" aria-labelledby="side-project" use:scrollReveal>
-		<h2 id="side-project" class="bp-label m-0 text-bp-muted">04 / Side project</h2>
+		<h2 id="side-project" class="bp-label m-0 text-bp-muted">05 / Side project</h2>
 		<div
 			class="flex flex-wrap items-center justify-between gap-6 bg-bp-inverse p-9 text-bp-oninverse"
 		>
@@ -135,6 +174,23 @@
 		color: var(--bp-accent);
 	}
 
+	.principle {
+		display: grid;
+		grid-template-columns: auto minmax(0, 1fr) 200px;
+		gap: 24px;
+		padding: 28px;
+	}
+	.principle + .principle {
+		border-top: 1px solid var(--bp-line);
+	}
+	@media (max-width: 720px) {
+		.principle {
+			grid-template-columns: auto minmax(0, 1fr);
+		}
+		.principle > :last-child {
+			grid-column: 2;
+		}
+	}
 	.flow {
 		display: grid;
 		grid-template-columns: 1fr auto 1fr auto 1fr;
