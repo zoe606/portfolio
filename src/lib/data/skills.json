@@ -39,7 +39,7 @@
 		"color": "Orange",
 		"description": "MySQL is a popular open-source relational database management system. It is known for its reliability, ease of use, and scalability, making it a go-to choice for many web applications.",
 		"logo": "Mysql",
-		"name": "MySql"
+		"name": "MySQL"
 	},
 	{
 		"slug": "mongodb",
@@ -60,7 +60,7 @@
 		"color": "Orange",
 		"description": "RabbitMQ is a message broker that facilitates communication between distributed systems. It provides a reliable and scalable solution for handling message queues in various applications.",
 		"logo": "RabbitMQ",
-		"name": "RabbitMq"
+		"name": "RabbitMQ"
 	},
 	{
 		"slug": "kafka",
@@ -74,7 +74,7 @@
 		"color": "Blue",
 		"description": "gRPC is a modern open-source framework for building efficient and scalable APIs. It uses the HTTP/2 protocol for communication and Protocol Buffers for serialization, providing high-performance and language-agnostic RPC.",
 		"logo": "Grpc",
-		"name": "Grpc"
+		"name": "gRPC"
 	},
 	{
 		"slug": "graphql",
@@ -88,14 +88,14 @@
 		"color": "Yellow",
 		"description": "JavaScript is a versatile and widely used programming language that powers dynamic content on the web. With its extensive ecosystem and support for both client and server-side development, JavaScript is essential for modern web applications.",
 		"logo": "JavaScript",
-		"name": "Javascript"
+		"name": "JavaScript"
 	},
 	{
 		"slug": "ts",
 		"color": "Blue",
 		"description": "TypeScript is a superset of JavaScript that adds static typing and other features to enhance developer productivity and code quality. It allows for better collaboration and catches potential errors early in the development process.",
 		"logo": "TypeScript",
-		"name": "Typescript"
+		"name": "TypeScript"
 	},
 	{
 		"slug": "css",
@@ -158,21 +158,21 @@
 		"color": "Red",
 		"description": "Ruby on Rails, or Rails, is a web application framework written in Ruby. It follows the convention over configuration and don't repeat yourself principles, streamlining the development of robust and maintainable applications.",
 		"logo": "Rails",
-		"name": "Ruby On Rails"
+		"name": "Ruby on Rails"
 	},
 	{
 		"slug": "jquery",
 		"color": "Black",
 		"description": "jQuery is a fast and lightweight JavaScript library designed to simplify HTML document traversal and manipulation, event handling, and animation. It makes front-end development more accessible and efficient.",
 		"logo": "Jquery",
-		"name": "Jquery"
+		"name": "jQuery"
 	},
 	{
 		"slug": "reactjs",
 		"color": "Blue",
 		"description": "React is a JavaScript library for building user interfaces, particularly for single-page applications where data can change over time. It enables developers to create reusable UI components, making the development process modular and efficient.",
 		"logo": "ReactJs",
-		"name": "Reactjs"
+		"name": "React"
 	},
 	{
 		"slug": "react-native",
@@ -207,7 +207,7 @@
 		"color": "Green",
 		"description": "Vue.js is a progressive JavaScript framework for building user interfaces. It is approachable, versatile, and easy to integrate, making it an excellent choice for both small-scale projects and larger applications.",
 		"logo": "VueJs",
-		"name": "Vuejs"
+		"name": "Vue.js"
 	},
 	{
 		"slug": "aws-s3",
@@ -221,14 +221,14 @@
 		"color": "Orange",
 		"description": "CodeIgniter is a lightweight PHP framework that helps developers build web applications rapidly with minimal configuration and a small footprint.",
 		"logo": "CI",
-		"name": "Codeigniter"
+		"name": "CodeIgniter"
 	},
 	{
 		"slug": "nextjs",
 		"color": "Black",
 		"description": "Next.js is a React framework that enables hybrid static and server rendering, route prefetching, and a rich developer experience out of the box.",
 		"logo": "NextJs",
-		"name": "NextJs"
+		"name": "Next.js"
 	},
 	{
 		"slug": "sentry",
