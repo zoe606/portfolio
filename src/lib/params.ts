@@ -15,7 +15,6 @@ import {
 	type SiteConfig,
 	type SiteMetadata
 } from './types';
-import { Icons } from './utils';
 import rawSiteConfig from './data/site.json';
 
 type RawHomeLink = {
@@ -51,25 +50,6 @@ export const SITE_METADATA: SiteMetadata = siteConfig.metadata ?? {};
 export const TITLE_SUFFIX = siteConfig.titleSuffix;
 
 export const NavBar = siteConfig.navBar;
-
-export const getPlatfromIcon = (platform: Platform): Icons => {
-	switch (platform) {
-		case Platform.GitHub:
-			return Icons.GitHub;
-		case Platform.Linkedin:
-			return Icons.LinkedIn;
-		case Platform.StackOverflow:
-			return Icons.StackOverflow;
-		case Platform.Facebook:
-			return Icons.Facebook;
-		case Platform.Email:
-			return Icons.Email;
-		case Platform.Twitter:
-			return Icons.Twitter;
-		case Platform.Youtube:
-			return Icons.Youtube;
-	}
-};
 
 export const HOME: HomePageParams = {
 	title: siteConfig.home.title,
