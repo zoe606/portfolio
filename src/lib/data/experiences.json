@@ -17,7 +17,8 @@
 			"redis",
 			"aws-s3",
 			"docker",
-			"git"
+			"git",
+			"sentry"
 		],
 		"name": "Backend Engineer",
 		"color": "Yellow",
@@ -34,7 +35,17 @@
 		"type": "Software Development",
 		"location": "Hybrid, Singapore-based",
 		"period": { "from": "2025-01-01", "to": "2026-01-01" },
-		"skills": ["ruby", "ruby-on-rails", "reactjs", "pgsql", "redis", "docker", "git"],
+		"skills": [
+			"ruby",
+			"ruby-on-rails",
+			"reactjs",
+			"pgsql",
+			"redis",
+			"docker",
+			"git",
+			"sentry",
+			"new-relic"
+		],
 		"name": "Full-stack Engineer",
 		"color": "Blue",
 		"links": [],
@@ -76,7 +87,21 @@
 		"type": "Software Development",
 		"location": "Hybrid, Indonesia",
 		"period": { "from": "2021-01-01", "to": "2022-12-31" },
-		"skills": ["js", "html", "css", "jquery", "php", "yii2", "docker", "redis", "mysql", "pgsql"],
+		"skills": [
+			"js",
+			"html",
+			"css",
+			"jquery",
+			"php",
+			"yii2",
+			"docker",
+			"redis",
+			"mysql",
+			"pgsql",
+			"bootstrap",
+			"ci",
+			"linux"
+		],
 		"name": "Development Team Lead",
 		"color": "#ffffff",
 		"links": [],
@@ -104,7 +129,10 @@
 			"docker",
 			"redis",
 			"mysql",
-			"pgsql"
+			"pgsql",
+			"bootstrap",
+			"ci",
+			"linux"
 		],
 		"name": "Web Developer",
 		"color": "#ffffff",

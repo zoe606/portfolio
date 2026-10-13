@@ -80,7 +80,7 @@
 		"slug": "graphql",
 		"color": "Pink",
 		"description": "GraphQL is a query language for APIs and a runtime for executing those queries. It provides a complete and understandable description of the data in your API, giving clients the power to ask for exactly what they need and nothing more.",
-		"logo": "Unknown",
+		"logo": "GraphQL",
 		"name": "GraphQL"
 	},
 	{
@@ -234,21 +234,21 @@
 		"slug": "sentry",
 		"color": "Purple",
 		"description": "Sentry is an error tracking and performance monitoring platform that helps developers identify, triage, and resolve issues in real-time.",
-		"logo": "Unknown",
+		"logo": "Sentry",
 		"name": "Sentry"
 	},
 	{
 		"slug": "new-relic",
 		"color": "Green",
 		"description": "New Relic is an observability platform that provides real-time insights into application performance, infrastructure monitoring, and user experience.",
-		"logo": "Unknown",
+		"logo": "NewRelic",
 		"name": "New Relic"
 	},
 	{
 		"slug": "linux",
 		"color": "Black",
 		"description": "Linux is an open-source operating system widely used for servers, development environments, and production deployments. Proficiency includes command-line operations, system administration, and shell scripting.",
-		"logo": "Unknown",
+		"logo": "Linux",
 		"name": "Linux"
 	},
 	{
@@ -262,7 +262,7 @@
 		"slug": "pubsub",
 		"color": "Yellow",
 		"description": "Publish/Subscribe messaging patterns enable loosely coupled services to communicate asynchronously, supporting scalable event-driven architectures with brokers like Kafka or RabbitMQ.",
-		"logo": "Unknown",
+		"logo": "PubSub",
 		"name": "Pub/Sub"
 	}
 ]
