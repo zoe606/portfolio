@@ -74,11 +74,18 @@ export const HOME: HomePageParams = {
 	title: siteConfig.home.title,
 	name: siteConfig.home.name,
 	lastName: siteConfig.home.lastName,
+	role: siteConfig.home.role,
+	location: siteConfig.home.location,
+	headline: siteConfig.home.headline,
+	intro: siteConfig.home.intro,
 	description: siteConfig.home.description,
 	links: (siteConfig.home.links as Array<RawHomeLink>).map((link) => ({
 		platform: toPlatform(link.platform),
 		link: link.link
-	}))
+	})),
+	spotlight: siteConfig.home.spotlight,
+	highlights: siteConfig.home.highlights,
+	sideProject: siteConfig.home.sideProject
 };
 
 export const PROJECTS: ProjectPageParams = {

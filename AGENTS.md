@@ -78,20 +78,27 @@ Key interfaces that define the data structure:
 
 ### Styling System
 
+The site uses the **Blueprint** design: a light grid background, ink-colored 2px frames, one orange accent, Space Grotesk for headings, IBM Plex Sans for body text, and IBM Plex Mono for labels.
+
+**Design tokens** (`src/lib/index.scss`):
+
+- `--bp-*` custom properties hold the palette for `[data-theme='light']` and `[data-theme='dark']`. Use them for new styles.
+- The older names (`--main`, `--secondary-text`, `--border`, ...) map onto the `--bp-*` tokens so pages that still use them share the palette. Do not add new uses of the older names.
+- The file starts with a small base reset (`box-sizing: border-box`, borders `0 solid`). UnoCSS has no reset of its own, and utilities such as `w-full px-6` and `border-t` depend on it.
+
 **UnoCSS Configuration** (`uno.config.ts`):
 
 - Atomic utility classes with `presetUno()`
-- Custom shortcuts: `col`, `row`, `col-center`, `row-center`
+- Theme colors map to the tokens: `text-bp-ink`, `bg-bp-surface`, `border-bp-line`, `text-bp-accent`, ...
+- Font utilities: `font-sans`, `font-display`, `font-mono`. The font files load from the Google Fonts `<link>` in `src/app.html`
+- Shortcuts: `bp-container` (page width and gutters), `col`, `row`, `col-center`, `row-center`
 - Icon system via `@unocss/preset-icons` with `@iconify-json/carbon`
-- Web fonts: Inter (weights 100-900) via Google Fonts
-- **Main styles:** `src/lib/index.scss` for custom SCSS
 
-**Theme System:**
+**Theme System** (`src/lib/stores/theme.svelte.ts`):
 
-- Dark/light mode toggle via `src/lib/stores/theme.ts`
-- Theme persisted to localStorage with key `@zoe606-theme`
-- CSS custom properties defined in SCSS, switched via `data-theme` attribute
-- Auto-detection of system preference on first visit
+- Two themes, light and dark. `theme.current` and `theme.isDark` are runes state; `theme.toggle()` switches and saves to localStorage key `@zoe606-theme`
+- An inline script in `src/app.html` sets `data-theme` on `<html>` before the first paint, from the saved choice or the system preference
+- `getAssetURL` reads `theme.isDark`, so theme-aware logos update when the theme changes
 
 ### Component Architecture
 
@@ -109,7 +116,7 @@ Key interfaces that define the data structure:
 - `Markdown.svelte` - Markdown renderer using marked + Prism.js + DOMPurify
 - `SearchPage.svelte` - Search functionality component
 - `CommonPage.svelte` - Base page layout wrapper
-- `NavMenu/` - Navigation menu with theme toggle
+- `Site/` - `SiteHeader` (navigation, search, theme toggle) and `SiteFooter`
 - `Icon/` - Icon system (UIcon for UnoCSS icons, Icon for custom icons)
 
 ### Markdown Processing
@@ -252,7 +259,7 @@ Uses Svelte 5 runes for reactivity:
 - `$derived` for computed values
 - `$effect` for side effects
 
-Stores still use Svelte's writable/readable for cross-component state (e.g., theme).
+Shared state lives in `.svelte.ts` modules with runes (e.g., `theme` in `src/lib/stores/theme.svelte.ts`).
 
 ## Coding Style & Naming Conventions
 

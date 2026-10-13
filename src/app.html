@@ -4,7 +4,27 @@
 		<meta charset="utf-8" />
 		<meta name="description" content="Librantara Portfolio" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.ico" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+		/>
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<script>
+			// Apply the theme before the first paint. Older versions saved
+			// 'synthwave' and 'terminal' (dark) or 'paper' (light).
+			(function () {
+				var saved = null;
+				try {
+					saved = localStorage.getItem('@zoe606-theme');
+				} catch (e) {}
+				var dark = saved
+					? saved === 'dark' || saved === 'synthwave' || saved === 'terminal'
+					: window.matchMedia('(prefers-color-scheme: dark)').matches;
+				document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+			})();
+		</script>
 		%sveltekit.head%
 	</head>
 	<script async src="https://www.googletagmanager.com/gtag/js?id=G-T08K0WD5SY"></script>

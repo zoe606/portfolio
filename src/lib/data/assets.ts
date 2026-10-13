@@ -1,5 +1,5 @@
 import type { Asset } from '$lib/types';
-import { currentTheme } from '$lib/stores/theme';
+import { theme } from '$lib/stores/theme.svelte';
 import { base } from '$app/paths';
 
 const gh = (file: string) => `${base}/logos/${file}`;
@@ -97,11 +97,6 @@ const Assets = {
 
 export default Assets;
 
-let theme: string = 'light';
-
-currentTheme.subscribe((v) => (theme = v));
-
-export const getAssetURL = (asset: Asset): string => {
-	const isDark = theme === 'dark' || theme === 'synthwave' || theme === 'terminal';
-	return typeof asset === 'string' ? asset : isDark ? asset.dark : asset.light;
-};
+// Reading theme.isDark here makes every template that calls this update when the theme changes.
+export const getAssetURL = (asset: Asset): string =>
+	typeof asset === 'string' ? asset : theme.isDark ? asset.dark : asset.light;
