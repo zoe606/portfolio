@@ -51,7 +51,7 @@
 	{
 		"slug": "docker",
 		"color": "Black",
-		"description": "Used to run and ship services at Docotel, D’Health, PrivyID, Luce, and CheckProof.",
+		"description": "Used to run applications at Docotel, D’Health, PrivyID, Luce, and CheckProof.",
 		"logo": "Docker",
 		"name": "Docker"
 	},
@@ -107,7 +107,7 @@
 	{
 		"slug": "bootstrap",
 		"color": "Purple",
-		"description": "Used to build web interfaces for the hospital information system at Docotel and D’Health.",
+		"description": "As a backend-focused engineer, I use Bootstrap's ready-made components instead of building UI from scratch, for example at Docotel and D’Health.",
 		"logo": "Bootstrap",
 		"name": "Bootstrap"
 	},
@@ -121,7 +121,7 @@
 	{
 		"slug": "git",
 		"color": "Orange",
-		"description": "Used for version control in team work at Luce and CheckProof.",
+		"description": "Used for version control at every job since 2019, and at university before that.",
 		"logo": "Git",
 		"name": "Git"
 	},
@@ -219,7 +219,7 @@
 	{
 		"slug": "ci",
 		"color": "Orange",
-		"description": "Used for PHP web applications at Docotel and D’Health.",
+		"description": "Used for PHP web applications in freelance client projects.",
 		"logo": "CI",
 		"name": "CodeIgniter"
 	},
@@ -247,7 +247,7 @@
 	{
 		"slug": "linux",
 		"color": "Black",
-		"description": "Used at Docotel and D’Health while building the hospital information system.",
+		"description": "A personal hobby outside work, not something any job required.",
 		"logo": "Linux",
 		"name": "Linux"
 	},
