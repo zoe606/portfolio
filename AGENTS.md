@@ -8,14 +8,12 @@ This is a personal portfolio website built with **SvelteKit 2**, **Svelte 5**, a
 
 **Key Technologies:**
 
-- **Svelte 5** with runes (some components still use legacy syntax)
+- **Svelte 5** with runes
 - **SvelteKit 2** with static adapter
 - **Vite 7** for build tooling
 - **UnoCSS** for utility-first styling with custom shortcuts
 - **TypeScript** for type safety
-- Hand-written UI components in the shadcn style
-- **Marked** with plugins for markdown rendering (GFM heading IDs, mangle)
-- **Prism.js** for syntax highlighting
+- **Fuse.js** for fuzzy search
 - **web-vitals** for performance monitoring
 
 ## Essential Commands
@@ -82,8 +80,8 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 
 **Design tokens** (`src/lib/index.scss`):
 
-- `--bp-*` custom properties hold the palette for `[data-theme='light']` and `[data-theme='dark']`. Use them for new styles.
-- The older names (`--main`, `--secondary-text`, `--border`, ...) map onto the `--bp-*` tokens so pages that still use them share the palette. Do not add new uses of the older names.
+- `--bp-*` custom properties hold the palette for `[data-theme='light']` and `[data-theme='dark']`. Use them for all colors.
+- `--text-f`, `--title-f`, and `--mono-f` hold the font stacks for scoped styles.
 - The file starts with a small base reset (`box-sizing: border-box`, borders `0 solid`). UnoCSS has no reset of its own, and utilities such as `w-full px-6` and `border-t` depend on it.
 
 **UnoCSS Configuration** (`uno.config.ts`):
@@ -91,7 +89,7 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 - Atomic utility classes with `presetUno()`
 - Theme colors map to the tokens: `text-bp-ink`, `bg-bp-surface`, `border-bp-line`, `text-bp-accent`, ...
 - Font utilities: `font-sans`, `font-display`, `font-mono`. The font files load from the Google Fonts `<link>` in `src/app.html`
-- Shortcuts: `bp-container` (page width and gutters), `col`, `row`, `col-center`, `row-center`
+- Shortcuts: `bp-container` (page width and gutters), `bp-panel` (surface with a 2px ink frame), `bp-label` (mono uppercase label), `col`, `row`, `col-center`, `row-center`
 - Icon system via `@unocss/preset-icons` with `@iconify-json/carbon`
 
 **Theme System** (`src/lib/stores/theme.svelte.ts`):
@@ -102,30 +100,13 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 
 ### Component Architecture
 
-**Reusable UI Components** (`src/lib/components/ui/`):
-
-- Hand-written in the shadcn style; they do not use bits-ui or the shadcn-svelte registry
-- Some still use legacy Svelte syntax (`export let`, `$:`, `<slot>`, `on:`). Write new components with runes and snippets
-
 **Feature Components** (`src/lib/components/`):
 
 - `Site/` - `SiteHeader` (navigation, search, theme toggle) and `SiteFooter`
 - `Blueprint/` - building blocks for redesigned pages: `PageHeader` (label, title, description), `MetricStrip` (headline numbers), `WorkList` (numbered achievements), `SkillChips` (skill links), `Pager` (previous and next)
-- `Banner/`, `Card/CardLogo`, `MainTitle/`, `Markdown.svelte`, `SearchPage.svelte`, `CommonPage.svelte` - older building blocks still used by the skills, education, resume, and search pages
-- `Icon/` - Icon system (UIcon for UnoCSS icons, Icon for custom icons)
-
-### Markdown Processing
-
-**Stack:** `marked` → `DOMPurify` → `Prism.js`
-
-The `Markdown.svelte` component:
-
-1. Uses `marked` with `gfmHeadingId()` and `mangle()` plugins
-2. Sanitizes HTML with `DOMPurify` for security
-3. Applies syntax highlighting with `Prism.js` (supports TypeScript)
-4. Theme: `prism-tomorrow.css`
-
-Markdown content is stored in `src/lib/md/` directory.
+- `SearchModal.svelte` - the header search dialog (⌘K), built on `PortfolioSearch` from `utils/search.ts`
+- `TabTitle.svelte` - page title and SEO meta tags
+- `Icon/UIcon` - UnoCSS icons from Iconify (`i-carbon-*`). Write icon class names as literals in `.svelte` files so UnoCSS can find them
 
 ### Animations
 
@@ -149,10 +130,10 @@ Reuse the presets instead of hard-coding timings. The actions do nothing when `p
 ### Utilities (`src/lib/utils/`)
 
 - `analytics.svelte.ts` - Analytics tracking utilities
-- `cn.ts` - Class name utilities (likely clsx wrapper)
 - `color.ts` - Color manipulation utilities
 - `eventDelegation.svelte.ts` - Event delegation patterns
-- `helpers.ts` - General helper functions
+- `helpers.ts` - Date and text helpers (`formatYears`, `getTimeDiff`, `splitSentences`, `plural`)
+- `search.ts` - `PortfolioSearch`, the Fuse.js search over projects, experience, and skills
 - `scrollPreservation.svelte.ts` - Scroll position preservation
 - `index.ts` - Utility exports including `Icons` enum
 
@@ -195,15 +176,9 @@ All routes in `src/routes/`:
 1. Edit `src/lib/data/educations.json`
 2. Add education object with organization, degree, subjects, period
 
-### Adding New UI Components
+### Adding New Components
 
-When using shadcn-svelte components, run:
-
-```bash
-npx shadcn-svelte@latest add [component-name]
-```
-
-This installs to `src/lib/components/ui/`.
+Write components with runes (`$props`, `$state`, `$derived`) and snippets. Put shared page blocks in `src/lib/components/Blueprint/` and style them with the `--bp-*` tokens and the `bp-*` shortcuts.
 
 ### Theme Customization
 
@@ -243,10 +218,7 @@ Assets use the `Asset` type which can be:
 
 ### Icon Usage
 
-Two icon systems:
-
-1. **UIcon** - UnoCSS icons from Iconify (`@iconify-json/carbon`)
-2. **Icon** - Custom SVG icons via `Icons` enum in utils
+Use `UIcon` with an Iconify class from `@iconify-json/carbon`, for example `<UIcon icon="i-carbon-search" />`.
 
 ### State Management
 
@@ -263,7 +235,6 @@ Shared state lives in `.svelte.ts` modules with runes (e.g., `theme` in `src/lib
 - Prettier (with the Svelte plugin) formats the code; `eslint.config.js` adds Svelte-specific linting.
 - Name Svelte components in PascalCase (`HeroSection.svelte`). Use kebab-case for routes under `src/routes`.
 - Keep SCSS partials next to their components when feasible.
-- Update `components.json` when you add new shadcn-svelte primitives so the generator stays in sync.
 - Write new code in TypeScript (strict mode).
 
 ## Commit & Pull Request Guidelines
@@ -278,5 +249,4 @@ Shared state lives in `.svelte.ts` modules with runes (e.g., `theme` in `src/lib
 - **Node.js:** Requires Node 16+ (Svelte 5 dropped Node 14 support)
 - **Prerendering:** All routes are statically generated at build time
 - **Base path:** Production builds include `/portfolio` prefix for GitHub Pages
-- **Markdown security:** All markdown is sanitized with DOMPurify before rendering
 - **Performance:** Web Vitals monitoring is built-in and active
