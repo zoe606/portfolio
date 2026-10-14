@@ -113,6 +113,30 @@ export interface HomeHighlight {
 	summary: string;
 }
 
+export interface PipelineStep {
+	label: string;
+	/** Who does the step, for example "agent", "me", or "me + agent". */
+	by: string;
+	/** The step repeats until it passes. */
+	loop?: boolean;
+}
+
+/** The small animated diagram next to a home page principle. */
+export type PrincipleFigure =
+	| { kind: 'switch'; from: string; to: string; note: string }
+	| { kind: 'checklist'; items: Array<string>; result: string }
+	| { kind: 'load'; total: string; label: string; counters: Array<Metric> }
+	| { kind: 'pipeline'; steps: Array<PipelineStep> };
+
+export interface HomePrinciple {
+	/** The project that proves the principle. Without it, the "See the proof" link is hidden. */
+	project?: string;
+	title: string;
+	proof: string;
+	stat: Metric;
+	figure: PrincipleFigure;
+}
+
 export interface HomePageParams extends PageParams {
 	name: string;
 	lastName: string;
@@ -124,6 +148,7 @@ export interface HomePageParams extends PageParams {
 	links: Array<HomeLink>;
 	spotlight: HomeSpotlight;
 	highlights: Array<HomeHighlight>;
+	principles: Array<HomePrinciple>;
 	sideProject: string;
 	skills?: Array<Skill>;
 }
@@ -171,6 +196,7 @@ export interface HomeConfig {
 	links: Array<{ platform: string; link: string }>;
 	spotlight: HomeSpotlight;
 	highlights: Array<HomeHighlight>;
+	principles: Array<HomePrinciple>;
 	sideProject: string;
 }
 

@@ -186,3 +186,35 @@ export const cardHover: Action<HTMLElement, CardHoverOptions | undefined> = (
 		}
 	};
 };
+
+/**
+ * Sets `data-motion="ready"` on the node, then `data-motion="play"` when it
+ * scrolls into view. Style the start state under `[data-motion='ready']` and
+ * the transition under `[data-motion='play']`. Without JavaScript, or with
+ * reduced motion, the attribute is never set, so the CSS must show the final
+ * state by default.
+ */
+export const playOnView: Action<HTMLElement> = (node) => {
+	if (typeof window === 'undefined') return { destroy() {} };
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return { destroy() {} };
+
+	node.dataset.motion = 'ready';
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			if (entries.some((entry) => entry.isIntersecting)) {
+				observer.disconnect();
+				node.dataset.motion = 'play';
+			}
+		},
+		{ threshold: 0.5 }
+	);
+
+	observer.observe(node);
+
+	return {
+		destroy() {
+			observer.disconnect();
+		}
+	};
+};

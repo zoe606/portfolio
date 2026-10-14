@@ -71,6 +71,65 @@
 				"summary": "Led five engineers building a hospital information system used by more than ten hospitals."
 			}
 		],
+		"principles": [
+			{
+				"title": "Agents write the code. I own the decisions.",
+				"proof": "An agent studies the ticket, records it in a knowledge wiki, and drafts a plan that I and a fresh agent review. The executor agent proves each change with tests it runs locally, such as characterization tests before a refactor. The merge request stays a draft until the reviewer agent and I have both checked it.",
+				"stat": { "value": "2×", "label": "reviews on every plan and every change" },
+				"figure": {
+					"kind": "pipeline",
+					"steps": [
+						{ "label": "understand the ticket", "by": "agent" },
+						{ "label": "record it in the wiki", "by": "agent" },
+						{ "label": "draft the plan", "by": "agent" },
+						{ "label": "review the plan", "by": "me + agent", "loop": true },
+						{ "label": "implement", "by": "agent" },
+						{ "label": "prove it with tests", "by": "agent" },
+						{ "label": "review the code", "by": "agent", "loop": true },
+						{ "label": "review the draft MR", "by": "me", "loop": true },
+						{ "label": "open the MR, update the wiki", "by": "me" }
+					]
+				}
+			},
+			{
+				"project": "checkproof-scheduling-tool",
+				"title": "Pin down the old behavior before replacing it.",
+				"proof": "Captured CheckProof's legacy scheduler in characterization tests, then moved customers' live schedules to the new system with a rollback switch that worked at any point.",
+				"stat": { "value": "1 switch", "label": "to roll back the cutover" },
+				"figure": {
+					"kind": "switch",
+					"from": "legacy",
+					"to": "new",
+					"note": "rollback at any point"
+				}
+			},
+			{
+				"project": "luce-backend-internal-apps",
+				"title": "Make code safe to change, then change it.",
+				"proof": "Upgraded Luce's Rails monolith from 7.0 to 7.2 by resolving transaction rollback, encryption, and dependency issues, with RSpec and VCR tests as the safety net.",
+				"stat": { "value": "26% → 83%", "label": "backend dependencies up to date" },
+				"figure": {
+					"kind": "checklist",
+					"items": ["transaction rollback", "encryption", "dependency issues"],
+					"result": "Rails 7.0 → 7.2"
+				}
+			},
+			{
+				"project": "checkproof-scheduling-tool",
+				"title": "Code is cheap now. Proof isn't.",
+				"proof": "Load-tested CheckProof's task lifecycle monitor against a 1M-task backlog before trusting it: zero failures or deadlocks, and 75% fewer database calls per status change.",
+				"stat": { "value": "−75%", "label": "database calls per status change" },
+				"figure": {
+					"kind": "load",
+					"total": "1,000,000",
+					"label": "tasks in the backlog",
+					"counters": [
+						{ "value": "0", "label": "failures" },
+						{ "value": "0", "label": "deadlocks" }
+					]
+				}
+			}
+		],
 		"sideProject": "themx"
 	},
 	"projects": {

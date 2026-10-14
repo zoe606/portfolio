@@ -86,6 +86,7 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 
 - `--bp-*` custom properties hold the palette for `[data-theme='light']` and `[data-theme='dark']`. Use them for all colors.
 - `--text-f`, `--title-f`, and `--mono-f` hold the font stacks for scoped styles.
+- `.bp-button` and `.bp-button-primary` style links as buttons (the home page CTAs and the resume download).
 - The file starts with a small base reset (`box-sizing: border-box`, borders `0 solid`). UnoCSS has no reset of its own, and utilities such as `w-full px-6` and `border-t` depend on it.
 
 **UnoCSS Configuration** (`uno.config.ts`):
@@ -107,7 +108,7 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 **Feature Components** (`src/lib/components/`):
 
 - `Site/` - `SiteHeader` (navigation, search, theme toggle) and `SiteFooter`
-- `Blueprint/` - building blocks for redesigned pages: `PageHeader` (label, title, description), `MetricStrip` (headline numbers), `WorkList` (numbered achievements), `SkillChips` (skill links), `Pager` (previous and next)
+- `Blueprint/` - building blocks for redesigned pages: `PageHeader` (label, title, description), `MetricStrip` (headline numbers), `WorkList` (numbered achievements), `SkillChips` (skill links), `Pager` (previous and next), `PrincipleFigure` (the animated diagram for each home page principle)
 - `SearchModal.svelte` - the header search dialog (⌘K), built on `PortfolioSearch` from `utils/search.ts`
 - `TabTitle.svelte` - page title and SEO meta tags
 - `Icon/UIcon` - UnoCSS icons from Iconify (`i-carbon-*`). Write icon class names as literals in `.svelte` files so UnoCSS can find them
@@ -117,6 +118,7 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 All motion goes through `src/lib/animations/` (built on `motion`'s `animateMini`). Import from the barrel `#lib/animations/index.js`:
 
 - `scrollReveal` - Svelte action that fades an element in when it scrolls into view (`direction`: `up`, `left`, or `scale`; stagger siblings with `delay: index * REVEAL.stagger`)
+- `playOnView` - Svelte action that sets `data-motion="ready"`, then `"play"` when the element scrolls into view. Write CSS so the final state is the default, and put the start state under `[data-motion='ready']`
 - `cardHover` - Svelte action for the spring lift and shadow on hover and press
 - `pageIn` / `pageOut` - route transitions used in `+layout.svelte`
 - `presets.ts` - shared `DURATION`, `EASING`, `SPRING`, `REVEAL`, `CARD`, and `PAGE_TRANSITION` values

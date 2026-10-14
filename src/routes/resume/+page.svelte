@@ -14,9 +14,9 @@
 	{#if src}
 		<div class="flex flex-wrap gap-3 pt-2">
 			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-			<a href={src} download class="button button-primary">Download PDF ↓</a>
+			<a href={src} download class="bp-button bp-button-primary">Download PDF ↓</a>
 			<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->
-			<a href={src} target="_blank" rel="noreferrer" class="button">Open in new tab ↗</a>
+			<a href={src} target="_blank" rel="noreferrer" class="bp-button">Open in new tab ↗</a>
 		</div>
 	{/if}
 </PageHeader>
@@ -30,34 +30,6 @@
 {/if}
 
 <style>
-	.button {
-		display: inline-flex;
-		align-items: center;
-		min-height: 44px;
-		padding: 0 18px;
-		border: 2px solid var(--bp-ink);
-		color: var(--bp-ink);
-		font-family: var(--mono-f);
-		font-size: 14px;
-		text-decoration: none;
-	}
-
-	.button:hover {
-		border-color: var(--bp-accent);
-		color: var(--bp-accent);
-	}
-
-	.button-primary {
-		border-color: var(--bp-accent);
-		background: var(--bp-accent);
-		color: var(--bp-on-accent);
-	}
-
-	.button-primary:hover {
-		color: var(--bp-on-accent);
-		filter: brightness(1.1);
-	}
-
 	.frame {
 		display: block;
 		width: 100%;
