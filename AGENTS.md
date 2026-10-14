@@ -264,3 +264,4 @@ Shared state lives in `.svelte.ts` modules with runes (e.g., `theme` in `src/lib
 - **Prerendering:** All routes are statically generated at build time
 - **Base path:** Production builds include `/portfolio` prefix for GitHub Pages
 - **Performance:** Web Vitals are logged in development only
+- **Search Console:** Keep the `google-site-verification` meta tag in `src/app.html`. Google Search Console uses it to verify the `https://zoe606.github.io/portfolio/` property, and removing it loses the verification
