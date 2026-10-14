@@ -1,4 +1,5 @@
-import { SITE_METADATA, TITLE_SUFFIX } from '#lib/params.js';
+import { EXPERIENCES, HOME, SITE_METADATA, TITLE_SUFFIX } from '#lib/params.js';
+import { ContractType, Platform } from '#lib/types.js';
 import { useTitle } from './helpers';
 
 type SEOType = 'website' | 'article';
@@ -93,4 +94,27 @@ export const buildPageSEO = ({
 			creator: SITE_METADATA.twitterHandle
 		}
 	};
+};
+
+/**
+ * A script tag with schema.org Person data for the home page, so search engines can show who
+ * the site is about. "<" is escaped so the data cannot end the script tag early.
+ */
+export const buildPersonJsonLd = (): string => {
+	const currentJob = EXPERIENCES.items.find(
+		(item) => item.contract === ContractType.FullTime && !item.period.to
+	);
+	const person = {
+		'@context': 'https://schema.org',
+		'@type': 'Person',
+		name: `${HOME.name} ${HOME.lastName}`,
+		jobTitle: HOME.role,
+		description: SITE_METADATA.defaultDescription,
+		url: createAbsoluteUrl('/'),
+		homeLocation: { '@type': 'Place', name: HOME.location },
+		...(currentJob && { worksFor: { '@type': 'Organization', name: currentJob.company } }),
+		sameAs: HOME.links.filter((link) => link.platform !== Platform.Email).map((link) => link.link)
+	};
+	const json = JSON.stringify(person).replace(/</g, '\\u003c');
+	return `<script type="application/ld+json">${json}</script>`;
 };
