@@ -3,8 +3,8 @@
 		"no": 1,
 		"slug": "checkproof-scheduling-tool",
 		"color": "Yellow",
-		"description": "Built the Laravel backend of CheckProof's new Scheduling Tool, automating maintenance task scheduling, expiry deviations, and push alerts on a SaaS platform used in 35+ countries. Engineered a task lifecycle monitor that handled a 1M-task backlog in load tests with zero failures or deadlocks, using 75% fewer database calls per status change. Built the cutover from the legacy scheduler, moving customers' live maintenance schedules to the new system with one-switch rollback at any point.",
-		"shortDescription": "Laravel backend for a maintenance Scheduling Tool on a SaaS platform used in 35+ countries.",
+		"description": "Built the Laravel backend of CheckProof's new Scheduling Tool, automating maintenance task scheduling, expiry deviations, and push alerts on a SaaS platform used in 35+ countries. Built the task lifecycle monitor that moves tasks through their statuses on a schedule, and recorded each design decision with the condition that would reopen it. Built the cutover from the legacy scheduler: captured its behavior in characterization tests first, then moved customers' live maintenance schedules to the new system with one-switch rollback at any point.",
+		"shortDescription": "Moved live maintenance schedules for customers in 35+ countries to a new scheduler, with a way back at every step.",
 		"links": [],
 		"logo": "Laravel",
 		"name": "CheckProof Scheduling Tool",
@@ -14,11 +14,37 @@
 		"skills": ["php", "laravel", "pgsql", "graphql"],
 		"type": "Maintenance Scheduling Platform",
 		"metrics": [
-			{ "value": "1M", "label": "tasks in load tests" },
-			{ "value": "0", "label": "failures or deadlocks" },
-			{ "value": "−75%", "label": "DB calls per status change" }
+			{ "value": "4 → 1", "label": "database round trips per status change" },
+			{ "value": "3 s", "label": "to clear 1,000 healthy tasks queued behind 1M broken ones" },
+			{ "value": "1 switch", "label": "to roll back the cutover" }
 		],
-		"screenshots": []
+		"screenshots": [],
+		"decisions": [
+			{
+				"title": "Took the 1.69× speedup. Turned down the 4.4× one.",
+				"problem": "Writes took most of each monitor run, so the write path decided how much work the monitor could handle.",
+				"rejected": "A raw row writer, measured 4.4–4.9× faster",
+				"choice": "Wrote each status change and its history row in one statement, so the two can't come apart. That cut 4 database round trips to 1.",
+				"tradeoff": "Left the bigger speedup unused. The raw writer needed a second copy of the transition rules, and two copies drift apart. If one worker is not enough, the monitor can run once per status instead.",
+				"proof": "Measured both writers on the same 1M-task backlog before choosing, then stress-tested the result: zero failures or deadlocks. The decision is on record with the condition that would reopen it."
+			},
+			{
+				"title": "One broken customer can't stall the rest",
+				"problem": "A failed task stayed at the front of the queue and was retried on every run. One customer's bad data could hold up maintenance tasks for every other customer.",
+				"rejected": "One failure limit for the whole run",
+				"choice": "Gave each company a failure budget per run, and made a failed task wait longer after each failure, up to 60 minutes.",
+				"tradeoff": "A broken backlog is held back, not cleared. It waits until its cause is fixed.",
+				"proof": "In a test, 1M broken tasks from two companies sat at the front of the queue. The monitor tried 100 from each, set both companies aside, and cleared a third company's 1,000 healthy tasks in 3 seconds of a 50-second run. The old limit stopped the whole run after 100 failures, so those healthy tasks would have waited."
+			},
+			{
+				"title": "Left a known race in. On purpose.",
+				"problem": "A user can complete a task while the monitor writes it, and the monitor's older write wins.",
+				"rejected": "A status guard on every write",
+				"choice": "Kept the write path as it is. The guard would add a cost to every status change to protect a rare one.",
+				"tradeoff": "A rare overwrite is still possible until production shows it matters.",
+				"proof": "Characterization tests pin the current behavior, so the race is a decision on record, not a bug waiting to be found."
+			}
+		]
 	},
 	{
 		"no": 2,

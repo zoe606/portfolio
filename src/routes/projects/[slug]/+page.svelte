@@ -9,6 +9,7 @@
 	import WorkList from '#lib/components/Blueprint/WorkList.svelte';
 	import SkillChips from '#lib/components/Blueprint/SkillChips.svelte';
 	import Pager from '#lib/components/Blueprint/Pager.svelte';
+	import DecisionList from '#lib/components/Blueprint/DecisionList.svelte';
 	import TabTitle from '#lib/components/TabTitle.svelte';
 	import type { PageProps } from './$types';
 
@@ -17,6 +18,9 @@
 	const project = $derived(data.project);
 	const href = (slug: string) => resolve('/projects/[slug]', { slug });
 	const code = $derived(`PRJ-${String(project.no).padStart(2, '0')}`);
+	// Section numbers move down by one when the page has a decisions section.
+	const offset = $derived(project.decisions?.length ? 1 : 0);
+	const sectionNo = (n: number) => String(n + offset).padStart(2, '0');
 </script>
 
 <TabTitle
@@ -52,19 +56,26 @@
 	</section>
 {/if}
 
+{#if project.decisions?.length}
+	<section class="flex flex-col gap-5 pt-16" aria-labelledby="decisions">
+		<h2 id="decisions" class="bp-label text-bp-muted">02 / Decisions</h2>
+		<DecisionList decisions={project.decisions} />
+	</section>
+{/if}
+
 <section class="flex flex-col gap-5 pt-16" aria-labelledby="work">
-	<h2 id="work" class="bp-label text-bp-muted">02 / What I did</h2>
+	<h2 id="work" class="bp-label text-bp-muted">{sectionNo(2)} / What I did</h2>
 	<WorkList items={splitSentences(project.description)} />
 </section>
 
 <section class="flex flex-col gap-5 pt-16" aria-labelledby="stack">
-	<h2 id="stack" class="bp-label text-bp-muted">03 / Stack</h2>
+	<h2 id="stack" class="bp-label text-bp-muted">{sectionNo(3)} / Stack</h2>
 	<SkillChips skills={project.skills} />
 </section>
 
 {#if project.screenshots?.length}
 	<section class="flex flex-col gap-5 pt-16" aria-labelledby="screenshots">
-		<h2 id="screenshots" class="bp-label text-bp-muted">04 / Screenshots</h2>
+		<h2 id="screenshots" class="bp-label text-bp-muted">{sectionNo(4)} / Screenshots</h2>
 		<div class="grid grid-cols-[repeat(auto-fill,minmax(260px,1fr))] gap-4">
 			{#each project.screenshots as shot, i (i)}
 				<!-- eslint-disable-next-line svelte/no-navigation-without-resolve -->

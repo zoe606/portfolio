@@ -108,7 +108,7 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 **Feature Components** (`src/lib/components/`):
 
 - `Site/` - `SiteHeader` (navigation, search, theme toggle) and `SiteFooter`
-- `Blueprint/` - building blocks for redesigned pages: `PageHeader` (label, title, description), `MetricStrip` (headline numbers), `WorkList` (numbered achievements), `SkillChips` (skill links), `Pager` (previous and next), `PrincipleFigure` (the animated diagram for each home page principle)
+- `Blueprint/` - building blocks for redesigned pages: `PageHeader` (label, title, description), `MetricStrip` (headline numbers), `WorkList` (numbered achievements), `SkillChips` (skill links), `Pager` (previous and next), `DecisionList` (the option turned down next to the option chosen, on project pages), `PrincipleFigure` (the animated diagram for each home page principle)
 - `SearchModal.svelte` - the header search dialog (⌘K), built on `PortfolioSearch` from `utils/search.ts`
 - `TabTitle.svelte` - page title and SEO meta tags
 - `Icon/UIcon` - UnoCSS icons from Iconify (`i-carbon-*`). Write icon class names as literals in `.svelte` files so UnoCSS can find them
@@ -170,7 +170,8 @@ All routes in `src/routes/`:
 2. Add project object with all required fields (from `Project` type). `no` sets the order and the `PRJ-xx` code
 3. Write `description` as sentences that each state one achievement. The project page lists each sentence as a numbered item
 4. Optionally add `metrics` (`{ "value", "label" }`). Use only figures that the CV or other evidence supports
-5. Build will automatically generate project pages
+5. Optionally add `decisions` (`{ "title", "problem", "rejected", "choice", "tradeoff", "proof" }`) for the design choices behind the project. Name the option turned down and what the choice cost. The page then shows a Decisions section before "What I did", so do not repeat the same facts in `description`
+6. Build will automatically generate project pages
 
 **Experience:**
 

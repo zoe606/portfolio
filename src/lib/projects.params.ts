@@ -1,4 +1,4 @@
-import type { Project, Skill, Asset, Metric } from './types';
+import type { Project, Skill, Asset, Metric, Decision } from './types';
 import Colors from './data/colors';
 import Assets from './data/assets';
 import Screenshoot from './data/screenshoot';
@@ -29,6 +29,7 @@ type RawProject = {
 	skills: Array<string>;
 	type: string;
 	metrics?: Array<Metric>;
+	decisions?: Array<Decision>;
 	screenshots?: Array<{
 		label?: string;
 		src: ScreenshotKey | string;
@@ -85,6 +86,7 @@ const MY_PROJECTS: Array<Project> = (projectsData as Array<RawProject>).map((pro
 	skills: toSkills(project.skills),
 	type: project.type,
 	metrics: project.metrics ?? [],
+	decisions: project.decisions ?? [],
 	screenshots: toScreenshots(project.screenshots)
 }));
 
