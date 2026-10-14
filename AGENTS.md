@@ -93,7 +93,7 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 
 - Atomic utility classes with `presetUno()`
 - Theme colors map to the tokens: `text-bp-ink`, `bg-bp-surface`, `border-bp-line`, `text-bp-accent`, ...
-- Font utilities: `font-sans`, `font-display`, `font-mono`. The font files load from the Google Fonts `<link>` in `src/app.html`
+- Font utilities: `font-sans`, `font-display`, `font-mono`. The fonts are self-hosted: `+layout.svelte` imports one `@fontsource/*` file per weight. Add an import there before using a new weight
 - Shortcuts: `bp-container` (page width and gutters), `bp-panel` (surface with a 2px ink frame), `bp-label` (mono uppercase label), `col`, `row`, `col-center`, `row-center`
 - Icon system via `@unocss/preset-icons` with `@iconify-json/carbon`
 
@@ -117,7 +117,7 @@ The site uses the **Blueprint** design: a light grid background, ink-colored 2px
 
 All motion goes through `src/lib/animations/` (built on `motion`'s `animateMini`). Import from the barrel `#lib/animations/index.js`:
 
-- `scrollReveal` - Svelte action that fades an element in when it scrolls into view (`direction`: `up`, `left`, or `scale`; stagger siblings with `delay: index * REVEAL.stagger`)
+- `scrollReveal` - Svelte action that fades an element in when it scrolls into view (`direction`: `up`, `left`, or `scale`; stagger siblings with `delay: index * REVEAL.stagger`). On the first load it leaves elements that are already on screen visible, so the Largest Contentful Paint does not wait for hydration
 - `playOnView` - Svelte action that sets `data-motion="ready"`, then `"play"` when the element scrolls into view. Write CSS so the final state is the default, and put the start state under `[data-motion='ready']`
 - `cardHover` - Svelte action for the spring lift and shadow on hover and press
 - `pageIn` / `pageOut` - route transitions used in `+layout.svelte`

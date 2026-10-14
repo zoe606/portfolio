@@ -11,6 +11,9 @@ export interface ScrollRevealOptions {
 	duration?: number;
 }
 
+/** True until the frame after hydration. Client-side navigation reveals elements as before. */
+let firstLoad = true;
+
 export const scrollReveal: Action<HTMLElement, ScrollRevealOptions | undefined> = (
 	node,
 	options = {}
@@ -21,6 +24,15 @@ export const scrollReveal: Action<HTMLElement, ScrollRevealOptions | undefined> 
 	if (typeof window === 'undefined') return { destroy() {} };
 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 	if (prefersReducedMotion || duration === 0) return { destroy() {} };
+
+	// On the first load, the reader already sees the server-rendered content.
+	// Hiding it during hydration makes it flash and delays the Largest Contentful Paint,
+	// so elements on screen at that moment stay visible.
+	if (firstLoad) {
+		requestAnimationFrame(() => (firstLoad = false));
+		const rect = node.getBoundingClientRect();
+		if (rect.top < window.innerHeight && rect.bottom > 0) return { destroy() {} };
+	}
 
 	// Set initial hidden state via JS (not CSS -- so content is visible if JS fails)
 	let transformStart = '';
