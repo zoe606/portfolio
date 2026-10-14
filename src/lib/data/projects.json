@@ -86,7 +86,7 @@
 		"no": 4,
 		"slug": "luce-backend-internal-apps",
 		"color": "Blue",
-		"description": "Led backend scalability, security, and refactoring work on Luce's Ruby on Rails monolith, whose GraphQL API serves internal admin apps, client websites, and mobile apps. Upgraded Rails 7.0 → 7.2 behind an RSpec and VCR safety net that grew test coverage from 26% to 77%, cut production Sentry errors by 73%, removed all high-severity security issues, and improved fast API calls by 32% (p95 <500ms).",
+		"description": "Led backend scalability, security, and refactoring work on Luce's Ruby on Rails monolith, whose GraphQL API serves internal admin apps, client websites, and mobile apps. Cut production Sentry errors by 73%, removed all high-severity security issues, and improved fast API calls by 32% (p95 <500ms).",
 		"shortDescription": "Rails and GraphQL backend behind Luce's internal apps, client websites, and mobile apps.",
 		"links": [],
 		"logo": "Ruby",
@@ -102,7 +102,17 @@
 			{ "value": "0", "label": "high-severity security issues" },
 			{ "value": "+32%", "label": "fast API call performance" }
 		],
-		"screenshots": []
+		"screenshots": [],
+		"decisions": [
+			{
+				"title": "Tests first, upgrade second",
+				"problem": "The Rails monolith had 26% test coverage, and its GraphQL API served internal admin apps, client websites, and mobile apps. An upgrade could break any of them without a single test failing.",
+				"rejected": "Upgrade first, then fix what breaks in production",
+				"choice": "Grew an RSpec and VCR safety net from 26% to 77% coverage over six months, then upgraded Rails 7.0 → 7.2 and fixed the transaction rollback, encryption, and dependency issues the tests caught.",
+				"tradeoff": "A slower start. Months of test work came before the upgrade itself.",
+				"proof": "Rails 7.0 → 7.2 shipped, up-to-date backend dependencies went from 26% to 83%, and production Sentry errors fell by 73%."
+			}
+		]
 	},
 	{
 		"no": 5,
@@ -183,7 +193,17 @@
 		"skills": ["go", "pgsql", "redis", "grpc"],
 		"type": "Wallet Service (Core Team)",
 		"metrics": [{ "value": "2h → 5m", "label": "wallet ID generation" }],
-		"screenshots": []
+		"screenshots": [],
+		"decisions": [
+			{
+				"title": "Workers that never wait on each other",
+				"problem": "One Go process took 2 hours to generate wallet IDs. Adding workers only helps if they don't all queue for the next ID.",
+				"rejected": "A shared counter that every worker asks for the next ID",
+				"choice": "Each worker generates time-ordered UUIDs (v6/v7) in code. No worker waits for another, and new IDs still arrive in index order, unlike random UUIDv4.",
+				"tradeoff": "IDs are 128-bit UUIDs instead of short sequential numbers.",
+				"proof": "Generation time fell from 2 hours to 5 minutes with goroutines and distributed workers."
+			}
+		]
 	},
 	{
 		"no": 9,
@@ -246,6 +266,16 @@
 			{ "label": "", "src": "ats3" },
 			{ "label": "", "src": "ats4" },
 			{ "label": "", "src": "ats5" }
+		],
+		"decisions": [
+			{
+				"title": "One database, with the tenant filter in one place",
+				"problem": "Every new client company needed its own dashboard and landing page, without setup work for each one.",
+				"rejected": "A separate schema or database per client company",
+				"choice": "Kept all client companies in one database, separated by a tenant_id column. A middleware layer adds the tenant filter to every query, so no handler has to remember it.",
+				"tradeoff": "Clients share tables. The middleware is the one place that keeps their data apart, so it must stay correct.",
+				"proof": "A new client company gets its own dashboard and landing page automatically, with no new database to create."
+			}
 		]
 	},
 	{
