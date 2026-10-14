@@ -105,3 +105,90 @@ html {
 		filter: brightness(1.1);
 	}
 }
+
+// Electric effects shared by several components. They run only when the
+// reader allows motion.
+@property --fx-angle {
+	syntax: '<angle>';
+	initial-value: 0deg;
+	inherits: false;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	// Circuit border: a signal runs around a panel frame on hover.
+	// :where() keeps the specificity at zero, so a panel's own position (fixed, absolute) wins.
+	:where(.bp-panel) {
+		position: relative;
+	}
+
+	.bp-panel {
+		&::after {
+			content: '';
+			position: absolute;
+			inset: -2px;
+			padding: 2px;
+			background: conic-gradient(
+				from var(--fx-angle),
+				transparent 0 62%,
+				var(--bp-accent) 90%,
+				transparent 100%
+			);
+			mask:
+				linear-gradient(#000 0 0) content-box exclude,
+				linear-gradient(#000 0 0);
+			opacity: 0;
+			pointer-events: none;
+			transition: opacity 200ms;
+		}
+
+		&:hover::after {
+			opacity: 1;
+			animation: fx-border 1.6s linear infinite;
+		}
+	}
+
+	// Neon numbers: a big number flickers on the first time it scrolls into view.
+	.fx-neon {
+		&[data-motion='ready'] {
+			opacity: 0.12;
+		}
+
+		&[data-motion='play'] {
+			animation: fx-neon 1s linear both;
+		}
+	}
+}
+
+@keyframes fx-border {
+	to {
+		--fx-angle: 360deg;
+	}
+}
+
+@keyframes fx-neon {
+	0% {
+		opacity: 0.12;
+	}
+	8% {
+		opacity: 1;
+	}
+	14% {
+		opacity: 0.2;
+	}
+	24% {
+		opacity: 1;
+	}
+	30% {
+		opacity: 0.45;
+	}
+	42%,
+	100% {
+		opacity: 1;
+	}
+	45% {
+		text-shadow: 0 0 18px var(--bp-accent);
+	}
+	100% {
+		text-shadow: none;
+	}
+}

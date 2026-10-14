@@ -125,6 +125,16 @@ All motion goes through `src/lib/animations/` (built on `motion`'s `animateMini`
 
 Reuse the presets instead of hard-coding timings. The actions do nothing when `prefers-reduced-motion: reduce` is set or during SSR, so content stays visible; keep that behavior in any new animation.
 
+### Electric Effects
+
+Signal and current effects that fit the Blueprint theme. All of them stop when `prefers-reduced-motion: reduce` is set.
+
+- Diagram pulses: a pulse runs through Fig. 1 on the home page (`+page.svelte`), and a signal runs down the Fig. 3.1 pipeline, holding on the author's review steps (`PrincipleFigure.svelte`)
+- Grid current and cursor glow: `Site/GridCurrent.svelte`, a layer behind the page content. Its pulses sit on 32px grid lines, so keep them aligned with the grid in `+layout.svelte`
+- Timeline current: a pulse runs along the home page timeline to the current job
+- Circuit border and neon numbers: global rules in `index.scss`. A signal runs around a `.bp-panel` frame on hover. A `.fx-neon` element flickers on when `playOnView` plays it
+- Power switch and scroll current: in `+layout.svelte`. The page flickers when the theme changes. A line at the top grows with the scroll position (CSS scroll-driven animation, so it is missing in browsers without `animation-timeline` support)
+
 ### Performance Monitoring
 
 **Web Vitals** in `+layout.svelte`:

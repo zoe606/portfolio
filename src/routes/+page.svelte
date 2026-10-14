@@ -4,7 +4,7 @@
 	import { ContractType, Platform } from '#lib/types.js';
 	import TabTitle from '#lib/components/TabTitle.svelte';
 	import PrincipleFigure from '#lib/components/Blueprint/PrincipleFigure.svelte';
-	import { scrollReveal } from '#lib/animations/actions.js';
+	import { playOnView, scrollReveal } from '#lib/animations/actions.js';
 	import { REVEAL } from '#lib/animations/presets.js';
 	import { formatYears } from '#lib/utils/helpers.js';
 
@@ -50,6 +50,7 @@
 	<figure class="bp-panel m-0 flex min-w-0 flex-[1_1_400px] flex-col gap-4 p-7">
 		<figcaption class="bp-label text-bp-muted">Fig. 1 · {spotlight.caption}</figcaption>
 		<div class="flow">
+			<span class="flow-current" aria-hidden="true"></span>
 			{#each spotlight.flow as step, i (step)}
 				{#if i > 0}
 					<span aria-hidden="true" class="font-mono text-lg">→</span>
@@ -63,7 +64,9 @@
 			{#each spotlight.stats as stat (stat.label)}
 				<div class="flex flex-col-reverse">
 					<dt class="text-sm text-bp-muted">{stat.label}</dt>
-					<dd class="m-0 font-display text-[26px] font-bold">{stat.value}</dd>
+					<dd class="fx-neon m-0 font-display text-[26px] font-bold" use:playOnView>
+						{stat.value}
+					</dd>
 				</div>
 			{/each}
 		</dl>
@@ -83,7 +86,7 @@
 				<p class="flex flex-wrap items-baseline gap-3 font-display font-bold">
 					<span class="text-[32px] text-bp-muted">{item.before}</span>
 					<span aria-hidden="true" class="text-2xl">→</span>
-					<span class="text-5xl text-bp-accent">{item.after}</span>
+					<span class="fx-neon text-5xl text-bp-accent" use:playOnView>{item.after}</span>
 				</p>
 				<h3 class="m-0 font-display text-[21px] font-semibold">{item.title}</h3>
 				<p class="leading-relaxed text-bp-muted">{item.summary}</p>
@@ -116,7 +119,10 @@
 					<figcaption class="bp-label text-bp-muted">Fig. 3.{i + 1}</figcaption>
 					<PrincipleFigure figure={item.figure} />
 					<p class="flex flex-col border-t border-bp-line pt-4">
-						<span class="font-display text-[44px] font-bold leading-none text-bp-accent">
+						<span
+							class="fx-neon font-display text-[44px] font-bold leading-none text-bp-accent"
+							use:playOnView
+						>
 							{item.stat.value}
 						</span>
 						<span class="mt-1.5 text-sm text-bp-muted">{item.stat.label}</span>
@@ -131,9 +137,10 @@
 	<h2 id="timeline" class="bp-label m-0 text-bp-muted">04 / Timeline</h2>
 	<div class="bp-panel overflow-x-auto px-7 py-8">
 		<ol
-			class="m-0 grid min-w-215 list-none p-0"
+			class="timeline m-0 grid min-w-215 list-none p-0"
 			style:grid-template-columns={`repeat(${timeline.length}, minmax(0, 1fr))`}
 		>
+			<li class="timeline-pulse" aria-hidden="true"></li>
 			{#each timeline as job, i (job.slug)}
 				<li class={['timeline-item', i === 0 && 'timeline-current']}>
 					<a href={resolve('/experience/[slug]', { slug: job.slug })} class="decoration-none">
@@ -259,6 +266,137 @@
 
 	.timeline-item a:hover span {
 		color: var(--bp-accent);
+	}
+
+	/* Electric effects. They run only when the reader allows motion. */
+	.flow {
+		position: relative;
+	}
+	.flow-current {
+		display: none;
+	}
+	.timeline {
+		position: relative;
+	}
+	.timeline-pulse {
+		display: none;
+	}
+	@media (prefers-reduced-motion: no-preference) {
+		/* Fig. 1: a pulse runs along a wire behind the three boxes, and each box lights up as it passes. */
+		.flow-current {
+			display: block;
+			position: absolute;
+			top: 50%;
+			left: 0;
+			z-index: 0;
+			width: 64px;
+			height: 2px;
+			background: linear-gradient(90deg, transparent, var(--bp-accent));
+			box-shadow: 0 0 10px var(--bp-accent);
+			animation: fx-flow-current 3.2s linear infinite;
+		}
+		.flow-step {
+			position: relative;
+			z-index: 1;
+			background-color: var(--bp-surface);
+		}
+		.flow-switch {
+			animation: fx-flow-switch 3.2s linear infinite;
+		}
+		.flow-target {
+			background-color: var(--bp-inverse);
+			animation: fx-flow-target 3.2s linear infinite;
+		}
+
+		/* Timeline: a pulse runs from 2019 on the right to the current job on the left. */
+		.timeline-pulse {
+			display: block;
+			position: absolute;
+			top: 0;
+			left: calc(100% - 140px);
+			z-index: 1;
+			width: 140px;
+			height: 6px;
+			background: linear-gradient(90deg, var(--bp-accent), transparent);
+			box-shadow: 0 0 12px var(--bp-accent);
+			animation: fx-timeline-pulse 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+		}
+		.timeline-current {
+			animation: fx-timeline-current 4s linear infinite;
+		}
+	}
+	@keyframes fx-flow-current {
+		0% {
+			left: 0;
+			opacity: 0;
+		}
+		5% {
+			opacity: 1;
+		}
+		70% {
+			left: calc(100% - 64px);
+			opacity: 1;
+		}
+		76%,
+		100% {
+			left: calc(100% - 64px);
+			opacity: 0;
+		}
+	}
+	@keyframes fx-flow-switch {
+		0%,
+		30%,
+		48%,
+		100% {
+			box-shadow: none;
+		}
+		38% {
+			box-shadow:
+				0 0 0 2px var(--bp-accent),
+				0 0 18px var(--bp-accent);
+		}
+	}
+	@keyframes fx-flow-target {
+		0%,
+		52%,
+		74%,
+		100% {
+			box-shadow: none;
+		}
+		62% {
+			box-shadow:
+				0 0 0 2px var(--bp-accent),
+				0 0 22px var(--bp-accent);
+		}
+	}
+	@keyframes fx-timeline-pulse {
+		0% {
+			left: calc(100% - 140px);
+			opacity: 0;
+		}
+		5% {
+			opacity: 1;
+		}
+		65% {
+			left: 0;
+			opacity: 1;
+		}
+		75%,
+		100% {
+			left: 0;
+			opacity: 0;
+		}
+	}
+	@keyframes fx-timeline-current {
+		0%,
+		60%,
+		90%,
+		100% {
+			box-shadow: none;
+		}
+		70% {
+			box-shadow: 0 -8px 16px -6px var(--bp-accent);
+		}
 	}
 
 	.inverse-button {
