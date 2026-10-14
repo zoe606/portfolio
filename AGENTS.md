@@ -146,7 +146,7 @@ Signal and current effects that fit the Blueprint theme. All of them stop when `
 
 - `helpers.ts` - Date and text helpers (`formatYears`, `getTimeDiff`, `splitSentences`, `plural`)
 - `search.ts` - `PortfolioSearch`, the Fuse.js search over projects, experience, and skills
-- `seo.ts` - `buildPageSEO`, the title, description, canonical, Open Graph and Twitter tags used by `TabTitle`
+- `seo.ts` - `buildPageSEO`, the title, description, canonical, Open Graph and Twitter tags used by `TabTitle`; `buildPersonJsonLd`, the schema.org `Person` data on the home page
 
 ### Route Structure
 
@@ -159,6 +159,8 @@ All routes in `src/routes/`:
 - `/education` - Education history
 - `/resume` - PDF resume viewer
 - `/search` - Search functionality
+- `/sitemap.xml` - Sitemap of every page except search, prerendered from the data files. It is listed in `prerender.entries` in `vite.config.ts` because no page links to it. Submit it in Google Search Console, since a `robots.txt` under the `/portfolio` subpath is ignored
+- `+error.svelte` - The 404 and error page, with links to Home, Projects, and the CV. GitHub Pages serves it through the `404.html` fallback
 
 ## Development Workflow
 

@@ -16,7 +16,9 @@ const config: UserConfig = {
 				pages: 'build',
 				assets: 'build'
 			}),
-			paths: { base: process.env.NODE_ENV === 'production' ? base : '' }
+			paths: { base: process.env.NODE_ENV === 'production' ? base : '' },
+			// No page links to the sitemap, so the prerender crawler needs it as an entry.
+			prerender: { entries: ['*', '/sitemap.xml'] }
 		})
 	]
 };
