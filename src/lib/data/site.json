@@ -134,15 +134,15 @@
 	},
 	"projects": {
 		"title": "Projects",
-		"description": "Selected engineering projects spanning backend platforms, mobile applications, and developer tooling."
+		"description": "Systems I built or changed, from production platforms to side projects, and what each one achieved."
 	},
 	"experiences": {
 		"title": "Experiences",
-		"description": "Professional milestones covering backend engineering leadership, product delivery, and platform reliability."
+		"description": "Where I worked, what I was responsible for, and what changed while I was there."
 	},
 	"skills": {
 		"title": "Skills & Tools",
-		"description": "Technologies and tooling used to build resilient services, integrations, and user experiences."
+		"description": "Each skill links to the roles and projects where I used it."
 	},
 	"resume": {
 		"title": "Resume",

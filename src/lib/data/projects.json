@@ -24,8 +24,8 @@
 		"no": 2,
 		"slug": "themx",
 		"color": "Black",
-		"description": "Built themx, a catalog of 38 web design themes that turns a chosen theme into ready-to-use prompts for AI coding agents. A prompt builder combines the theme with the project brief, framework, and UI library, then exports a design bundle with DESIGN.md, an AGENTS.md section, and CSS and JSON tokens. Live previews render each theme on sample dashboard, product, and portfolio pages with daisyUI and shadcn/ui components. Shipped as a static Astro site with Preact islands, Tailwind CSS 4, and Vitest and Playwright tests.",
-		"shortDescription": "Design theme catalog that generates prompts and design bundles for AI coding agents.",
+		"description": "Built themx to give AI coding agents design context: a chosen theme from a catalog of 38 becomes ready-to-use prompts, so the UI an agent builds follows one consistent design. A prompt builder combines the theme with the project brief, framework, and UI library, then exports a design bundle with DESIGN.md, an AGENTS.md section, and CSS and JSON tokens. Live previews render each theme on sample dashboard, product, and portfolio pages with daisyUI and shadcn/ui components. Shipped as a static Astro site with Preact islands, Tailwind CSS 4, and Vitest and Playwright tests.",
+		"shortDescription": "Gives AI coding agents the design context they need, so the UI they build follows one consistent theme.",
 		"links": [
 			{ "to": "https://zoe606.github.io/themx", "label": "Website", "newTab": true },
 			{ "to": "https://github.com/zoe606/themx", "label": "GitHub", "newTab": true }
@@ -37,7 +37,6 @@
 		},
 		"skills": ["astro", "ts", "tailwind", "css", "html"],
 		"type": "Side Project · Design Tooling",
-		"metrics": [{ "value": "38", "label": "design themes" }],
 		"screenshots": []
 	},
 	{
@@ -61,7 +60,7 @@
 		"no": 4,
 		"slug": "luce-backend-internal-apps",
 		"color": "Blue",
-		"description": "Led backend scalability, security, and refactoring work on Luce's Ruby on Rails monolith, whose GraphQL API serves internal admin apps, client websites, and mobile apps. Raised test coverage from 26% to 77% with RSpec and VCR, upgraded Rails 7.0 → 7.2, cut production Sentry errors by 73%, removed all high-severity security issues, and improved fast API calls by 32% (p95 <500ms).",
+		"description": "Led backend scalability, security, and refactoring work on Luce's Ruby on Rails monolith, whose GraphQL API serves internal admin apps, client websites, and mobile apps. Upgraded Rails 7.0 → 7.2 behind an RSpec and VCR safety net that grew test coverage from 26% to 77%, cut production Sentry errors by 73%, removed all high-severity security issues, and improved fast API calls by 32% (p95 <500ms).",
 		"shortDescription": "Rails and GraphQL backend behind Luce's internal apps, client websites, and mobile apps.",
 		"links": [],
 		"logo": "Ruby",
@@ -182,7 +181,7 @@
 		"slug": "privy-pgp-x-pgpf",
 		"color": "Blue",
 		"description": "Led development of the PGPxPGPF golf scoring system across four apps (CMS, player app, caddy app, and live scoring) while modernizing an inherited, non-standard codebase.",
-		"shortDescription": "Led a golf scoring system across CMS, player and caddy apps, and live scoring.",
+		"shortDescription": "Led a golf scoring system while modernizing an inherited, non-standard codebase.",
 		"links": [],
 		"logo": "Go",
 		"name": "PGPxPGPF",
@@ -192,7 +191,6 @@
 		},
 		"skills": ["go", "mysql", "docker", "mongodb", "kafka"],
 		"type": "Golf Scoring System",
-		"metrics": [{ "value": "4", "label": "apps in one system" }],
 		"screenshots": [
 			{ "label": "", "src": "pgp1" },
 			{ "label": "", "src": "pgp2" },
@@ -205,8 +203,8 @@
 		"no": 11,
 		"slug": "privy-hirio-ats",
 		"color": "Purple",
-		"description": "Built Hirio, a multi-tenant applicant tracking system, in one month: job posting, applicant tracking, analytics, digital signatures, and email invitations, synced in real time with Privy apps. Each new client company gets its own dashboard and landing page automatically.",
-		"shortDescription": "Multi-tenant applicant tracking system built in one month, with automatic per-company dashboards.",
+		"description": "Built Hirio, a multi-tenant applicant tracking system where each new client company gets its own dashboard and landing page automatically. Covered job posting, applicant tracking, analytics, digital signatures, and email invitations, synced in real time with Privy apps.",
+		"shortDescription": "Multi-tenant applicant tracking system where each new client company gets its own dashboard automatically.",
 		"links": [],
 		"logo": "Go",
 		"name": "Hirio",
@@ -216,7 +214,6 @@
 		},
 		"skills": ["go", "docker", "redis", "aws-s3", "pubsub", "pgsql"],
 		"type": "ATS (Internal Tools)",
-		"metrics": [{ "value": "1 month", "label": "from start to launch" }],
 		"screenshots": [
 			{ "label": "", "src": "ats1" },
 			{ "label": "", "src": "ats2" },
@@ -264,7 +261,7 @@
 		"slug": "privy-ocsaver",
 		"color": "Orange",
 		"description": "Designed and built the Rails backend API for CIMB Octo Saver in 14 days, my first project at Privy.",
-		"shortDescription": "Built the Rails backend API for CIMB Octo Saver in 14 days.",
+		"shortDescription": "Rails backend API for CIMB Octo Saver, my first project at Privy.",
 		"links": [],
 		"logo": "Ocsaver",
 		"name": "CIMB Octo Saver",
@@ -274,7 +271,6 @@
 		},
 		"skills": ["ruby", "ruby-on-rails", "pgsql"],
 		"type": "Landing and Integration",
-		"metrics": [{ "value": "14 days", "label": "to a working backend API" }],
 		"screenshots": []
 	},
 	{

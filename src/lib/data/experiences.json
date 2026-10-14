@@ -30,7 +30,7 @@
 	{
 		"slug": "luce-fullstack",
 		"company": "Luce Maintenance Group Pte Ltd",
-		"description": "Led backend scalability, security, and refactoring initiatives across a large monolithic system composed of multiple components. Authored and standardized technical documentation for all core components, improving developer onboarding and maintainability. Boosted test coverage from 26% (Jan) to 77% (Jul) through systematic testing with RSpec & VCR. Upgraded Rails 7.0 → 7.2 safely by addressing transaction rollback, encryption, and dependency issues. Improved dependency freshness: Backend 26% → 83%, Frontend 25% → 78%. Reduced operational errors and improved performance metrics across key systems. Proactively monitored application health using Sentry and New Relic. Contributed frontend and mobile features using React and React Native.",
+		"description": "Led backend scalability, security, and refactoring initiatives across a large monolithic system composed of multiple components. Authored and standardized technical documentation for all core components, improving developer onboarding and maintainability. Upgraded Rails 7.0 → 7.2 safely by addressing transaction rollback, encryption, and dependency issues, backed by an RSpec and VCR test safety net that grew coverage from 26% to 77% in six months. Improved dependency freshness: Backend 26% → 83%, Frontend 25% → 78%. Reduced operational errors and improved performance metrics across key systems. Proactively monitored application health using Sentry and New Relic. Contributed frontend and mobile features using React and React Native.",
 		"contract": "FullTime",
 		"type": "Software Development",
 		"location": "Hybrid, Singapore-based",
