@@ -44,6 +44,9 @@
 		"node": ">=22.17"
 	},
 	"dependencies": {
+		"@fontsource/ibm-plex-mono": "5.3.0",
+		"@fontsource/ibm-plex-sans": "5.3.0",
+		"@fontsource/space-grotesk": "5.3.0",
 		"dayjs": "^1.11.18",
 		"fuse.js": "^7.1.0",
 		"motion": "^12.34.0",
