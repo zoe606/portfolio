@@ -47,11 +47,22 @@ export interface Color {
 	color: string;
 }
 
+/** A design decision on a project page: the problem, the option turned down, and the evidence. */
+export interface Decision {
+	title: string;
+	problem: string;
+	rejected: string;
+	choice: string;
+	tradeoff: string;
+	proof: string;
+}
+
 export interface Project extends Item {
 	no: number;
 	links: Array<Link>;
 	/** Headline numbers for the project page. Only use figures from the CV. */
 	metrics?: Array<Metric>;
+	decisions?: Array<Decision>;
 	color: string;
 	period: {
 		from: Date;

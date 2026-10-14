@@ -3,8 +3,8 @@
 		"no": 1,
 		"slug": "checkproof-scheduling-tool",
 		"color": "Yellow",
-		"description": "Built the Laravel backend of CheckProof's new Scheduling Tool, automating maintenance task scheduling, expiry deviations, and push alerts on a SaaS platform used in 35+ countries. Engineered a task lifecycle monitor that handled a 1M-task backlog in load tests with zero failures or deadlocks, using 75% fewer database calls per status change. Built the cutover from the legacy scheduler, moving customers' live maintenance schedules to the new system with one-switch rollback at any point.",
-		"shortDescription": "Laravel backend for a maintenance Scheduling Tool on a SaaS platform used in 35+ countries.",
+		"description": "Built the Laravel backend of CheckProof's new Scheduling Tool, automating maintenance task scheduling, expiry deviations, and push alerts on a SaaS platform used in 35+ countries. Built the task lifecycle monitor that moves tasks through their statuses on a schedule, and recorded each design decision with the condition that would reopen it. Built the cutover from the legacy scheduler: captured its behavior in characterization tests first, then moved customers' live maintenance schedules to the new system with one-switch rollback at any point.",
+		"shortDescription": "Moved live maintenance schedules for customers in 35+ countries to a new scheduler, with a way back at every step.",
 		"links": [],
 		"logo": "Laravel",
 		"name": "CheckProof Scheduling Tool",
@@ -14,11 +14,37 @@
 		"skills": ["php", "laravel", "pgsql", "graphql"],
 		"type": "Maintenance Scheduling Platform",
 		"metrics": [
-			{ "value": "1M", "label": "tasks in load tests" },
-			{ "value": "0", "label": "failures or deadlocks" },
-			{ "value": "−75%", "label": "DB calls per status change" }
+			{ "value": "4 → 1", "label": "database round trips per status change" },
+			{ "value": "3 s", "label": "to clear 1,000 healthy tasks queued behind 1M broken ones" },
+			{ "value": "1 switch", "label": "to roll back the cutover" }
 		],
-		"screenshots": []
+		"screenshots": [],
+		"decisions": [
+			{
+				"title": "Took the 1.69× speedup. Turned down the 4.4× one.",
+				"problem": "Writes took most of each monitor run, so the write path decided how much work the monitor could handle.",
+				"rejected": "A raw row writer, measured 4.4–4.9× faster",
+				"choice": "Wrote each status change and its history row in one statement, so the two can't come apart. That cut 4 database round trips to 1.",
+				"tradeoff": "Left the bigger speedup unused. The raw writer needed a second copy of the transition rules, and two copies drift apart. If one worker is not enough, the monitor can run once per status instead.",
+				"proof": "Measured both writers on the same 1M-task backlog before choosing, then stress-tested the result: zero failures or deadlocks. The decision is on record with the condition that would reopen it."
+			},
+			{
+				"title": "One broken customer can't stall the rest",
+				"problem": "A failed task stayed at the front of the queue and was retried on every run. One customer's bad data could hold up maintenance tasks for every other customer.",
+				"rejected": "One failure limit for the whole run",
+				"choice": "Gave each company a failure budget per run, and made a failed task wait longer after each failure, up to 60 minutes.",
+				"tradeoff": "A broken backlog is held back, not cleared. It waits until its cause is fixed.",
+				"proof": "In a test, 1M broken tasks from two companies sat at the front of the queue. The monitor tried 100 from each, set both companies aside, and cleared a third company's 1,000 healthy tasks in 3 seconds of a 50-second run. The old limit stopped the whole run after 100 failures, so those healthy tasks would have waited."
+			},
+			{
+				"title": "Left a known race in. On purpose.",
+				"problem": "A user can complete a task while the monitor writes it, and the monitor's older write wins.",
+				"rejected": "A status guard on every write",
+				"choice": "Kept the write path as it is. The guard would add a cost to every status change to protect a rare one.",
+				"tradeoff": "A rare overwrite is still possible until production shows it matters.",
+				"proof": "Characterization tests pin the current behavior, so the race is a decision on record, not a bug waiting to be found."
+			}
+		]
 	},
 	{
 		"no": 2,
@@ -60,7 +86,7 @@
 		"no": 4,
 		"slug": "luce-backend-internal-apps",
 		"color": "Blue",
-		"description": "Led backend scalability, security, and refactoring work on Luce's Ruby on Rails monolith, whose GraphQL API serves internal admin apps, client websites, and mobile apps. Upgraded Rails 7.0 → 7.2 behind an RSpec and VCR safety net that grew test coverage from 26% to 77%, cut production Sentry errors by 73%, removed all high-severity security issues, and improved fast API calls by 32% (p95 <500ms).",
+		"description": "Led backend scalability, security, and refactoring work on Luce's Ruby on Rails monolith, whose GraphQL API serves internal admin apps, client websites, and mobile apps. Cut production Sentry errors by 73%, removed all high-severity security issues, and improved fast API calls by 32% (p95 <500ms).",
 		"shortDescription": "Rails and GraphQL backend behind Luce's internal apps, client websites, and mobile apps.",
 		"links": [],
 		"logo": "Ruby",
@@ -76,7 +102,17 @@
 			{ "value": "0", "label": "high-severity security issues" },
 			{ "value": "+32%", "label": "fast API call performance" }
 		],
-		"screenshots": []
+		"screenshots": [],
+		"decisions": [
+			{
+				"title": "Tests first, upgrade second",
+				"problem": "The Rails monolith had 26% test coverage, and its GraphQL API served internal admin apps, client websites, and mobile apps. An upgrade could break any of them without a single test failing.",
+				"rejected": "Upgrade first, then fix what breaks in production",
+				"choice": "Grew an RSpec and VCR safety net from 26% to 77% coverage over six months, then upgraded Rails 7.0 → 7.2 and fixed the transaction rollback, encryption, and dependency issues the tests caught.",
+				"tradeoff": "A slower start. Months of test work came before the upgrade itself.",
+				"proof": "Rails 7.0 → 7.2 shipped, up-to-date backend dependencies went from 26% to 83%, and production Sentry errors fell by 73%."
+			}
+		]
 	},
 	{
 		"no": 5,
@@ -157,7 +193,17 @@
 		"skills": ["go", "pgsql", "redis", "grpc"],
 		"type": "Wallet Service (Core Team)",
 		"metrics": [{ "value": "2h → 5m", "label": "wallet ID generation" }],
-		"screenshots": []
+		"screenshots": [],
+		"decisions": [
+			{
+				"title": "Workers that never wait on each other",
+				"problem": "One Go process took 2 hours to generate wallet IDs. Adding workers only helps if they don't all queue for the next ID.",
+				"rejected": "A shared counter that every worker asks for the next ID",
+				"choice": "Each worker generates time-ordered UUIDs (v6/v7) in code. No worker waits for another, and new IDs still arrive in index order, unlike random UUIDv4.",
+				"tradeoff": "IDs are 128-bit UUIDs instead of short sequential numbers.",
+				"proof": "Generation time fell from 2 hours to 5 minutes with goroutines and distributed workers."
+			}
+		]
 	},
 	{
 		"no": 9,
@@ -220,6 +266,16 @@
 			{ "label": "", "src": "ats3" },
 			{ "label": "", "src": "ats4" },
 			{ "label": "", "src": "ats5" }
+		],
+		"decisions": [
+			{
+				"title": "One database, with the tenant filter in one place",
+				"problem": "Every new client company needed its own dashboard and landing page, without setup work for each one.",
+				"rejected": "A separate schema or database per client company",
+				"choice": "Kept all client companies in one database, separated by a tenant_id column. A middleware layer adds the tenant filter to every query, so no handler has to remember it.",
+				"tradeoff": "Clients share tables. The middleware is the one place that keeps their data apart, so it must stay correct.",
+				"proof": "A new client company gets its own dashboard and landing page automatically, with no new database to create."
+			}
 		]
 	},
 	{
