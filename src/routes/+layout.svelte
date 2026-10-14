@@ -4,6 +4,7 @@
 	import SiteHeader from '#lib/components/Site/SiteHeader.svelte';
 	import SiteFooter from '#lib/components/Site/SiteFooter.svelte';
 	import SearchModal from '#lib/components/SearchModal.svelte';
+	import GridCurrent from '#lib/components/Site/GridCurrent.svelte';
 	import { theme } from '#lib/stores/theme.svelte.js';
 	import { onMount } from 'svelte';
 	import type { Snippet } from 'svelte';
@@ -18,8 +19,25 @@
 
 	let searchModalOpen = $state(false);
 
+	// Power switch effect: the page flickers briefly when the reader changes the theme.
+	// onMount sets previousTheme after theme.init(), so loading a saved dark theme does not flicker.
+	let previousTheme: string | undefined;
+	$effect(() => {
+		const current = theme.current;
+		const html = document.documentElement;
+		if (previousTheme && previousTheme !== current) {
+			html.removeAttribute('data-fx-switching');
+			// Reading offsetWidth forces a reflow, so the animation restarts on a quick second click.
+			void html.offsetWidth;
+			html.setAttribute('data-fx-switching', '');
+			setTimeout(() => html.removeAttribute('data-fx-switching'), 600);
+		}
+		previousTheme = current;
+	});
+
 	onMount(() => {
 		theme.init();
+		previousTheme = theme.current;
 
 		// Global keyboard shortcut for search (Cmd+K / Ctrl+K)
 		const handleGlobalKeydown = (e: KeyboardEvent) => {
@@ -48,6 +66,8 @@
 </script>
 
 <div class="site">
+	<GridCurrent />
+	<div class="fx-progress" aria-hidden="true"></div>
 	<SiteHeader onsearchclick={() => (searchModalOpen = true)} />
 	<main class="bp-container page-stack">
 		<!-- The leaving and entering pages share one grid cell, so the new page does not jump below the old one. -->
@@ -63,6 +83,8 @@
 
 <style>
 	.site {
+		position: relative;
+		isolation: isolate;
 		display: flex;
 		flex-direction: column;
 		min-height: 100vh;
@@ -73,6 +95,62 @@
 		background-size: 32px 32px;
 		color: var(--bp-ink);
 		font-family: var(--text-f);
+	}
+
+	.fx-progress {
+		display: none;
+	}
+
+	@media (prefers-reduced-motion: no-preference) {
+		.site {
+			animation: fx-power 550ms linear;
+		}
+
+		@supports (animation-timeline: scroll()) {
+			/* Scroll current: a line at the top grows with the scroll position. */
+			.fx-progress {
+				display: block;
+				position: fixed;
+				top: 0;
+				left: 0;
+				z-index: 60;
+				width: 100%;
+				height: 2px;
+				background: var(--bp-accent);
+				box-shadow: 0 0 10px var(--bp-accent);
+				transform-origin: left;
+				animation: fx-progress linear both;
+				animation-timeline: scroll(root);
+			}
+		}
+	}
+
+	@keyframes fx-power {
+		0%,
+		100% {
+			filter: none;
+		}
+		12% {
+			filter: brightness(0.35);
+		}
+		24% {
+			filter: brightness(1.25);
+		}
+		38% {
+			filter: brightness(0.55);
+		}
+		52% {
+			filter: brightness(1.1);
+		}
+	}
+
+	@keyframes fx-progress {
+		from {
+			transform: scaleX(0);
+		}
+		to {
+			transform: scaleX(1);
+		}
 	}
 
 	.page-stack {

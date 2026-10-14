@@ -7,6 +7,22 @@
 	}
 
 	let { figure }: Props = $props();
+
+	// Pipeline signal timing in seconds. The signal stays longer on my review steps.
+	const STEP_TIME = 0.35;
+	const GATE_TIME = 1;
+	const isMine = (by: string) => by.includes('me');
+
+	const signal = $derived.by(() => {
+		if (figure.kind !== 'pipeline') return { delays: [], total: 0 };
+		let time = 0;
+		const delays = figure.steps.map((step) => {
+			const start = time;
+			time += isMine(step.by) ? GATE_TIME : STEP_TIME;
+			return start;
+		});
+		return { delays, total: time + 1 };
+	});
 </script>
 
 <!-- Every style below shows the final state by default. playOnView adds the
@@ -33,16 +49,16 @@
 		</ul>
 		<p class="result" style:--i={figure.items.length}>{figure.result}</p>
 	{:else if figure.kind === 'pipeline'}
-		<ol class="pipeline">
+		<ol class="pipeline" style:--total={`${signal.total}s`}>
 			{#each figure.steps as step, i (step.label)}
-				<li class="step" style:--i={i}>
+				<li class="step" style:--i={i} style:--delay={`${signal.delays[i]}s`}>
 					<span class="text-bp-muted">{String(i + 1).padStart(2, '0')}</span>
 					<span>
 						{step.label}
 						{#if step.loop}<span class="text-bp-accent" title="repeats until it passes">↺</span
 							>{/if}
 					</span>
-					<span class={['who', step.by.includes('me') && 'who-me']}>{step.by}</span>
+					<span class={['who', isMine(step.by) && 'who-me']}>{step.by}</span>
 				</li>
 			{/each}
 		</ol>
@@ -222,6 +238,64 @@
 		border-color: var(--bp-accent);
 		background: var(--bp-accent);
 		color: var(--bp-on-accent);
+	}
+
+	/* Electric effect: a signal runs down a wire on the left of the steps. */
+	@media (prefers-reduced-motion: no-preference) {
+		.pipeline {
+			padding-left: 16px;
+		}
+		.step {
+			position: relative;
+		}
+		.step::before,
+		.step::after {
+			content: '';
+			position: absolute;
+			background: var(--bp-line);
+			animation: fx-wire var(--total) linear var(--delay) infinite;
+		}
+		.step::before {
+			top: -3px;
+			bottom: -3px;
+			left: -12px;
+			width: 2px;
+		}
+		.step::after {
+			top: calc(50% - 4px);
+			left: -15px;
+			width: 8px;
+			height: 8px;
+			border-radius: 999px;
+		}
+		.who-me {
+			animation: fx-gate var(--total) linear var(--delay) infinite;
+		}
+	}
+
+	@keyframes fx-wire {
+		0% {
+			background: var(--bp-accent);
+			box-shadow: 0 0 8px var(--bp-accent);
+		}
+		8%,
+		100% {
+			background: var(--bp-line);
+			box-shadow: none;
+		}
+	}
+
+	@keyframes fx-gate {
+		0%,
+		12% {
+			box-shadow:
+				0 0 0 2px var(--bp-accent),
+				0 0 14px var(--bp-accent);
+		}
+		16%,
+		100% {
+			box-shadow: none;
+		}
 	}
 
 	.figure:global([data-motion='ready']) .step {
