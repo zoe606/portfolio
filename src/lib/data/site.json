@@ -74,7 +74,7 @@
 		"principles": [
 			{
 				"title": "Agents write the code. I own the decisions.",
-				"proof": "One agent studies the ticket, records it in a knowledge wiki, and drafts a plan. I review the plan, and so does a fresh agent, before an executor agent writes any code. The merge request stays a draft until the reviewer agent and I have both checked the change.",
+				"proof": "An agent studies the ticket, records it in a knowledge wiki, and drafts a plan that I and a fresh agent review. The executor agent proves each change with tests it runs locally, such as characterization tests before a refactor. The merge request stays a draft until the reviewer agent and I have both checked it.",
 				"stat": { "value": "2×", "label": "reviews on every plan and every change" },
 				"figure": {
 					"kind": "pipeline",
@@ -84,6 +84,7 @@
 						{ "label": "draft the plan", "by": "agent" },
 						{ "label": "review the plan", "by": "me + agent", "loop": true },
 						{ "label": "implement", "by": "agent" },
+						{ "label": "prove it with tests", "by": "agent" },
 						{ "label": "review the code", "by": "agent", "loop": true },
 						{ "label": "review the draft MR", "by": "me", "loop": true },
 						{ "label": "open the MR, update the wiki", "by": "me" }
