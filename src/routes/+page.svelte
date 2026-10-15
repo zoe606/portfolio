@@ -222,6 +222,8 @@
 		}
 	}
 	.flow {
+		/* The Fig. 1 pulse moves in container units, so it can use transform. */
+		container-type: inline-size;
 		display: grid;
 		grid-template-columns: 1fr auto 1fr auto 1fr;
 		align-items: center;
@@ -283,6 +285,7 @@
 	}
 	.timeline {
 		position: relative;
+		container-type: inline-size;
 	}
 	.timeline-pulse {
 		display: none;
@@ -319,7 +322,7 @@
 			display: block;
 			position: absolute;
 			top: 0;
-			left: calc(100% - 140px);
+			left: 0;
 			z-index: 1;
 			width: 140px;
 			height: 6px;
@@ -331,21 +334,23 @@
 			animation: fx-timeline-current 4s linear infinite;
 		}
 	}
+	/* The pulses move with transform, not left. Moving left changes the layout on
+	   every frame, and the browser counts each frame as a layout shift. */
 	@keyframes fx-flow-current {
 		0% {
-			left: 0;
+			transform: translateX(0);
 			opacity: 0;
 		}
 		5% {
 			opacity: 1;
 		}
 		70% {
-			left: calc(100% - 64px);
+			transform: translateX(calc(100cqw - 64px));
 			opacity: 1;
 		}
 		76%,
 		100% {
-			left: calc(100% - 64px);
+			transform: translateX(calc(100cqw - 64px));
 			opacity: 0;
 		}
 	}
@@ -377,19 +382,19 @@
 	}
 	@keyframes fx-timeline-pulse {
 		0% {
-			left: calc(100% - 140px);
+			transform: translateX(calc(100cqw - 140px));
 			opacity: 0;
 		}
 		5% {
 			opacity: 1;
 		}
 		65% {
-			left: 0;
+			transform: translateX(0);
 			opacity: 1;
 		}
 		75%,
 		100% {
-			left: 0;
+			transform: translateX(0);
 			opacity: 0;
 		}
 	}

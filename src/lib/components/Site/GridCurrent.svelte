@@ -46,6 +46,9 @@
 		inset: 0;
 		z-index: -1;
 		overflow: hidden;
+		/* The pulses move in container units, so they can use transform instead of left and
+		   top. Moving left or top changes the layout, and the browser counts it as a layout shift. */
+		container-type: size;
 		pointer-events: none;
 		--mx: -999px;
 		--my: -999px;
@@ -79,7 +82,8 @@
 
 		.fx-pulse-row {
 			top: calc(var(--line) * 32px);
-			left: -160px;
+			left: 0;
+			transform: translateX(-160px);
 			width: 160px;
 			height: 1px;
 			background: linear-gradient(90deg, transparent, var(--bp-accent));
@@ -88,8 +92,9 @@
 		}
 
 		.fx-pulse-column {
-			top: -160px;
+			top: 0;
 			left: calc(var(--line) * 32px);
+			transform: translateY(-160px);
 			width: 1px;
 			height: 160px;
 			background: linear-gradient(180deg, transparent, var(--bp-accent));
@@ -100,32 +105,32 @@
 
 	@keyframes fx-row {
 		0% {
-			left: -160px;
+			transform: translateX(-160px);
 			opacity: 0.7;
 		}
 		45% {
-			left: 100%;
+			transform: translateX(100cqw);
 			opacity: 0.7;
 		}
 		46%,
 		100% {
-			left: 100%;
+			transform: translateX(100cqw);
 			opacity: 0;
 		}
 	}
 
 	@keyframes fx-column {
 		0% {
-			top: -160px;
+			transform: translateY(-160px);
 			opacity: 0.7;
 		}
 		60% {
-			top: 100%;
+			transform: translateY(100cqh);
 			opacity: 0.7;
 		}
 		61%,
 		100% {
-			top: 100%;
+			transform: translateY(100cqh);
 			opacity: 0;
 		}
 	}
