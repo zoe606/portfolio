@@ -129,6 +129,8 @@ Reuse the presets instead of hard-coding timings. The actions do nothing when `p
 
 Signal and current effects that fit the Blueprint theme. All of them stop when `prefers-reduced-motion: reduce` is set.
 
+Move pulses with `transform`, never with `left`, `top`, or a size property. The browser counts every frame of a layout-property animation as a layout shift, which raises CLS. To move a pulse across its container, set `container-type` on the container and use container units, for example `translateX(calc(100cqw - 64px))`.
+
 - Diagram pulses: a pulse runs through Fig. 1 on the home page (`+page.svelte`), and a signal runs down the Fig. 3.1 pipeline, holding on the author's review steps (`PrincipleFigure.svelte`)
 - Grid current and cursor glow: `Site/GridCurrent.svelte`, a layer behind the page content. Its pulses sit on 32px grid lines, so keep them aligned with the grid in `+layout.svelte`
 - Timeline current: a pulse runs along the home page timeline to the current job
